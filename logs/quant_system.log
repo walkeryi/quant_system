@@ -1,0 +1,779 @@
+2026-03-11 19:56:12,701 - quant_system - INFO - 程序启动
+2026-03-11 19:59:07,284 - quant_system - INFO - 程序启动
+2026-03-11 20:00:47,600 - quant_system - INFO - 程序启动
+2026-03-11 20:01:04,954 - quant_system - ERROR - query_data 异常
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 98, in query_data
+    self.thread.start()
+TypeError: 'str' object is not callable
+2026-03-11 22:31:54,683 - quant_system - INFO - 程序启动
+2026-03-11 22:32:02,581 - quant_system - ERROR - query_data 异常
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 98, in query_data
+    self.thread.start()
+TypeError: 'str' object is not callable
+2026-03-11 22:35:00,771 - quant_system - ERROR - query_data 异常
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 98, in query_data
+    self.thread.start()
+TypeError: 'str' object is not callable
+2026-03-11 22:35:29,904 - quant_system - INFO - 程序启动
+2026-03-11 22:36:40,684 - quant_system - INFO - 程序启动
+2026-03-12 00:55:22,822 - quant_system - INFO - 程序启动
+2026-03-12 00:56:01,832 - quant_system - INFO - 程序启动
+2026-03-12 00:56:56,372 - quant_system - INFO - 程序启动
+2026-03-12 00:57:30,742 - quant_system - INFO - 程序启动
+2026-03-12 01:03:04,962 - quant_system - INFO - 程序启动
+2026-03-12 01:14:55,666 - quant_system - INFO - 程序启动
+2026-03-12 01:19:07,903 - quant_system - INFO - 程序启动
+2026-03-12 01:20:48,881 - quant_system - INFO - 程序启动
+2026-03-12 01:29:00,469 - quant_system - INFO - 程序启动
+2026-03-12 01:30:34,006 - quant_system - INFO - 程序启动
+2026-03-12 01:38:50,829 - quant_system - INFO - 程序启动
+2026-03-12 01:39:18,291 - quant_system - INFO - 程序启动
+2026-03-12 01:39:33,855 - quant_system - INFO - 程序启动
+2026-03-12 01:44:47,250 - quant_system - INFO - 程序启动
+2026-03-12 11:04:07,970 - quant_system - INFO - 程序启动
+2026-03-12 20:10:29,083 - quant_system - INFO - 程序启动
+2026-03-12 20:10:29,249 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 17, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 36, in initUI
+    self.tabs.addTab(StockListTab(), "股票数据")
+                     ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 31, in __init__
+    self.initUI()
+    ^^^^^^^^^^^
+AttributeError: 'StockListTab' object has no attribute 'initUI'
+2026-03-12 20:18:34,150 - quant_system - INFO - 程序启动
+2026-03-12 20:18:49,224 - quant_system - INFO - 程序启动
+2026-03-12 20:19:40,009 - quant_system - INFO - 程序启动
+2026-03-12 20:20:26,538 - quant_system - INFO - 程序启动
+2026-03-12 20:56:08,674 - quant_system - INFO - 程序启动
+2026-03-12 20:59:29,623 - quant_system - INFO - 程序启动
+2026-03-12 21:05:18,289 - quant_system - INFO - 程序启动
+2026-03-12 21:07:13,744 - quant_system - INFO - 程序启动
+2026-03-12 21:08:22,408 - quant_system - INFO - 程序启动
+2026-03-12 21:09:24,808 - quant_system - INFO - 程序启动
+2026-03-12 21:13:21,068 - quant_system - INFO - 程序启动
+2026-03-12 21:15:47,278 - quant_system - INFO - 程序启动
+2026-03-12 21:20:15,298 - quant_system - INFO - 程序启动
+2026-03-12 21:20:25,725 - quant_system - INFO - 程序启动
+2026-03-12 21:20:57,282 - quant_system - INFO - 程序启动
+2026-03-12 21:24:42,891 - quant_system - INFO - 程序启动
+2026-03-12 21:25:32,431 - quant_system - INFO - 程序启动
+2026-03-12 21:26:28,312 - quant_system - INFO - 程序启动
+2026-03-12 21:26:37,693 - quant_system - INFO - 程序启动
+2026-03-12 21:28:36,255 - quant_system - INFO - 程序启动
+2026-03-12 21:29:56,337 - quant_system - INFO - 程序启动
+2026-03-12 21:30:52,331 - quant_system - INFO - 程序启动
+2026-03-12 21:31:02,973 - quant_system - INFO - 程序启动
+2026-03-12 21:33:39,566 - quant_system - INFO - 程序启动
+2026-03-12 21:36:03,239 - quant_system - INFO - 程序启动
+2026-03-12 21:38:52,457 - quant_system - INFO - 程序启动
+2026-03-12 21:39:10,541 - quant_system - INFO - 程序启动
+2026-03-12 21:39:24,140 - quant_system - INFO - 程序启动
+2026-03-12 21:41:26,884 - quant_system - INFO - 程序启动
+2026-03-12 21:41:26,960 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 17, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 36, in initUI
+    self.tabs.addTab(StockListTab(), "股票数据")
+                     ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 31, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 67, in initUI
+    self.table.cellDoubleClicked.connect(self.on_cell_double_clicked)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'StockListTab' object has no attribute 'on_cell_double_clicked'
+2026-03-12 21:50:49,228 - quant_system - INFO - 程序启动
+2026-03-12 21:56:31,989 - quant_system - INFO - 程序启动
+2026-03-12 21:56:32,074 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 17, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 36, in initUI
+    self.tabs.addTab(StockListTab(), "股票数据")
+                     ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 32, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 66, in initUI
+    self.cache_btn.clicked.connect(self.load_from_cache)
+                                   ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'StockListTab' object has no attribute 'load_from_cache'
+2026-03-12 21:56:43,440 - quant_system - INFO - 程序启动
+2026-03-12 21:56:43,512 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 17, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 36, in initUI
+    self.tabs.addTab(StockListTab(), "股票数据")
+                     ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 32, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 66, in initUI
+    self.cache_btn.clicked.connect(self.load_from_cache)
+                                   ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'StockListTab' object has no attribute 'load_from_cache'
+2026-03-12 21:57:42,057 - quant_system - INFO - 程序启动
+2026-03-12 21:57:42,125 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 17, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 36, in initUI
+    self.tabs.addTab(StockListTab(), "股票数据")
+                     ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 32, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 87, in initUI
+    self.table.cellDoubleClicked.connect(self.on_cell_double_clicked)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'StockListTab' object has no attribute 'on_cell_double_clicked'
+2026-03-12 21:57:53,427 - quant_system - INFO - 程序启动
+2026-03-12 21:57:53,510 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 17, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 36, in initUI
+    self.tabs.addTab(StockListTab(), "股票数据")
+                     ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 33, in __init__
+    self.load_from_cache()
+    ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'StockListTab' object has no attribute 'load_from_cache'
+2026-03-12 22:04:33,531 - quant_system - INFO - 程序启动
+2026-03-12 22:04:33,597 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 17, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 37, in initUI
+    self.stock_list_tab = StockListTab()
+                          ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 32, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 66, in initUI
+    self.cache_btn.clicked.connect(self.load_from_cache)
+                                   ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'StockListTab' object has no attribute 'load_from_cache'
+2026-03-12 22:05:40,595 - quant_system - INFO - 程序启动
+2026-03-12 22:05:40,673 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 17, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 37, in initUI
+    self.stock_list_tab = StockListTab()
+                          ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 32, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 66, in initUI
+    self.cache_btn.clicked.connect(self.load_from_cache)
+                                   ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'StockListTab' object has no attribute 'load_from_cache'
+2026-03-12 22:07:03,163 - quant_system - INFO - 程序启动
+2026-03-12 22:07:03,236 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 17, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 37, in initUI
+    self.stock_list_tab = StockListTab()
+                          ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 32, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 66, in initUI
+    self.cache_btn.clicked.connect(self.load_from_cache)
+                                   ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'StockListTab' object has no attribute 'load_from_cache'
+2026-03-12 22:08:21,753 - quant_system - INFO - 程序启动
+2026-03-12 22:08:32,270 - quant_system - ERROR - query_data 异常
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 107, in query_data
+    self.thread.start()
+TypeError: 'str' object is not callable
+2026-03-12 22:10:10,868 - quant_system - INFO - 程序启动
+2026-03-12 22:12:12,603 - quant_system - INFO - 程序启动
+2026-03-12 22:13:19,376 - quant_system - INFO - 程序启动
+2026-03-12 22:16:32,620 - quant_system - INFO - 程序启动
+2026-03-12 22:43:28,074 - quant_system - INFO - 程序启动
+2026-03-12 22:43:28,700 - quant_system - ERROR - StockListThread 异常
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 25, in run
+    self.finished.emit(df)
+TypeError: StockListThread.finished[object, str] signal has 2 argument(s) but 1 provided
+2026-03-12 22:46:30,744 - quant_system - INFO - 程序启动
+2026-03-12 22:46:48,362 - quant_system - INFO - 程序启动
+2026-03-12 22:47:04,516 - quant_system - INFO - 程序启动
+2026-03-12 23:24:42,874 - quant_system - INFO - 程序启动
+2026-03-12 23:51:53,082 - quant_system - INFO - 程序启动
+2026-03-13 00:05:36,002 - quant_system - INFO - 程序启动
+2026-03-13 00:10:15,906 - quant_system - INFO - 程序启动
+2026-03-13 00:10:38,335 - quant_system - INFO - 程序启动
+2026-03-13 00:16:35,816 - quant_system - INFO - 程序启动
+2026-03-13 00:21:17,617 - quant_system - INFO - 程序启动
+2026-03-13 00:23:41,454 - quant_system - INFO - 程序启动
+2026-03-13 00:24:12,174 - quant_system - INFO - 程序启动
+2026-03-13 00:24:48,888 - quant_system - INFO - 程序启动
+2026-03-13 00:26:12,584 - quant_system - INFO - 程序启动
+2026-03-13 00:28:24,405 - quant_system - INFO - 程序启动
+2026-03-13 00:29:19,389 - quant_system - INFO - 程序启动
+2026-03-13 00:33:15,165 - quant_system - INFO - 程序启动
+2026-03-13 00:38:37,386 - quant_system - INFO - 程序启动
+2026-03-13 00:43:15,187 - quant_system - INFO - 程序启动
+2026-03-13 00:48:25,223 - quant_system - INFO - 程序启动
+2026-03-13 00:48:50,520 - quant_system - INFO - 程序启动
+2026-03-13 01:03:56,434 - quant_system - INFO - 程序启动
+2026-03-13 01:04:31,652 - quant_system - INFO - 程序启动
+2026-03-13 01:06:27,741 - quant_system - INFO - 程序启动
+2026-03-13 01:09:23,108 - quant_system - INFO - 程序启动
+2026-03-13 01:09:23,210 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 17, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 37, in initUI
+    self.stock_list_tab = StockListTab()
+                          ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 163, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 227, in initUI
+    self.popup = SearchPopup(self)
+                 ^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 38, in __init__
+    self.setAttribute(Qt.WA_ShowWithoutActivating)  # 显示时不激活
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'Qt' has no attribute 'WA_ShowWithoutActivating'
+2026-03-13 01:10:26,710 - quant_system - INFO - 程序启动
+2026-03-13 01:10:26,849 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 17, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 37, in initUI
+    self.stock_list_tab = StockListTab()
+                          ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 163, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 227, in initUI
+    self.popup = SearchPopup(self)
+                 ^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 38, in __init__
+    self.setAttribute(Qt.WA_ShowWithoutActivating)  # 显示时不激活
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'Qt' has no attribute 'WA_ShowWithoutActivating'
+2026-03-13 01:11:22,685 - quant_system - INFO - 程序启动
+2026-03-13 01:24:00,787 - quant_system - INFO - 程序启动
+2026-03-13 01:24:25,941 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 287, in on_completer_activated
+    code = index.sibling(index.row(), 0).data()
+           ^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'sibling'
+2026-03-13 01:27:42,081 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 287, in on_completer_activated
+    code = index.sibling(index.row(), 0).data()
+           ^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'sibling'
+2026-03-13 11:19:54,558 - quant_system - INFO - 程序启动
+2026-03-13 11:27:51,063 - quant_system - INFO - 程序启动
+2026-03-13 11:30:53,294 - quant_system - INFO - 程序启动
+2026-03-13 11:31:57,378 - quant_system - INFO - 程序启动
+2026-03-13 15:59:09,021 - quant_system - INFO - 程序启动
+2026-03-13 16:04:25,887 - quant_system - INFO - 程序启动
+2026-03-13 16:04:26,491 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 124, in on_data_loaded
+    self.filter_table()
+    ^^^^^^^^^^^^^^^^^
+AttributeError: 'StockListTab' object has no attribute 'filter_table'
+2026-03-13 16:07:57,252 - quant_system - INFO - 程序启动
+2026-03-13 16:18:00,540 - quant_system - INFO - 程序启动
+2026-03-13 16:18:00,618 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 23, in __init__
+    self.initMenu()
+    ^^^^^^^^^^^^^
+AttributeError: 'MainWindow' object has no attribute 'initMenu'
+2026-03-13 16:19:37,121 - quant_system - INFO - 程序启动
+2026-03-13 16:19:37,234 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 30, in __init__
+    self.initGlobalSearch()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 71, in initGlobalSearch
+    spacer.setSizePolicy(spacer.sizePolicy().Expanding, spacer.sizePolicy().Preferred)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'QSizePolicy' object has no attribute 'Expanding'
+2026-03-13 17:02:57,260 - quant_system - INFO - 程序启动
+2026-03-13 17:02:57,507 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 30, in __init__
+    self.initGlobalSearch()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 71, in initGlobalSearch
+    spacer.setSizePolicy(spacer.sizePolicy().Expanding, spacer.sizePolicy().Preferred)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'QSizePolicy' object has no attribute 'Expanding'
+2026-03-13 17:20:07,183 - quant_system - INFO - 程序启动
+2026-03-13 17:45:00,527 - quant_system - INFO - 程序启动
+2026-03-13 17:45:56,405 - quant_system - INFO - 程序启动
+2026-03-13 17:48:02,403 - quant_system - INFO - 程序启动
+2026-03-13 17:58:39,995 - quant_system - INFO - 程序启动
+2026-03-13 18:05:51,922 - quant_system - INFO - 程序启动
+2026-03-13 18:18:36,107 - quant_system - INFO - 程序启动
+2026-03-13 18:24:26,409 - quant_system - INFO - 程序启动
+2026-03-13 18:37:46,556 - quant_system - INFO - 程序启动
+2026-03-13 18:37:53,253 - quant_system - ERROR - query_data 异常
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 107, in query_data
+    self.thread.start()
+TypeError: 'str' object is not callable
+2026-03-13 18:40:17,074 - quant_system - INFO - 程序启动
+2026-03-13 18:41:07,432 - quant_system - INFO - 程序启动
+2026-03-13 18:42:33,838 - quant_system - INFO - 程序启动
+2026-03-13 18:45:43,452 - quant_system - INFO - 程序启动
+2026-03-13 18:45:43,570 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 24, in __init__
+    self.initGlobalSearch()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 89, in initGlobalSearch
+    self.completer.setModel(self.search_model)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\search_completer.py", line 87, in setModel
+    self.popup_view.setModel(model)
+    ^^^^^^^^^^^^^^^
+AttributeError: 'SearchCompleter' object has no attribute 'popup_view'
+2026-03-13 18:46:04,965 - quant_system - INFO - 程序启动
+2026-03-13 18:54:12,075 - quant_system - INFO - 程序启动
+2026-03-13 19:19:52,107 - quant_system - INFO - 程序启动
+2026-03-13 19:20:51,610 - quant_system - INFO - 程序启动
+2026-03-13 19:23:20,974 - quant_system - INFO - 程序启动
+2026-03-13 19:23:27,263 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 127, in on_global_search_activated
+    code = self.search_model.get_code(index.row())
+                                      ^^^^^^^^^
+AttributeError: 'str' object has no attribute 'row'
+2026-03-13 19:25:18,889 - quant_system - INFO - 程序启动
+2026-03-13 19:26:19,831 - quant_system - INFO - 程序启动
+2026-03-13 19:28:43,604 - quant_system - INFO - 程序启动
+2026-03-13 19:28:58,749 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 115, in on_global_search_text_changed
+    QTimer.singleShot(10, lambda: self.completer.complete())
+    ^^^^^^
+NameError: name 'QTimer' is not defined
+2026-03-13 19:30:00,931 - quant_system - INFO - 程序启动
+2026-03-13 19:30:05,569 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 115, in on_global_search_text_changed
+    QTimer.singleShot(10, lambda: self.completer.complete())
+    ^^^^^^
+NameError: name 'QTimer' is not defined
+2026-03-13 19:31:31,240 - quant_system - INFO - 程序启动
+2026-03-13 19:32:25,705 - quant_system - INFO - 程序启动
+2026-03-13 19:32:35,790 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 122, in on_global_search_activated
+    code = self.search_model.get_code(index.row())
+                                      ^^^^^^^^^
+AttributeError: 'str' object has no attribute 'row'
+2026-03-13 19:36:05,990 - quant_system - INFO - 程序启动
+2026-03-13 19:36:06,088 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 25, in __init__
+    self.initGlobalSearch()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 88, in initGlobalSearch
+    self.completer = SearchCompleter(self)
+                     ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\search_completer.py", line 124, in __init__
+    self.popup_widget = SearchPopup(parent)
+                        ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\search_completer.py", line 23, in __init__
+    fm = QApplication.fontMetrics()
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'QApplication' has no attribute 'fontMetrics'
+2026-03-13 19:36:51,416 - quant_system - INFO - 程序启动
+2026-03-13 19:36:51,507 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 25, in __init__
+    self.initGlobalSearch()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 88, in initGlobalSearch
+    self.completer = SearchCompleter(self)
+                     ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\search_completer.py", line 124, in __init__
+    self.popup_widget = SearchPopup(parent)
+                        ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\search_completer.py", line 23, in __init__
+    fm = QApplication.fontMetrics()
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'QApplication' has no attribute 'fontMetrics'
+2026-03-13 19:39:33,105 - quant_system - INFO - 程序启动
+2026-03-13 19:43:03,489 - quant_system - INFO - 程序启动
+2026-03-13 19:45:28,024 - quant_system - INFO - 程序启动
+2026-03-13 19:45:33,072 - quant_system - ERROR - query_data 异常
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 107, in query_data
+    self.thread.start()
+TypeError: 'str' object is not callable
+2026-03-13 19:48:10,549 - quant_system - INFO - 程序启动
+2026-03-13 19:48:10,658 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 25, in __init__
+    self.initGlobalSearch()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 45, in initGlobalSearch
+    self.search_edit = self.search_completer.setup_search_box(self.menuBar())
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\search_completer.py", line 319, in setup_search_box
+    self.search_box = ModernSearchBox(parent_widget)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\search_completer.py", line 229, in __init__
+    pixmap = renderer.toImage(QSize(16, 16))
+             ^^^^^^^^^^^^^^^^
+AttributeError: 'QSvgRenderer' object has no attribute 'toImage'
+2026-03-13 19:48:20,014 - quant_system - INFO - 程序启动
+2026-03-13 19:48:20,106 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 25, in __init__
+    self.initGlobalSearch()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 45, in initGlobalSearch
+    self.search_edit = self.search_completer.setup_search_box(self.menuBar())
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\search_completer.py", line 319, in setup_search_box
+    self.search_box = ModernSearchBox(parent_widget)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\search_completer.py", line 229, in __init__
+    pixmap = renderer.toImage(QSize(16, 16))
+             ^^^^^^^^^^^^^^^^
+AttributeError: 'QSvgRenderer' object has no attribute 'toImage'
+2026-03-13 19:51:04,608 - quant_system - INFO - 程序启动
+2026-03-13 19:51:08,665 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\search_completer.py", line 74, in paintEvent
+    path = self._create_rounded_rect(rect, 8)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\search_completer.py", line 143, in _create_rounded_rect
+    path.addRoundedRect(rect, radius, radius)
+TypeError: arguments did not match any overloaded call:
+  addRoundedRect(self, rect: QRectF, xRadius: float, yRadius: float, mode: Qt.SizeMode = Qt.AbsoluteSize): argument 1 has unexpected type 'QRect'
+  addRoundedRect(self, x: float, y: float, w: float, h: float, xRadius: float, yRadius: float, mode: Qt.SizeMode = Qt.AbsoluteSize): argument 1 has unexpected type 'QRect'
+2026-03-13 19:53:22,745 - quant_system - INFO - 程序启动
+2026-03-13 19:54:00,396 - quant_system - INFO - 程序启动
+2026-03-13 19:54:04,176 - quant_system - ERROR - query_data 异常
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 107, in query_data
+    self.thread.start()
+TypeError: 'str' object is not callable
+2026-03-13 19:56:22,626 - quant_system - INFO - 程序启动
+2026-03-13 19:58:44,919 - quant_system - INFO - 程序启动
+2026-03-13 19:59:57,721 - quant_system - INFO - 程序启动
+2026-03-13 20:04:23,806 - quant_system - INFO - 程序启动
+2026-03-13 20:06:36,339 - quant_system - INFO - 程序启动
+2026-03-13 20:07:01,751 - quant_system - INFO - 程序启动
+2026-03-13 20:07:01,846 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 16, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 11, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 25, in __init__
+    self.initGlobalSearch()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 44, in initGlobalSearch
+    self.search_edit = self.search_completer.setup_search_box(self.menuBar())
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SearchCompleter' object has no attribute 'setup_search_box'
+2026-03-13 20:08:21,265 - quant_system - INFO - 程序启动
+2026-03-13 20:08:54,890 - quant_system - INFO - 程序启动
+2026-03-13 20:10:23,871 - quant_system - INFO - 程序启动
+2026-03-13 20:11:47,006 - quant_system - INFO - 程序启动
+2026-03-13 20:12:01,197 - quant_system - INFO - 程序启动
+2026-03-13 20:18:50,761 - quant_system - INFO - 程序启动
+2026-03-13 20:19:22,680 - quant_system - INFO - 分时详情已存至: data/fenshi/601857_2026-03-13.csv
+2026-03-13 20:20:05,943 - quant_system - INFO - 分时详情已存至: data/fenshi/000001_2026-03-13.csv
+2026-03-13 20:20:10,212 - quant_system - INFO - 分时详情已存至: data/fenshi/000002_2026-03-13.csv
+2026-03-13 20:21:33,430 - quant_system - INFO - 程序启动
+2026-03-13 20:21:48,463 - quant_system - INFO - 分时详情已存至: data/fenshi/601857_2026-03-13.csv
+2026-03-13 20:33:47,747 - quant_system - INFO - 程序启动
+2026-03-13 20:33:53,245 - quant_system - INFO - 分时详情已存至: data/fenshi/601857_2026-03-13.csv
+2026-03-13 20:36:41,655 - quant_system - INFO - 程序启动
+2026-03-13 20:39:23,146 - quant_system - INFO - 程序启动
+2026-03-13 20:39:54,625 - quant_system - INFO - 程序启动
+2026-03-13 20:45:11,623 - quant_system - INFO - 程序启动
+2026-03-13 20:48:12,387 - quant_system - INFO - 程序启动
+2026-03-13 22:12:37,954 - quant_system - INFO - 程序启动
+2026-03-13 22:12:45,394 - quant_system - INFO - 分时详情已存至: data/fenshi/000001_2026-03-13.csv
+2026-03-13 22:26:09,384 - quant_system - INFO - 程序启动
+2026-03-13 22:26:10,127 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 164, in on_data_loaded
+    self.filter_table()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 114, in filter_table
+    for idx, (_, row) in enumerate(df.iterrows()):
+                                   ^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'iterrows'
+2026-03-13 22:34:15,316 - quant_system - INFO - 程序启动
+2026-03-13 22:34:16,214 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 56, in on_data_loaded
+    if df is None or df.empty:
+                     ^^^^^^^^
+AttributeError: 'str' object has no attribute 'empty'
+2026-03-13 22:36:51,701 - quant_system - INFO - 程序启动
+2026-03-13 22:36:52,461 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\pandas\core\indexes\base.py", line 3641, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 168, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 197, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7668, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7676, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'code'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 72, in on_data_loaded
+    self.display_data(df)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 83, in display_data
+    code_item = QTableWidgetItem(str(row['code']))
+                                     ~~~^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\pandas\core\series.py", line 959, in __getitem__
+    return self._get_value(key)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\pandas\core\series.py", line 1046, in _get_value
+    loc = self.index.get_loc(label)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\pandas\core\indexes\base.py", line 3648, in get_loc
+    raise KeyError(key) from err
+KeyError: 'code'
+2026-03-13 22:39:23,018 - quant_system - INFO - 程序启动
+2026-03-13 22:39:23,782 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\pandas\core\indexes\base.py", line 3641, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 168, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 197, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7668, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7676, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'code'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 164, in on_data_loaded
+    self.filter_table()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 116, in filter_table
+    self.table.setItem(idx, 0, QTableWidgetItem(str(row['code'])))
+                                                    ~~~^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\pandas\core\series.py", line 959, in __getitem__
+    return self._get_value(key)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\pandas\core\series.py", line 1046, in _get_value
+    loc = self.index.get_loc(label)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\pandas\core\indexes\base.py", line 3648, in get_loc
+    raise KeyError(key) from err
+KeyError: 'code'
+2026-03-13 22:41:12,072 - quant_system - INFO - 程序启动
+2026-03-13 22:41:12,518 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\pandas\core\indexes\base.py", line 3641, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 168, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 197, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7668, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7676, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'code'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 164, in on_data_loaded
+    self.filter_table()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 116, in filter_table
+    self.table.setItem(idx, 0, QTableWidgetItem(str(row['code'])))
+                                                    ~~~^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\pandas\core\series.py", line 959, in __getitem__
+    return self._get_value(key)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\pandas\core\series.py", line 1046, in _get_value
+    loc = self.index.get_loc(label)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\pandas\core\indexes\base.py", line 3648, in get_loc
+    raise KeyError(key) from err
+KeyError: 'code'
+2026-03-13 22:42:24,409 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\pandas\core\indexes\base.py", line 3641, in get_loc
+    return self._engine.get_loc(casted_key)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pandas/_libs/index.pyx", line 168, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 197, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7668, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7676, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'code'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 142, in on_category_changed
+    self.filter_table()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\stock_list_tab.py", line 98, in filter_table
+    codes = df['code'].astype(str)
+            ~~^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\pandas\core\frame.py", line 4378, in __getitem__
+    indexer = self.columns.get_loc(key)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\pandas\core\indexes\base.py", line 3648, in get_loc
+    raise KeyError(key) from err
+KeyError: 'code'
+2026-03-13 22:45:54,901 - quant_system - INFO - 程序启动
+2026-03-13 22:46:25,629 - quant_system - INFO - 程序启动
+2026-03-13 22:46:44,142 - quant_system - INFO - 程序启动
+2026-03-13 22:46:59,630 - quant_system - INFO - 分时详情已存至: data/fenshi/601857_2026-03-13.csv
+2026-03-13 22:50:20,690 - quant_system - INFO - 程序启动
+2026-03-13 22:50:25,802 - quant_system - INFO - 分时详情已存至: data/fenshi/601857_2026-03-13.csv
+2026-03-13 22:56:16,538 - quant_system - INFO - 程序启动
+2026-03-13 22:56:16,668 - quant_system - ERROR - get_stock_list 异常
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 20, in get_stock_list
+    return self.stock_list_provider.fetch(use_cache=use_cache)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\stock_list.py", line 20, in fetch
+    if use_cache and Storage.is_cache_fresh(self.cache_file):
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'Storage' has no attribute 'is_cache_fresh'
+2026-03-13 22:57:49,560 - quant_system - INFO - 程序启动
+2026-03-13 22:58:03,499 - quant_system - INFO - 程序启动
+2026-03-13 22:58:03,648 - quant_system - ERROR - get_stock_list 异常
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 20, in get_stock_list
+    return self.stock_list_provider.fetch(use_cache=use_cache)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\stock_list.py", line 20, in fetch
+    if use_cache and Storage.is_cache_fresh(self.cache_file):
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'Storage' has no attribute 'is_cache_fresh'
+2026-03-13 22:58:16,055 - quant_system - ERROR - get_stock_list 异常
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 20, in get_stock_list
+    return self.stock_list_provider.fetch(use_cache=use_cache)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\stock_list.py", line 20, in fetch
+    if use_cache and Storage.is_cache_fresh(self.cache_file):
+                     ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'Storage' has no attribute 'is_cache_fresh'
+2026-03-13 23:00:23,148 - quant_system - INFO - 程序启动
+2026-03-13 23:00:31,383 - quant_system - INFO - 分时详情已存至: data/fenshi/601857_2026-03-13.csv
+2026-03-13 23:10:43,744 - quant_system - INFO - 程序启动
+2026-03-13 23:11:02,037 - quant_system - INFO - 程序启动
+2026-03-13 23:34:12,631 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\backends\backend_qt.py", line 265, in eventFilter
+    def eventFilter(self, source, event):
+    
+KeyboardInterrupt
