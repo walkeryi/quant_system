@@ -1,0 +1,18 @@
+# IDE
+.idea/
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 日志
+logs/
+*.log
+
+# 数据文件
+data/fenshi/
+*.csv
+
+# 其他
+.vscode/
+.env

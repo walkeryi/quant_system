@@ -1,118 +1,95 @@
+import os
 import sys
-import traceback
-import matplotlib.pyplot as plt
-import numpy as np
-# ========== 新增：中文显示配置 ==========
-plt.rcParams['font.sans-serif'] = ['SimHei']  # 用系统自带的“黑体”显示中文
-plt.rcParams['axes.unicode_minus'] = False    # 解决负号显示为方块的问题
+import pandas as pd
+import pymysql
+from pymysql.constants import CLIENT
 
-def check_python_version():
-    """检测Python版本（matplotlib对Python有最低版本要求）"""
-    print("===== 1. 检测Python版本 =====")
-    py_version = sys.version_info
-    version_str = f"{py_version.major}.{py_version.minor}.{py_version.micro}"
-    print(f"当前Python版本：{version_str}")
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config import DB_CONFIG
 
-    # matplotlib 3.7+ 要求Python 3.8+
-    if py_version >= (3, 8):
-        print("✅ Python版本符合matplotlib要求（≥3.8）")
-    else:
-        print("⚠️ Python版本过低（<3.8），可能导致matplotlib安装/运行异常")
-    print()
+def import_csv_to_db(csv_folder='data/fenshi'):
+    if not os.path.exists(csv_folder):
+        print(f"文件夹不存在: {csv_folder}")
+        return
 
+    files = [f for f in os.listdir(csv_folder) if f.endswith('.csv')]
+    if not files:
+        print("没有找到 CSV 文件")
+        return
 
-def check_matplotlib_install():
-    """检测matplotlib是否安装、版本及核心模块可用性"""
-    print("===== 2. 检测matplotlib安装状态 =====")
     try:
-        # 导入核心模块
-        import matplotlib
-        import matplotlib.pyplot as plt
-        from matplotlib.figure import Figure
-
-        # 输出版本信息
-        print(f"matplotlib版本：{matplotlib.__version__}")
-        print("✅ 成功导入matplotlib核心模块：")
-        print("   - matplotlib (主库)")
-        print("   - matplotlib.pyplot (pyplot模块)")
-        print("   - matplotlib.figure.Figure (Figure类)")
-
-        # 检测依赖（numpy是matplotlib的核心依赖）
-        try:
-            import numpy
-            print(f"✅ 依赖库numpy已安装，版本：{numpy.__version__}")
-        except ImportError:
-            print("❌ 缺失核心依赖：numpy（matplotlib运行必需）")
-
-    except ImportError as e:
-        print("❌ matplotlib安装异常/未找到，错误信息：")
-        print(f"   {str(e)}")
-        print("\n💡 修复建议：执行以下命令重装matplotlib：")
-        print(f"   python -m pip install matplotlib -U -i https://pypi.tuna.tsinghua.edu.cn/simple")
+        connection = pymysql.connect(**DB_CONFIG, client_flag=CLIENT.MULTI_STATEMENTS)
+        print("数据库连接成功")
     except Exception as e:
-        print("❌ 导入matplotlib时发生未知错误：")
-        traceback.print_exc()
-    print()
+        print(f"数据库连接失败: {e}")
+        return
 
-
-def test_matplotlib_plot():
-    """测试matplotlib是否能正常绘图（核心功能验证）"""
-    print("===== 3. 测试matplotlib绘图功能 =====")
+    total_inserted = 0
     try:
-        import matplotlib.pyplot as plt
-        import numpy as np
+        with connection.cursor() as cursor:
+            for file in files:
+                file_path = os.path.join(csv_folder, file)
+                base_name = os.path.splitext(file)[0]
+                parts = base_name.split('_')
+                if len(parts) != 2:
+                    print(f"跳过文件名格式不正确: {file}")
+                    continue
+                code, date = parts
+                print(f"\n正在处理文件: {file}")
 
-        # 创建简单图形
-        fig, ax = plt.subplots(figsize=(5, 3))
-        x = np.linspace(0, 10, 100)
-        y = np.sin(x)
-        ax.plot(x, y, label='sin(x)')
-        ax.set_xlabel('X')
-        ax.set_ylabel('Y')
-        ax.set_title('测试图：sin曲线')
-        ax.legend()
+                try:
+                    df = pd.read_csv(file_path)
+                    # 直接使用标准列名
+                    required = ['time', 'price', 'volume']
+                    if not all(col in df.columns for col in required):
+                        print(f"文件缺少必要列，跳过")
+                        continue
+                except Exception as e:
+                    print(f"读取文件失败: {e}")
+                    continue
 
-        # 尝试显示图形（非交互式环境会自动跳过阻塞）
-        print("✅ 成功创建绘图对象，即将显示测试图...")
-        plt.show(block=False)  # block=False避免卡住，5秒后自动关闭
-        plt.pause(5)  # 显示5秒
-        plt.close(fig)  # 关闭图形
+                # 确保数值类型
+                df['price'] = pd.to_numeric(df['price'], errors='coerce')
+                df['volume'] = pd.to_numeric(df['volume'], errors='coerce')
+                df = df.dropna(subset=['price', 'volume'])
+                if df.empty:
+                    print(f"没有有效数据，跳过")
+                    continue
 
-        print("✅ 绘图功能测试通过！")
+                records = []
+                for idx, row in df.iterrows():
+                    time_str = str(row['time']).strip()
+                    if len(time_str) == 5:
+                        time_str += ":00"
+                    price_val = float(row['price'])
+                    volume_val = int(row['volume'])
+                    amount_val = price_val * volume_val * 100
 
+                    records.append((
+                        str(code),
+                        str(date),
+                        str(time_str),
+                        price_val,
+                        volume_val,
+                        amount_val
+                    ))
+
+                sql = """
+                    INSERT IGNORE INTO fenshi_data 
+                    (code, trade_date, time, price, volume, amount)
+                    VALUES (%s, %s, %s, %s, %s, %s)
+                """
+                cursor.executemany(sql, records)
+                connection.commit()
+                inserted = cursor.rowcount
+                total_inserted += inserted
+                print(f"已导入 {file}: {inserted} 条记录")
     except Exception as e:
-        print("❌ 绘图功能测试失败，错误信息：")
-        traceback.print_exc()
-        print("\n💡 可能原因：")
-        print("   1. 缺少图形后端（如Tkinter），可安装：pip install tkinter")
-        print("   2. 服务器/无桌面环境，可设置无界面后端：")
-        print("      import matplotlib; matplotlib.use('Agg')")
-    print()
+        print(f"导入异常: {e}")
+        connection.rollback()
+    finally:
+        connection.close()
+        print(f"\n总共导入 {total_inserted} 条记录")
 
-
-def check_interpreter_path():
-    """检测当前运行的Python解释器路径（排查环境不匹配问题）"""
-    print("===== 4. 检测Python解释器路径 =====")
-    interpreter_path = sys.executable
-    print(f"当前运行的Python解释器：{interpreter_path}")
-    print("\n💡 重要提示：")
-    print(f"   请确保你的IDE（PyCharm/VSCode）使用的Python解释器路径与上面一致！")
-    print()
-
-
-if __name__ == "__main__":
-    print("=" * 50)
-    print("      matplotlib环境/依赖检测工具")
-    print("=" * 50)
-    print()
-
-    # 依次执行检测
-    check_python_version()
-    check_matplotlib_install()
-    check_interpreter_path()
-    test_matplotlib_plot()
-
-    print("=" * 50)
-    print("检测完成！")
-    print("👉 若所有检测项均为✅，说明环境配置正确；")
-    print("👉 若有❌/⚠️，请根据提示修复后重新运行本脚本。")
+if __name__ == '__main__':
+    import_csv_to_db()

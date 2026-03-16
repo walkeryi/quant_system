@@ -27,10 +27,15 @@ class MainWindow(QMainWindow):
     def initUI(self):
         self.tabs = QTabWidget()
         self.setCentralWidget(self.tabs)
+
         self.stock_list_tab = StockListTab()
+        # 连接股票列表双击信号到个股详情加载方法
+        self.stock_list_tab.stock_double_clicked.connect(self.load_stock_daily)
+
         self.daily_tab = DailyTab()
         self.backtest_tab = BacktestTab()
         self.calendar_tab = CalendarTab()
+
         self.tabs.addTab(self.stock_list_tab, "股票数据")
         self.tabs.addTab(self.daily_tab, "个股详情")
         self.tabs.addTab(self.backtest_tab, "策略回测")
@@ -85,6 +90,7 @@ class MainWindow(QMainWindow):
 
     def load_stock_daily(self, code):
         """加载个股详情"""
+        print(f"跳转到个股详情，代码: {code}")  # 调试输出
         self.tabs.setCurrentIndex(1)  # 切换到"个股详情"标签
         self.daily_tab.load_stock(code)
 

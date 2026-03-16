@@ -777,3 +777,86 @@ Traceback (most recent call last):
     def eventFilter(self, source, event):
     
 KeyboardInterrupt
+2026-03-16 20:44:14,711 - quant_system - INFO - 程序启动
+2026-03-16 21:02:42,242 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\search_completer.py", line 147, in eventFilter
+    def eventFilter(self, obj, event):
+    
+KeyboardInterrupt
+2026-03-16 21:42:39,541 - quant_system - INFO - 程序启动
+2026-03-16 22:16:30,357 - quant_system - INFO - 程序启动
+2026-03-16 22:16:35,423 - quant_system - ERROR - get_fenshi_data 异常 (code=601857)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 45, in get_fenshi_data
+    return self.fenshi_provider.fetch(code)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'FenshiDataProvider' object has no attribute 'fetch'
+2026-03-16 22:18:19,146 - quant_system - INFO - 程序启动
+2026-03-16 22:18:22,948 - quant_system - WARNING - 分时数据未保存到数据库
+2026-03-16 22:26:00,993 - quant_system - INFO - 程序启动
+2026-03-16 22:26:00,993 - quant_system - INFO - 当前数据版本: CSV
+2026-03-16 22:41:17,131 - quant_system - INFO - 程序启动
+2026-03-16 22:41:17,132 - quant_system - INFO - 当前数据版本: CSV
+2026-03-16 22:44:03,683 - quant_system - INFO - 程序启动
+2026-03-16 22:44:03,683 - quant_system - INFO - 当前数据版本: CSV
+2026-03-16 22:44:51,442 - quant_system - INFO - 程序启动
+2026-03-16 22:44:51,442 - quant_system - INFO - 当前数据版本: CSV
+2026-03-16 22:45:01,418 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\search_completer.py", line 161, in _on_search_text_changed
+    data = self._data_source(text.strip().lower())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 77, in _get_search_results
+    exchange = self.stock_list_tab._get_exchange(code)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'StockListTab' object has no attribute '_get_exchange'
+2026-03-16 22:45:04,369 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\search_completer.py", line 161, in _on_search_text_changed
+    data = self._data_source(text.strip().lower())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 77, in _get_search_results
+    exchange = self.stock_list_tab._get_exchange(code)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'StockListTab' object has no attribute '_get_exchange'
+2026-03-16 22:47:44,270 - quant_system - INFO - 程序启动
+2026-03-16 22:47:44,270 - quant_system - INFO - 当前数据版本: CSV
+2026-03-16 22:50:46,127 - quant_system - INFO - 程序启动
+2026-03-16 22:50:46,127 - quant_system - INFO - 当前数据版本: CSV
+2026-03-16 22:51:08,888 - quant_system - INFO - 程序启动
+2026-03-16 22:51:08,891 - quant_system - INFO - 当前数据版本: CSV
+2026-03-16 22:53:39,256 - quant_system - INFO - 程序启动
+2026-03-16 22:53:39,256 - quant_system - INFO - 当前数据版本: CSV
+2026-03-16 23:21:28,541 - quant_system - INFO - 程序启动
+2026-03-16 23:21:28,542 - quant_system - INFO - 当前数据版本: CSV
+2026-03-16 23:21:52,767 - quant_system - INFO - 程序启动
+2026-03-16 23:21:52,767 - quant_system - INFO - 当前数据版本: CSV
+2026-03-16 23:24:11,496 - quant_system - INFO - 程序启动
+2026-03-16 23:24:11,497 - quant_system - INFO - 当前数据版本: CSV
+2026-03-16 23:24:15,766 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 95, in load_stock_daily
+    self.daily_tab.load_stock(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 84, in load_stock
+    self.query_data()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 91, in query_data
+    if self.stock_list_df is not None and code not in self.stock_list_df['code'].values:
+       ^^^^^^^^^^^^^^^^^^
+AttributeError: 'DailyTab' object has no attribute 'stock_list_df'
+2026-03-16 23:26:07,613 - quant_system - INFO - 程序启动
+2026-03-16 23:26:07,614 - quant_system - INFO - 当前数据版本: CSV
+2026-03-16 23:27:23,000 - quant_system - INFO - 程序启动
+2026-03-16 23:27:23,000 - quant_system - INFO - 当前数据版本: CSV
+2026-03-16 23:29:31,974 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\backends\backend_qt.py", line 265, in eventFilter
+    def eventFilter(self, source, event):
+    
+KeyboardInterrupt
+2026-03-16 23:29:44,913 - quant_system - INFO - 程序启动
+2026-03-16 23:29:44,913 - quant_system - INFO - 当前数据版本: CSV
+2026-03-16 23:30:46,028 - quant_system - INFO - 程序启动
+2026-03-16 23:30:46,029 - quant_system - INFO - 当前数据版本: CSV
+2026-03-16 23:37:15,941 - quant_system - INFO - 程序启动
+2026-03-16 23:37:15,942 - quant_system - INFO - 当前数据版本: CSV

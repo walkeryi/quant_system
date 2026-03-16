@@ -3,14 +3,13 @@ from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
                              QPushButton, QTableWidget, QTableWidgetItem,
                              QHeaderView, QListWidget, QStyledItemDelegate, QStyle)
 from PyQt6.QtGui import QFontMetrics
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, pyqtSignal
 from .stock_list_thread import StockListThread
 from data_preprocessing import DataPreprocessor
 
 
 class NoFocusDelegate(QStyledItemDelegate):
     """强力消除单元格选中时的虚线框"""
-
     def paint(self, painter, option, index):
         if option.state & QStyle.StateFlag.State_HasFocus:
             option.state = option.state & ~QStyle.StateFlag.State_HasFocus
@@ -18,7 +17,8 @@ class NoFocusDelegate(QStyledItemDelegate):
 
 
 class StockListTab(QWidget):
-    """股票列表页：仅负责数据展示，通过 Thread 获取数据"""
+    """股票列表页：支持双击跳转个股详情"""
+    stock_double_clicked = pyqtSignal(str)  # 定义信号，传递股票代码
 
     def __init__(self):
         super().__init__()
@@ -27,6 +27,8 @@ class StockListTab(QWidget):
         self.current_category = "全部"
         self.initUI()
         self.load_from_cache()
+        # 连接表格的双击信号
+        self.table.cellDoubleClicked.connect(self.on_cell_double_clicked)
 
     def initUI(self):
         layout = QHBoxLayout(self)
@@ -70,7 +72,8 @@ class StockListTab(QWidget):
         # 列宽美化
         fm = QFontMetrics(self.table.font())
         base_w = fm.horizontalAdvance("0" * 9) + 10
-        for i in range(7): self.table.setColumnWidth(i, base_w)
+        for i in range(7):
+            self.table.setColumnWidth(i, base_w)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Fixed)
 
         self.table.setSortingEnabled(True)
@@ -82,7 +85,8 @@ class StockListTab(QWidget):
 
     def filter_table(self):
         """筛选逻辑：带安全性检查"""
-        if self.all_df is None or self.all_df.empty: return
+        if self.all_df is None or self.all_df.empty:
+            return
         df = self.all_df.copy()
 
         # 解决 KeyError: 'code' 问题：确保 code 是列而不是索引
@@ -154,3 +158,32 @@ class StockListTab(QWidget):
         self.all_df = df
         self.date_lbl.setText(f"行情日期: {date or '--'}")
         self.filter_table()
+
+    def on_cell_double_clicked(self, row, column):
+        """处理表格双击事件，获取股票代码并发射信号"""
+        code_item = self.table.item(row, 0)  # 代码在第0列
+        if code_item:
+            code = code_item.text().strip()
+            if code:
+                print(f"双击股票，代码: {code}")  # 调试输出
+                self.stock_double_clicked.emit(code)
+            else:
+                print("双击行但代码为空")
+        else:
+            print("双击行但获取代码项失败")
+
+    def _get_exchange(self, code):
+        """根据股票代码判断所属市场（供搜索框调用）"""
+        code = str(code).zfill(6)
+        if code.startswith('60'):
+            return '沪市'
+        elif code.startswith('00'):
+            return '深市'
+        elif code.startswith('30'):
+            return '创业板'
+        elif code.startswith('688'):
+            return '科创板'
+        elif code.startswith(('8', '9', '4')):
+            return '北交所'
+        else:
+            return '其他'
