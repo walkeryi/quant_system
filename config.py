@@ -24,3 +24,7 @@ TRADE_CALENDAR_CACHE = os.path.join(CACHE_DIR, "trade_calendar.csv")
 
 DAILY_DATA_DIR = os.path.join(CACHE_DIR, "daily")
 os.makedirs(DAILY_DATA_DIR, exist_ok=True)
+
+# 分时数据缓存目录
+FENSHI_DATA_DIR = os.path.join(CACHE_DIR, "fenshi")
+os.makedirs(FENSHI_DATA_DIR, exist_ok=True)

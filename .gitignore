@@ -16,3 +16,10 @@ data/fenshi/
 # 其他
 .vscode/
 .env
+
+# 打包输出
+release/
+build_temp/
+dist/
+build/
+*.spec

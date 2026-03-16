@@ -7,7 +7,7 @@ from pymysql.constants import CLIENT
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import DB_CONFIG
 
-def import_csv_to_db(csv_folder='data/fenshi'):
+def import_csv_to_db(csv_folder='cache/fenshi'):
     if not os.path.exists(csv_folder):
         print(f"文件夹不存在: {csv_folder}")
         return

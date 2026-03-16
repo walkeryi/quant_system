@@ -3,6 +3,7 @@ import matplotlib
 import pandas as pd
 import logging
 import os
+from config import FENSHI_DATA_DIR
 
 matplotlib.use('QtAgg')
 matplotlib.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'sans-serif']
@@ -157,9 +158,9 @@ class DailyTab(QWidget):
         self.canvas.draw()
 
     def save_csv(self, df, base):
-        path = "data/fenshi"
-        os.makedirs(path, exist_ok=True)
-        file_path = f"{path}/{base.get('code')}_{base.get('date')}.csv"
+        # 使用统一的缓存目录
+        os.makedirs(FENSHI_DATA_DIR, exist_ok=True)
+        file_path = os.path.join(FENSHI_DATA_DIR, f"{base.get('code')}_{base.get('date')}.csv")
         df.to_csv(file_path, index=False, encoding='utf-8-sig')
 
     def on_error(self, msg):
