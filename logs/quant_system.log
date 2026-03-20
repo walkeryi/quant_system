@@ -1753,3 +1753,224 @@ Exception: API error for 000003: 股票代码无效 (ret=302)
 2026-03-20 22:40:03,187 - quant_system - INFO - 当前数据版本: CSV
 2026-03-20 23:02:56,508 - quant_system - INFO - 程序启动
 2026-03-20 23:02:56,509 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 23:05:42,330 - quant_system - INFO - 程序启动
+2026-03-20 23:05:42,331 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 23:07:17,356 - quant_system - INFO - 程序启动
+2026-03-20 23:07:17,357 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 23:18:40,765 - quant_system - INFO - 程序启动
+2026-03-20 23:18:40,765 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 23:18:45,328 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 122, in resizeEvent
+    self.fenshi_widget.apply_size()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'FenshiChartWidget' object has no attribute 'apply_size'
+2026-03-20 23:18:47,027 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 122, in resizeEvent
+    self.fenshi_widget.apply_size()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'FenshiChartWidget' object has no attribute 'apply_size'
+2026-03-20 23:20:51,554 - quant_system - INFO - 程序启动
+2026-03-20 23:20:51,554 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 23:29:21,715 - quant_system - INFO - 程序启动
+2026-03-20 23:29:21,716 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 23:33:18,205 - quant_system - ERROR - get_fenshi_data 异常 (code=000003)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 45, in get_fenshi_data
+    return self.fenshi_provider.fetch(code)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fenshi.py", line 40, in fetch
+    raise Exception(error_msg)
+Exception: API error for 000003: 股票代码无效 (ret=302)
+2026-03-20 23:33:23,252 - quant_system - ERROR - get_fenshi_data 异常 (code=000005)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 45, in get_fenshi_data
+    return self.fenshi_provider.fetch(code)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fenshi.py", line 40, in fetch
+    raise Exception(error_msg)
+Exception: API error for 000005: 股票代码无效 (ret=302)
+2026-03-20 23:44:05,204 - quant_system - INFO - 程序启动
+2026-03-20 23:44:05,206 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 23:44:08,739 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 95, in load_stock_daily
+    self.daily_tab.load_stock(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 88, in load_stock
+    self.open_stock_tab(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 52, in open_stock_tab
+    stock_tab = StockTab(code)
+                ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 28, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 109, in initUI
+    self.fenshi_price_widget.crosshairSyncSignal.connect(self.on_fenshi_crosshair_sync)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'FenshiChartWidget' object has no attribute 'crosshairSyncSignal'
+2026-03-20 23:49:28,355 - quant_system - INFO - 程序启动
+2026-03-20 23:49:28,355 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 23:49:31,812 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 95, in load_stock_daily
+    self.daily_tab.load_stock(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 88, in load_stock
+    self.open_stock_tab(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 52, in open_stock_tab
+    stock_tab = StockTab(code)
+                ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 28, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 96, in initUI
+    self.fenshi_price_widget = FenshiChartWidget()
+                               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart_widget.py", line 9, in __init__
+    self.chart = FenshiChart(wrapper=self)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: FenshiChart.__init__() got an unexpected keyword argument 'wrapper'
+2026-03-20 23:51:50,991 - quant_system - INFO - 程序启动
+2026-03-20 23:51:50,992 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 23:52:01,351 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 95, in load_stock_daily
+    self.daily_tab.load_stock(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 88, in load_stock
+    self.open_stock_tab(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 52, in open_stock_tab
+    stock_tab = StockTab(code)
+                ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 28, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 96, in initUI
+    self.fenshi_price_widget = FenshiChartWidget()
+                               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart_widget.py", line 9, in __init__
+    self.chart = FenshiChart(wrapper=self)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: FenshiChart.__init__() got an unexpected keyword argument 'wrapper'
+2026-03-20 23:52:47,916 - quant_system - INFO - 程序启动
+2026-03-20 23:52:47,918 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 23:53:02,197 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 95, in load_stock_daily
+    self.daily_tab.load_stock(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 88, in load_stock
+    self.open_stock_tab(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 52, in open_stock_tab
+    stock_tab = StockTab(code)
+                ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 28, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 97, in initUI
+    self.fenshi_volume_widget = FenshiVolumeChartWidget()
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_volume_chart_widget.py", line 8, in __init__
+    self.chart = FenshiVolumeChart()
+                 ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_volume_chart.py", line 24, in __init__
+    self.figure.subplots_adjust(left=0.08, right=0.92, top=0.05, bottom=0.2)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\figure.py", line 1351, in subplots_adjust
+    self.subplotpars.update(left, bottom, right, top, wspace, hspace)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\gridspec.py", line 776, in update
+    raise ValueError('bottom cannot be >= top')
+ValueError: bottom cannot be >= top
+2026-03-20 23:55:33,089 - quant_system - INFO - 程序启动
+2026-03-20 23:55:33,089 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 23:57:11,578 - quant_system - INFO - 程序启动
+2026-03-20 23:57:11,578 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 00:02:18,301 - quant_system - INFO - 程序启动
+2026-03-21 00:02:18,301 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 00:02:34,285 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 216, in on_fenshi_ready
+    self.fenshi_price_widget.update_data(df, base)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart_widget.py", line 67, in update_data
+    self.chart.draw(df, base)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart.py", line 119, in draw
+    self.line_price.set_data(x_new, make_interp_spline(indices, prices)(x_new))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\scipy\interpolate\_bsplines.py", line 1573, in make_interp_spline
+    raise ValueError("Expect x to not have duplicates")
+ValueError: Expect x to not have duplicates
+2026-03-21 00:02:36,918 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 152, in on_fenshi_crosshair_sync
+    self.fenshi_volume_widget.hide_crosshair()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_volume_chart_widget.py", line 32, in hide_crosshair
+    self.chart.hide_crosshair()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'FenshiVolumeChart' object has no attribute 'hide_crosshair'
+2026-03-21 00:02:38,590 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 152, in on_fenshi_crosshair_sync
+    self.fenshi_volume_widget.hide_crosshair()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_volume_chart_widget.py", line 32, in hide_crosshair
+    self.chart.hide_crosshair()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'FenshiVolumeChart' object has no attribute 'hide_crosshair'
+2026-03-21 00:02:40,222 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 152, in on_fenshi_crosshair_sync
+    self.fenshi_volume_widget.hide_crosshair()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_volume_chart_widget.py", line 32, in hide_crosshair
+    self.chart.hide_crosshair()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'FenshiVolumeChart' object has no attribute 'hide_crosshair'
+2026-03-21 00:10:05,343 - quant_system - INFO - 程序启动
+2026-03-21 00:10:05,343 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 00:14:09,515 - quant_system - INFO - 程序启动
+2026-03-21 00:14:09,516 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 00:29:22,274 - quant_system - INFO - 程序启动
+2026-03-21 00:29:22,276 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 00:30:06,801 - quant_system - INFO - 程序启动
+2026-03-21 00:30:06,803 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 00:33:18,254 - quant_system - INFO - 程序启动
+2026-03-21 00:33:18,254 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 00:33:21,722 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 95, in load_stock_daily
+    self.daily_tab.load_stock(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 88, in load_stock
+    self.open_stock_tab(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 52, in open_stock_tab
+    stock_tab = StockTab(code)
+                ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 20, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 57, in initUI
+    self.fenshi_price_widget = FenshiChartWidget()
+                               ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart_widget.py", line 12, in __init__
+    self.chart = FenshiChart(wrapper=self)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart.py", line 19, in __init__
+    self.figure.subplots_adjust(left=0.08, right=0.08, top=0.92, bottom=0.1)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\figure.py", line 1351, in subplots_adjust
+    self.subplotpars.update(left, bottom, right, top, wspace, hspace)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\gridspec.py", line 773, in update
+    raise ValueError('left cannot be >= right')
+ValueError: left cannot be >= right
+2026-03-21 00:36:03,363 - quant_system - INFO - 程序启动
+2026-03-21 00:36:03,364 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 00:42:03,728 - quant_system - INFO - 程序启动
+2026-03-21 00:42:03,730 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 00:45:49,437 - quant_system - INFO - 程序启动
+2026-03-21 00:45:49,438 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 00:48:19,240 - quant_system - INFO - 程序启动
+2026-03-21 00:48:19,241 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 00:50:32,899 - quant_system - INFO - 程序启动
+2026-03-21 00:50:32,900 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 00:55:42,578 - quant_system - INFO - 程序启动
+2026-03-21 00:55:42,580 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 00:56:14,368 - quant_system - INFO - 程序启动
+2026-03-21 00:56:14,369 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 01:00:48,009 - quant_system - INFO - 程序启动
+2026-03-21 01:00:48,010 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 01:07:59,532 - quant_system - INFO - 程序启动
+2026-03-21 01:07:59,532 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 01:11:51,226 - quant_system - INFO - 程序启动
+2026-03-21 01:11:51,227 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 01:14:54,343 - quant_system - INFO - 程序启动
+2026-03-21 01:14:54,343 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 01:28:22,669 - quant_system - INFO - 程序启动
+2026-03-21 01:28:22,670 - quant_system - INFO - 当前数据版本: CSV
