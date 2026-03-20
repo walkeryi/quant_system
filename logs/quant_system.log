@@ -1751,3 +1751,5 @@ Exception: API error for 000003: 股票代码无效 (ret=302)
 2026-03-20 22:37:24,460 - quant_system - INFO - 当前数据版本: CSV
 2026-03-20 22:40:03,185 - quant_system - INFO - 程序启动
 2026-03-20 22:40:03,187 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 23:02:56,508 - quant_system - INFO - 程序启动
+2026-03-20 23:02:56,509 - quant_system - INFO - 当前数据版本: CSV
