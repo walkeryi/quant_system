@@ -6,6 +6,9 @@ from PyQt6.QtCore import Qt, pyqtSignal
 from ui.charts.fenshi_chart_widget import FenshiChartWidget
 from ui.charts.fenshi_volume_chart_widget import FenshiVolumeChartWidget
 from ui.threads.fenshi_thread import FenshiDataThread
+from ui.charts.kline_chart_widget import KlineChartWidget
+from ui.threads.daily_thread import DailyDataThread
+
 
 class StockTab(QWidget):
     switch_requested = pyqtSignal(int)
@@ -15,6 +18,7 @@ class StockTab(QWidget):
         self.code = code
         self.base_info = {}
         self.fenshi_loaded = False
+        self.kline_loaded = False
         self.initUI()
 
     def initUI(self):
@@ -64,7 +68,9 @@ class StockTab(QWidget):
         fenshi_layout.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignTop)
 
         self.tab_widget.addTab(fenshi_page, "分时图")
-        self.tab_widget.addTab(QWidget(), "K线图")
+
+        self.kline_widget = KlineChartWidget()
+        self.tab_widget.addTab(self.kline_widget, "K线图")
         main_layout.addWidget(self.tab_widget)
         self.tab_widget.currentChanged.connect(self.on_tab_changed)
 
@@ -102,8 +108,22 @@ class StockTab(QWidget):
         self.labels['nwb'].setText(fmt('NeiWaiBi'))
 
     def on_tab_changed(self, index):
-        if index == 0 and not self.fenshi_loaded: self.load_fenshi_data()
+        if index == 0 and not self.fenshi_loaded:
+            self.load_fenshi_data()
+        elif index == 1 and not self.kline_loaded:
+            self.load_kline_data()
 
     def load_fenshi_data(self):
         self.thread = FenshiDataThread(self.code)
         self.thread.finished.connect(self.on_fenshi_ready); self.thread.start()
+
+# 5. 新增：拉取 K 线数据的逻辑与回调
+    def load_kline_data(self):
+        self.kline_thread = DailyDataThread(self.code)
+        self.kline_thread.finished.connect(self.on_kline_ready)
+        self.kline_thread.error.connect(lambda e: QMessageBox.warning(self, "数据错误", f"加载K线数据失败: {e}"))
+        self.kline_thread.start()
+
+    def on_kline_ready(self, df):
+        self.kline_loaded = True
+        self.kline_widget.update_data(df)

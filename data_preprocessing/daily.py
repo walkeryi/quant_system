@@ -8,7 +8,6 @@ import os
 
 logger = setup_logger(__name__)
 
-
 class DailyDataProvider:
     """获取沪深个股日线数据（散户量化API）"""
 
@@ -26,11 +25,10 @@ class DailyDataProvider:
     def fetch(self, code: str, all_data: bool = False, use_cache: bool = True) -> pd.DataFrame | None:
         cache_file = self._get_cache_path(code, all_data)
 
-        # 尝试从缓存加载（仅当请求的是全部数据时）
-        if use_cache and all_data and Storage.is_cache_fresh(cache_file, max_age_days=7):
+        # 尝试从缓存加载
+        if use_cache and all_data and Storage.is_cache_fresh(cache_file, max_age_days=1):
             cached = Storage.load_csv(cache_file)
             if cached is not None and not cached.empty:
-                # 确保日期列存在并设为索引
                 if 'date' in cached.columns:
                     cached['date'] = pd.to_datetime(cached['date'])
                     cached.set_index('date', inplace=True)
@@ -54,6 +52,7 @@ class DailyDataProvider:
                 logger.error(f"API error for {code}: {data.get('msg')}")
                 return None
 
+            base = data.get('base', {})
             records = data.get('data', [])
             if not records:
                 logger.warning(f"No daily data for {code}")
@@ -61,40 +60,57 @@ class DailyDataProvider:
 
             df = pd.DataFrame(records)
 
+            # 映射中文拼音列名到标准英文
             column_map = {
-                'RiQi': 'date',
-                'KaiPan': 'open',
-                'ZuiGao': 'high',
-                'ZuiDi': 'low',
-                'ShouPan': 'close',
-                'ZongLiang': 'volume',
-                'JinE': 'amount'
+                'RiQi': 'date', 'KaiPan': 'open', 'ZuiGao': 'high',
+                'ZuiDi': 'low', 'ShouPan': 'close', 'ZongLiang': 'volume',
+                'JinE': 'amount', 'HuanShou': 'turnover', 'ZhangFu': 'pct_chg',
+                'ZhangSu': 'speed', 'LiangBi': 'vol_ratio', 'WeiBi': 'wei_ratio',
+                'NeiPan': 'inner_vol', 'WaiPan': 'outer_vol'
             }
-            df.rename(columns=column_map, inplace=True)
+            df.rename(columns=lambda x: column_map.get(x, x), inplace=True)
+
+            # 价格单位转换 (0.1分 -> 元)
+            price_cols = ['open', 'high', 'low', 'close', 'JunJia']
+            for col in price_cols:
+                if col in df.columns:
+                    df[col] = pd.to_numeric(df[col], errors='coerce') / 1000.0
+
+            # 比例单位转换 (0.001% -> %)
+            pct_cols = ['turnover', 'pct_chg', 'speed', 'vol_ratio', 'wei_ratio']
+            for col in pct_cols:
+                if col in df.columns:
+                    df[col] = pd.to_numeric(df[col], errors='coerce') / 1000.0
+
+            # 其他数值转换
+            if 'volume' in df.columns:
+                df['volume'] = pd.to_numeric(df['volume'], errors='coerce')
+            if 'amount' in df.columns:
+                df['amount'] = pd.to_numeric(df['amount'], errors='coerce')
 
             df['date'] = pd.to_datetime(df['date'])
             df.set_index('date', inplace=True)
             df.sort_index(inplace=True)
 
-            price_cols = ['open', 'high', 'low', 'close']
-            df[price_cols] = df[price_cols] / 1000.0
-
-            df[price_cols] = df[price_cols].astype(float)
-            df['volume'] = pd.to_numeric(df['volume'], errors='coerce').astype(float)
-            df['amount'] = pd.to_numeric(df['amount'], errors='coerce').astype(float)
+            # 将 base 数据挂载到 attrs 供 UI 使用
+            df.attrs['base'] = {
+                'name': base.get('name', ''),
+                'code': base.get('code', code),
+                'ShiZhi': base.get('ShiZhi', 0),
+                'ShiYingLv': base.get('ShiYingLv', 0) / 1000.0,
+                'ShiJingLv': base.get('ShiJingLv', 0) / 1000.0,
+                'ZhenFu': base.get('ZhenFu', 0) / 1000.0,
+                'LianZhangTian': base.get('LianZhangTian', 0)
+            }
 
             # 保存到缓存（如果是全部数据）
             if all_data:
-                # 保存时重置索引，将日期作为普通列，便于以后读取
                 df_to_save = df.reset_index()
                 Storage.save_csv(df_to_save, cache_file)
 
             logger.info(f"Fetched {len(df)} daily records for {code}")
             return df
 
-        except requests.RequestException as e:
-            logger.error(f"Request failed for {code}: {e}")
-            return None
         except Exception as e:
             logger.exception(f"Unexpected error for {code}: {e}")
             return None
