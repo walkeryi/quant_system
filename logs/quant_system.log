@@ -868,3 +868,886 @@ KeyboardInterrupt
 2026-03-17 01:05:36,553 - quant_system - INFO - 当前数据版本: CSV
 2026-03-17 01:06:11,035 - quant_system - INFO - 程序启动
 2026-03-17 01:06:11,036 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 13:02:55,215 - quant_system - INFO - 程序启动
+2026-03-17 13:02:55,215 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 16:54:35,652 - quant_system - INFO - 程序启动
+2026-03-17 16:54:35,652 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 17:03:04,451 - quant_system - INFO - 程序启动
+2026-03-17 17:03:04,451 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 17:32:52,814 - quant_system - INFO - 程序启动
+2026-03-17 17:32:52,815 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 17:33:46,974 - quant_system - INFO - 程序启动
+2026-03-17 17:33:46,975 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 17:34:04,072 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 224, in on_daily_ready
+    self.draw_kline_chart(df)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 288, in draw_kline_chart
+    if ax.get_label() == 'candle' or ax.get_subplotspec().rowspan.start == 0:
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'rowspan'
+2026-03-17 17:34:09,809 - quant_system - ERROR - get_daily_data 异常 (code=000001)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 37, in get_daily_data
+    return self.daily_provider.fetch(code, all_data=all_data, use_cache=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\daily.py", line 42, in fetch
+    cached = Storage.load_csv(cache_file, parse_dates=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Storage.load_csv() got an unexpected keyword argument 'parse_dates'
+2026-03-17 18:30:50,644 - quant_system - INFO - 程序启动
+2026-03-17 18:30:50,645 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 18:37:37,912 - quant_system - INFO - 程序启动
+2026-03-17 18:37:37,913 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 18:37:51,167 - quant_system - ERROR - get_daily_data 异常 (code=000002)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 37, in get_daily_data
+    return self.daily_provider.fetch(code, all_data=all_data, use_cache=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\daily.py", line 42, in fetch
+    cached = Storage.load_csv(cache_file, parse_dates=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Storage.load_csv() got an unexpected keyword argument 'parse_dates'
+2026-03-17 18:38:04,206 - quant_system - ERROR - get_daily_data 异常 (code=000003)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 37, in get_daily_data
+    return self.daily_provider.fetch(code, all_data=all_data, use_cache=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\daily.py", line 42, in fetch
+    cached = Storage.load_csv(cache_file, parse_dates=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Storage.load_csv() got an unexpected keyword argument 'parse_dates'
+2026-03-17 18:38:21,142 - quant_system - ERROR - get_daily_data 异常 (code=000001)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 37, in get_daily_data
+    return self.daily_provider.fetch(code, all_data=all_data, use_cache=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\daily.py", line 42, in fetch
+    cached = Storage.load_csv(cache_file, parse_dates=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Storage.load_csv() got an unexpected keyword argument 'parse_dates'
+2026-03-17 18:38:22,998 - quant_system - ERROR - get_daily_data 异常 (code=000001)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 37, in get_daily_data
+    return self.daily_provider.fetch(code, all_data=all_data, use_cache=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\daily.py", line 42, in fetch
+    cached = Storage.load_csv(cache_file, parse_dates=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Storage.load_csv() got an unexpected keyword argument 'parse_dates'
+2026-03-17 18:39:05,885 - quant_system - INFO - 程序启动
+2026-03-17 18:39:05,885 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 18:39:16,769 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 176, in on_daily_ready
+    self.current_chart.draw(df)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\kline_chart.py", line 57, in draw
+    ax_main.callbacks.connect('button_press_event', self.on_kline_click)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\cbook.py", line 296, in connect
+    _api.check_in_list(self._signals, signal=signal)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\_api\__init__.py", line 144, in check_in_list
+    raise ValueError(msg)
+ValueError: 'button_press_event' is not a valid value for signal; supported values are 'xlim_changed', 'ylim_changed', 'zlim_changed'
+2026-03-17 18:44:02,988 - quant_system - INFO - 程序启动
+2026-03-17 18:44:02,988 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 20:04:12,366 - quant_system - INFO - 程序启动
+2026-03-17 20:04:12,367 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 20:09:55,065 - quant_system - INFO - 程序启动
+2026-03-17 20:09:55,065 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 20:10:03,934 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 173, in query_data
+    self.thread.error.connect(self.on_error)
+                              ^^^^^^^^^^^^^
+AttributeError: 'DailyTab' object has no attribute 'on_error'
+2026-03-17 20:10:15,073 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 144, in on_mode_changed
+    self._replace_chart(self.fenshi_chart.canvas)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 156, in _replace_chart
+    self.chart_layout.addWidget(new_canvas)
+RuntimeError: wrapped C/C++ object of type FigureCanvasQTAgg has been deleted
+2026-03-17 20:10:34,672 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 95, in load_stock_daily
+    self.daily_tab.load_stock(code)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'DailyTab' object has no attribute 'load_stock'
+2026-03-17 20:10:37,482 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 147, in on_mode_changed
+    self._replace_chart(self.kline_chart.canvas)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 156, in _replace_chart
+    self.chart_layout.addWidget(new_canvas)
+RuntimeError: wrapped C/C++ object of type FigureCanvasQTAgg has been deleted
+2026-03-17 20:12:31,115 - quant_system - INFO - 程序启动
+2026-03-17 20:12:31,116 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 20:12:42,293 - quant_system - ERROR - get_daily_data 异常 (code=000001)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 37, in get_daily_data
+    return self.daily_provider.fetch(code, all_data=all_data, use_cache=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\daily.py", line 42, in fetch
+    cached = Storage.load_csv(cache_file, parse_dates=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Storage.load_csv() got an unexpected keyword argument 'parse_dates'
+2026-03-17 20:43:52,026 - quant_system - INFO - 程序启动
+2026-03-17 20:43:52,026 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 20:44:05,423 - quant_system - ERROR - get_daily_data 异常 (code=601857)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 37, in get_daily_data
+    return self.daily_provider.fetch(code, all_data=all_data, use_cache=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\daily.py", line 42, in fetch
+    cached = Storage.load_csv(cache_file, parse_dates=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Storage.load_csv() got an unexpected keyword argument 'parse_dates'
+2026-03-17 20:44:11,837 - quant_system - ERROR - get_daily_data 异常 (code=601857)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 37, in get_daily_data
+    return self.daily_provider.fetch(code, all_data=all_data, use_cache=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\daily.py", line 42, in fetch
+    cached = Storage.load_csv(cache_file, parse_dates=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Storage.load_csv() got an unexpected keyword argument 'parse_dates'
+2026-03-17 20:46:24,220 - quant_system - INFO - 程序启动
+2026-03-17 20:46:24,220 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 20:46:31,753 - quant_system - ERROR - get_daily_data 异常 (code=000002)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 37, in get_daily_data
+    return self.daily_provider.fetch(code, all_data=all_data, use_cache=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\daily.py", line 42, in fetch
+    cached = Storage.load_csv(cache_file, parse_dates=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Storage.load_csv() got an unexpected keyword argument 'parse_dates'
+2026-03-17 20:46:37,091 - quant_system - ERROR - get_daily_data 异常 (code=000002)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 37, in get_daily_data
+    return self.daily_provider.fetch(code, all_data=all_data, use_cache=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\daily.py", line 42, in fetch
+    cached = Storage.load_csv(cache_file, parse_dates=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Storage.load_csv() got an unexpected keyword argument 'parse_dates'
+2026-03-17 20:46:46,783 - quant_system - ERROR - get_daily_data 异常 (code=000001)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 37, in get_daily_data
+    return self.daily_provider.fetch(code, all_data=all_data, use_cache=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\daily.py", line 42, in fetch
+    cached = Storage.load_csv(cache_file, parse_dates=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Storage.load_csv() got an unexpected keyword argument 'parse_dates'
+2026-03-17 20:46:48,942 - quant_system - ERROR - get_daily_data 异常 (code=000001)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 37, in get_daily_data
+    return self.daily_provider.fetch(code, all_data=all_data, use_cache=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\daily.py", line 42, in fetch
+    cached = Storage.load_csv(cache_file, parse_dates=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Storage.load_csv() got an unexpected keyword argument 'parse_dates'
+2026-03-17 20:50:12,670 - quant_system - INFO - 程序启动
+2026-03-17 20:50:12,671 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 20:50:19,472 - quant_system - ERROR - get_daily_data 异常 (code=000001)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 37, in get_daily_data
+    return self.daily_provider.fetch(code, all_data=all_data, use_cache=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\daily.py", line 42, in fetch
+    cached = Storage.load_csv(cache_file, parse_dates=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Storage.load_csv() got an unexpected keyword argument 'parse_dates'
+2026-03-17 22:03:54,533 - quant_system - INFO - 程序启动
+2026-03-17 22:03:54,534 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 22:04:07,965 - quant_system - ERROR - get_daily_data 异常 (code=000003)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 37, in get_daily_data
+    return self.daily_provider.fetch(code, all_data=all_data, use_cache=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\daily.py", line 42, in fetch
+    cached = Storage.load_csv(cache_file, parse_dates=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Storage.load_csv() got an unexpected keyword argument 'parse_dates'
+2026-03-17 22:04:14,171 - quant_system - ERROR - get_daily_data 异常 (code=000003)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 37, in get_daily_data
+    return self.daily_provider.fetch(code, all_data=all_data, use_cache=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\daily.py", line 42, in fetch
+    cached = Storage.load_csv(cache_file, parse_dates=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Storage.load_csv() got an unexpected keyword argument 'parse_dates'
+2026-03-17 22:05:04,887 - quant_system - INFO - 程序启动
+2026-03-17 22:05:04,887 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 22:05:22,066 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 162, in on_kline_ready
+    self.kline_widget.update_data(df)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\kline_chart_widget.py", line 14, in update_data
+    self.chart.draw(df)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\kline_chart.py", line 64, in draw
+    mpf.plot(
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\mplfinance\plotting.py", line 412, in plot
+    config = _process_kwargs(kwargs, _valid_plot_kwargs())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\mplfinance\_arg_validators.py", line 339, in _process_kwargs
+    raise KeyError('Unrecognized kwarg="'+str(key)+'"')
+KeyError: 'Unrecognized kwarg="volume_ax"'
+2026-03-17 22:07:04,258 - quant_system - INFO - 程序启动
+2026-03-17 22:07:04,258 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 22:07:17,482 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 162, in on_kline_ready
+    self.kline_widget.update_data(df)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\kline_chart_widget.py", line 14, in update_data
+    self.chart.draw(df)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\kline_chart.py", line 45, in draw
+    mpf.plot(
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\mplfinance\plotting.py", line 417, in plot
+    dates,opens,highs,lows,closes,volumes = _check_and_prepare_data(data, config)
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\mplfinance\_arg_validators.py", line 32, in _check_and_prepare_data
+    raise TypeError('Expect data.index as DatetimeIndex')
+TypeError: Expect data.index as DatetimeIndex
+2026-03-17 22:09:23,456 - quant_system - INFO - 程序启动
+2026-03-17 22:09:23,456 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 22:18:19,878 - quant_system - INFO - 程序启动
+2026-03-17 22:18:19,879 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 22:20:53,659 - quant_system - INFO - 程序启动
+2026-03-17 22:20:53,659 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 22:38:36,780 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\search_completer.py", line 147, in eventFilter
+    def eventFilter(self, obj, event):
+    
+KeyboardInterrupt
+2026-03-17 22:38:43,532 - quant_system - INFO - 程序启动
+2026-03-17 22:38:43,532 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 22:40:18,946 - quant_system - INFO - 程序启动
+2026-03-17 22:40:18,947 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 22:47:36,058 - quant_system - INFO - 程序启动
+2026-03-17 22:47:36,059 - quant_system - INFO - 当前数据版本: CSV
+2026-03-17 23:53:51,546 - quant_system - INFO - 程序启动
+2026-03-17 23:53:51,547 - quant_system - INFO - 当前数据版本: CSV
+2026-03-18 00:11:15,279 - quant_system - INFO - 程序启动
+2026-03-18 00:11:15,279 - quant_system - INFO - 当前数据版本: CSV
+2026-03-19 16:40:42,292 - quant_system - INFO - 程序启动
+2026-03-19 16:40:42,293 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 14:44:15,542 - quant_system - INFO - 程序启动
+2026-03-20 14:44:15,543 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 14:53:00,089 - quant_system - INFO - 程序启动
+2026-03-20 14:53:00,105 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 16:34:41,697 - quant_system - INFO - 程序启动
+2026-03-20 16:34:41,697 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 17:12:51,872 - quant_system - INFO - 程序启动
+2026-03-20 17:12:51,873 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 17:12:56,520 - quant_system - ERROR - get_fenshi_data 异常 (code=000003)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 45, in get_fenshi_data
+    return self.fenshi_provider.fetch(code)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fenshi.py", line 40, in fetch
+    raise Exception(error_msg)
+Exception: API error for 000003: 股票代码无效 (ret=302)
+2026-03-20 17:13:54,349 - quant_system - INFO - 程序启动
+2026-03-20 17:13:54,349 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 17:14:30,181 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\backends\backend_qt.py", line 265, in eventFilter
+    def eventFilter(self, source, event):
+    
+KeyboardInterrupt
+2026-03-20 17:14:39,246 - quant_system - INFO - 程序启动
+2026-03-20 17:14:39,246 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 18:37:21,707 - quant_system - INFO - 程序启动
+2026-03-20 18:37:21,708 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 19:03:18,825 - quant_system - INFO - 程序启动
+2026-03-20 19:03:18,825 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 19:03:30,763 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\axis.py", line 1811, in convert_units
+    ret = self._converter.convert(x, self.units, self)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\category.py", line 49, in convert
+    raise ValueError(
+ValueError: Missing category information for StrCategoryConverter; this might be caused by unintendedly mixing categorical and numeric data
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 149, in on_fenshi_ready
+    self.fenshi_widget.update_data(df, base)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart_widget.py", line 14, in update_data
+    self.chart.draw(df, base)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart.py", line 327, in draw
+    self.canvas.draw()
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\backends\backend_agg.py", line 382, in draw
+    self.figure.draw(self.renderer)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 94, in draw_wrapper
+    result = draw(artist, renderer, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\figure.py", line 3257, in draw
+    mimage._draw_list_compositing_images(
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\image.py", line 134, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\axes\_base.py", line 3226, in draw
+    mimage._draw_list_compositing_images(
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\image.py", line 134, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\lines.py", line 766, in draw
+    self.recache()
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\lines.py", line 688, in recache
+    xconv = self.convert_xunits(self._xorig)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 278, in convert_xunits
+    return ax.xaxis.convert_units(x)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\axis.py", line 1813, in convert_units
+    raise munits.ConversionError('Failed to convert value(s) to axis '
+matplotlib.units.ConversionError: Failed to convert value(s) to axis units: ['09:15', '09:16', '09:17', '09:18', '09:19', '09:20', '09:21', '09:22', '09:23', '09:24', '09:25', '09:26', '09:27', '09:28', '09:29', '09:30', '09:31', '09:32', '09:33', '09:34', '09:35', '09:36', '09:37', '09:38', '09:39', '09:40', '09:41', '09:42', '09:43', '09:44', '09:45', '09:46', '09:47', '09:48', '09:49', '09:50', '09:51', '09:52', '09:53', '09:54', '09:55', '09:56', '09:57', '09:58', '09:59', '10:00', '10:01', '10:02', '10:03', '10:04', '10:05', '10:06', '10:07', '10:08', '10:09', '10:10', '10:11', '10:12', '10:13', '10:14', '10:15', '10:16', '10:17', '10:18', '10:19', '10:20', '10:21', '10:22', '10:23', '10:24', '10:25', '10:26', '10:27', '10:28', '10:29', '10:30', '10:31', '10:32', '10:33', '10:34', '10:35', '10:36', '10:37', '10:38', '10:39', '10:40', '10:41', '10:42', '10:43', '10:44', '10:45', '10:46', '10:47', '10:48', '10:49', '10:50', '10:51', '10:52', '10:53', '10:54', '10:55', '10:56', '10:57', '10:58', '10:59', '11:00', '11:01', '11:02', '11:03', '11:04', '11:05', '11:06', '11:07', '11:08', '11:09', '11:10', '11:11', '11:12', '11:13', '11:14', '11:15', '11:16', '11:17', '11:18', '11:19', '11:20', '11:21', '11:22', '11:23', '11:24', '11:25', '11:26', '11:27', '11:28', '11:29', '11:30', '13:00', '13:01', '13:02', '13:03', '13:04', '13:05', '13:06', '13:07', '13:08', '13:09', '13:10', '13:11', '13:12', '13:13', '13:14', '13:15', '13:16', '13:17', '13:18', '13:19', '13:20', '13:21', '13:22', '13:23', '13:24', '13:25', '13:26', '13:27', '13:28', '13:29', '13:30', '13:31', '13:32', '13:33', '13:34', '13:35', '13:36', '13:37', '13:38', '13:39', '13:40', '13:41', '13:42', '13:43', '13:44', '13:45', '13:46', '13:47', '13:48', '13:49', '13:50', '13:51', '13:52', '13:53', '13:54', '13:55', '13:56', '13:57', '13:58', '13:59', '14:00', '14:01', '14:02', '14:03', '14:04', '14:05', '14:06', '14:07', '14:08', '14:09', '14:10', '14:11', '14:12', '14:13', '14:14', '14:15', '14:16', '14:17', '14:18', '14:19', '14:20', '14:21', '14:22', '14:23', '14:24', '14:25', '14:26', '14:27', '14:28', '14:29', '14:30', '14:31', '14:32', '14:33', '14:34', '14:35', '14:36', '14:37', '14:38', '14:39', '14:40', '14:41', '14:42', '14:43', '14:44', '14:45', '14:46', '14:47', '14:48', '14:49', '14:50', '14:51', '14:52', '14:53', '14:54', '14:55', '14:56', '14:57', '14:58', '14:59', '15:00']
+2026-03-20 19:08:09,087 - quant_system - INFO - 程序启动
+2026-03-20 19:08:09,088 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 19:08:14,798 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\axis.py", line 1811, in convert_units
+    ret = self._converter.convert(x, self.units, self)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\category.py", line 49, in convert
+    raise ValueError(
+ValueError: Missing category information for StrCategoryConverter; this might be caused by unintendedly mixing categorical and numeric data
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 149, in on_fenshi_ready
+    self.fenshi_widget.update_data(df, base)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart_widget.py", line 14, in update_data
+    self.chart.draw(df, base)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart.py", line 327, in draw
+    self.canvas.draw()
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\backends\backend_agg.py", line 382, in draw
+    self.figure.draw(self.renderer)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 94, in draw_wrapper
+    result = draw(artist, renderer, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\figure.py", line 3257, in draw
+    mimage._draw_list_compositing_images(
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\image.py", line 134, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\axes\_base.py", line 3226, in draw
+    mimage._draw_list_compositing_images(
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\image.py", line 134, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\lines.py", line 766, in draw
+    self.recache()
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\lines.py", line 688, in recache
+    xconv = self.convert_xunits(self._xorig)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 278, in convert_xunits
+    return ax.xaxis.convert_units(x)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\axis.py", line 1813, in convert_units
+    raise munits.ConversionError('Failed to convert value(s) to axis '
+matplotlib.units.ConversionError: Failed to convert value(s) to axis units: ['09:15', '09:16', '09:17', '09:18', '09:19', '09:20', '09:21', '09:22', '09:23', '09:24', '09:25', '09:26', '09:27', '09:28', '09:29', '09:30', '09:31', '09:32', '09:33', '09:34', '09:35', '09:36', '09:37', '09:38', '09:39', '09:40', '09:41', '09:42', '09:43', '09:44', '09:45', '09:46', '09:47', '09:48', '09:49', '09:50', '09:51', '09:52', '09:53', '09:54', '09:55', '09:56', '09:57', '09:58', '09:59', '10:00', '10:01', '10:02', '10:03', '10:04', '10:05', '10:06', '10:07', '10:08', '10:09', '10:10', '10:11', '10:12', '10:13', '10:14', '10:15', '10:16', '10:17', '10:18', '10:19', '10:20', '10:21', '10:22', '10:23', '10:24', '10:25', '10:26', '10:27', '10:28', '10:29', '10:30', '10:31', '10:32', '10:33', '10:34', '10:35', '10:36', '10:37', '10:38', '10:39', '10:40', '10:41', '10:42', '10:43', '10:44', '10:45', '10:46', '10:47', '10:48', '10:49', '10:50', '10:51', '10:52', '10:53', '10:54', '10:55', '10:56', '10:57', '10:58', '10:59', '11:00', '11:01', '11:02', '11:03', '11:04', '11:05', '11:06', '11:07', '11:08', '11:09', '11:10', '11:11', '11:12', '11:13', '11:14', '11:15', '11:16', '11:17', '11:18', '11:19', '11:20', '11:21', '11:22', '11:23', '11:24', '11:25', '11:26', '11:27', '11:28', '11:29', '11:30', '13:00', '13:01', '13:02', '13:03', '13:04', '13:05', '13:06', '13:07', '13:08', '13:09', '13:10', '13:11', '13:12', '13:13', '13:14', '13:15', '13:16', '13:17', '13:18', '13:19', '13:20', '13:21', '13:22', '13:23', '13:24', '13:25', '13:26', '13:27', '13:28', '13:29', '13:30', '13:31', '13:32', '13:33', '13:34', '13:35', '13:36', '13:37', '13:38', '13:39', '13:40', '13:41', '13:42', '13:43', '13:44', '13:45', '13:46', '13:47', '13:48', '13:49', '13:50', '13:51', '13:52', '13:53', '13:54', '13:55', '13:56', '13:57', '13:58', '13:59', '14:00', '14:01', '14:02', '14:03', '14:04', '14:05', '14:06', '14:07', '14:08', '14:09', '14:10', '14:11', '14:12', '14:13', '14:14', '14:15', '14:16', '14:17', '14:18', '14:19', '14:20', '14:21', '14:22', '14:23', '14:24', '14:25', '14:26', '14:27', '14:28', '14:29', '14:30', '14:31', '14:32', '14:33', '14:34', '14:35', '14:36', '14:37', '14:38', '14:39', '14:40', '14:41', '14:42', '14:43', '14:44', '14:45', '14:46', '14:47', '14:48', '14:49', '14:50', '14:51', '14:52', '14:53', '14:54', '14:55', '14:56', '14:57', '14:58', '14:59', '15:00']
+2026-03-20 19:31:19,596 - quant_system - INFO - 程序启动
+2026-03-20 19:31:19,596 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 19:31:19,738 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 28, in <module>
+    main()
+  File "C:\Users\ASUS\Desktop\量化系统\main.py", line 23, in main
+    window = MainWindow()
+             ^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 22, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 35, in initUI
+    self.daily_tab = DailyTab()
+                     ^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 17, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 21, in initUI
+    self.fenshi_widget = FenshiChartWidget()
+                         ^^^^^^^^^^^^^^^^^
+NameError: name 'FenshiChartWidget' is not defined
+2026-03-20 19:32:28,047 - quant_system - INFO - 程序启动
+2026-03-20 19:32:28,047 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 19:32:35,107 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 95, in load_stock_daily
+    self.daily_tab.load_stock(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 88, in load_stock
+    self.open_stock_tab(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 52, in open_stock_tab
+    stock_tab = StockTab(code)
+                ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 29, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 91, in initUI
+    self.fenshi_widget = FenshiChartWidget()
+                         ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart_widget.py", line 9, in __init__
+    self.chart = FenshiChart()
+                 ^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart.py", line 51, in __init__
+    self.setSizePolicy(Qt.SizePolicy.Policy.Expanding, Qt.SizePolicy.Policy.Expanding)
+                       ^^^^^^^^^^^^^
+AttributeError: type object 'Qt' has no attribute 'SizePolicy'
+2026-03-20 19:33:42,812 - quant_system - INFO - 程序启动
+2026-03-20 19:33:42,812 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 19:33:46,599 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 95, in load_stock_daily
+    self.daily_tab.load_stock(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 88, in load_stock
+    self.open_stock_tab(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 52, in open_stock_tab
+    stock_tab = StockTab(code)
+                ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 29, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 91, in initUI
+    self.fenshi_widget = FenshiChartWidget()
+                         ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart_widget.py", line 9, in __init__
+    self.chart = FenshiChart()
+                 ^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart.py", line 52, in __init__
+    self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+                       ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'QSizePolicy' has no attribute 'Expanding'
+2026-03-20 19:34:55,018 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\search_completer.py", line 147, in eventFilter
+    def eventFilter(self, obj, event):
+    
+KeyboardInterrupt
+2026-03-20 19:35:01,111 - quant_system - INFO - 程序启动
+2026-03-20 19:35:01,111 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 20:32:20,368 - quant_system - INFO - 程序启动
+2026-03-20 20:32:20,368 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 20:32:41,723 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 95, in load_stock_daily
+    self.daily_tab.load_stock(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 88, in load_stock
+    self.open_stock_tab(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 52, in open_stock_tab
+    stock_tab = StockTab(code)
+                ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 29, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 93, in initUI
+    self.fenshi_widget = FenshiChartWidget()
+                         ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart_widget.py", line 12, in __init__
+    layout.addWidget(self.chart)
+TypeError: addWidget(self, a0: Optional[QWidget], stretch: int = 0, alignment: Qt.AlignmentFlag = Qt.Alignment()): argument 1 has unexpected type 'FenshiChart'
+2026-03-20 20:33:30,170 - quant_system - INFO - 程序启动
+2026-03-20 20:33:30,170 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 20:33:37,891 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\axis.py", line 1811, in convert_units
+    ret = self._converter.convert(x, self.units, self)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\category.py", line 49, in convert
+    raise ValueError(
+ValueError: Missing category information for StrCategoryConverter; this might be caused by unintendedly mixing categorical and numeric data
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 153, in on_fenshi_ready
+    self.fenshi_widget.update_data(df, base)  # 更新表格
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart_widget.py", line 14, in update_data
+    self.chart.draw(df, base)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart.py", line 214, in draw
+    self.canvas.draw()
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\backends\backend_agg.py", line 382, in draw
+    self.figure.draw(self.renderer)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 94, in draw_wrapper
+    result = draw(artist, renderer, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\figure.py", line 3257, in draw
+    mimage._draw_list_compositing_images(
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\image.py", line 134, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\axes\_base.py", line 3226, in draw
+    mimage._draw_list_compositing_images(
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\image.py", line 134, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\lines.py", line 766, in draw
+    self.recache()
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\lines.py", line 688, in recache
+    xconv = self.convert_xunits(self._xorig)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 278, in convert_xunits
+    return ax.xaxis.convert_units(x)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\axis.py", line 1813, in convert_units
+    raise munits.ConversionError('Failed to convert value(s) to axis '
+matplotlib.units.ConversionError: Failed to convert value(s) to axis units: ['09:15', '09:16', '09:17', '09:18', '09:19', '09:20', '09:21', '09:22', '09:23', '09:24', '09:25', '09:26', '09:27', '09:28', '09:29', '09:30', '09:31', '09:32', '09:33', '09:34', '09:35', '09:36', '09:37', '09:38', '09:39', '09:40', '09:41', '09:42', '09:43', '09:44', '09:45', '09:46', '09:47', '09:48', '09:49', '09:50', '09:51', '09:52', '09:53', '09:54', '09:55', '09:56', '09:57', '09:58', '09:59', '10:00', '10:01', '10:02', '10:03', '10:04', '10:05', '10:06', '10:07', '10:08', '10:09', '10:10', '10:11', '10:12', '10:13', '10:14', '10:15', '10:16', '10:17', '10:18', '10:19', '10:20', '10:21', '10:22', '10:23', '10:24', '10:25', '10:26', '10:27', '10:28', '10:29', '10:30', '10:31', '10:32', '10:33', '10:34', '10:35', '10:36', '10:37', '10:38', '10:39', '10:40', '10:41', '10:42', '10:43', '10:44', '10:45', '10:46', '10:47', '10:48', '10:49', '10:50', '10:51', '10:52', '10:53', '10:54', '10:55', '10:56', '10:57', '10:58', '10:59', '11:00', '11:01', '11:02', '11:03', '11:04', '11:05', '11:06', '11:07', '11:08', '11:09', '11:10', '11:11', '11:12', '11:13', '11:14', '11:15', '11:16', '11:17', '11:18', '11:19', '11:20', '11:21', '11:22', '11:23', '11:24', '11:25', '11:26', '11:27', '11:28', '11:29', '11:30', '13:00', '13:01', '13:02', '13:03', '13:04', '13:05', '13:06', '13:07', '13:08', '13:09', '13:10', '13:11', '13:12', '13:13', '13:14', '13:15', '13:16', '13:17', '13:18', '13:19', '13:20', '13:21', '13:22', '13:23', '13:24', '13:25', '13:26', '13:27', '13:28', '13:29', '13:30', '13:31', '13:32', '13:33', '13:34', '13:35', '13:36', '13:37', '13:38', '13:39', '13:40', '13:41', '13:42', '13:43', '13:44', '13:45', '13:46', '13:47', '13:48', '13:49', '13:50', '13:51', '13:52', '13:53', '13:54', '13:55', '13:56', '13:57', '13:58', '13:59', '14:00', '14:01', '14:02', '14:03', '14:04', '14:05', '14:06', '14:07', '14:08', '14:09', '14:10', '14:11', '14:12', '14:13', '14:14', '14:15', '14:16', '14:17', '14:18', '14:19', '14:20', '14:21', '14:22', '14:23', '14:24', '14:25', '14:26', '14:27', '14:28', '14:29', '14:30', '14:31', '14:32', '14:33', '14:34', '14:35', '14:36', '14:37', '14:38', '14:39', '14:40', '14:41', '14:42', '14:43', '14:44', '14:45', '14:46', '14:47', '14:48', '14:49', '14:50', '14:51', '14:52', '14:53', '14:54', '14:55', '14:56', '14:57', '14:58', '14:59', '15:00']
+2026-03-20 20:37:59,142 - quant_system - INFO - 程序启动
+2026-03-20 20:37:59,143 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 20:38:04,743 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\axis.py", line 1811, in convert_units
+    ret = self._converter.convert(x, self.units, self)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\category.py", line 49, in convert
+    raise ValueError(
+ValueError: Missing category information for StrCategoryConverter; this might be caused by unintendedly mixing categorical and numeric data
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 153, in on_fenshi_ready
+    self.fenshi_widget.update_data(df, base)  # 更新表格
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart_widget.py", line 14, in update_data
+    self.chart.draw(df, base)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart.py", line 220, in draw
+    self.canvas.draw()
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\backends\backend_agg.py", line 382, in draw
+    self.figure.draw(self.renderer)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 94, in draw_wrapper
+    result = draw(artist, renderer, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\figure.py", line 3257, in draw
+    mimage._draw_list_compositing_images(
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\image.py", line 134, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\axes\_base.py", line 3226, in draw
+    mimage._draw_list_compositing_images(
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\image.py", line 134, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\lines.py", line 766, in draw
+    self.recache()
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\lines.py", line 688, in recache
+    xconv = self.convert_xunits(self._xorig)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 278, in convert_xunits
+    return ax.xaxis.convert_units(x)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\axis.py", line 1813, in convert_units
+    raise munits.ConversionError('Failed to convert value(s) to axis '
+matplotlib.units.ConversionError: Failed to convert value(s) to axis units: ['09:15', '09:16', '09:17', '09:18', '09:19', '09:20', '09:21', '09:22', '09:23', '09:24', '09:25', '09:26', '09:27', '09:28', '09:29', '09:30', '09:31', '09:32', '09:33', '09:34', '09:35', '09:36', '09:37', '09:38', '09:39', '09:40', '09:41', '09:42', '09:43', '09:44', '09:45', '09:46', '09:47', '09:48', '09:49', '09:50', '09:51', '09:52', '09:53', '09:54', '09:55', '09:56', '09:57', '09:58', '09:59', '10:00', '10:01', '10:02', '10:03', '10:04', '10:05', '10:06', '10:07', '10:08', '10:09', '10:10', '10:11', '10:12', '10:13', '10:14', '10:15', '10:16', '10:17', '10:18', '10:19', '10:20', '10:21', '10:22', '10:23', '10:24', '10:25', '10:26', '10:27', '10:28', '10:29', '10:30', '10:31', '10:32', '10:33', '10:34', '10:35', '10:36', '10:37', '10:38', '10:39', '10:40', '10:41', '10:42', '10:43', '10:44', '10:45', '10:46', '10:47', '10:48', '10:49', '10:50', '10:51', '10:52', '10:53', '10:54', '10:55', '10:56', '10:57', '10:58', '10:59', '11:00', '11:01', '11:02', '11:03', '11:04', '11:05', '11:06', '11:07', '11:08', '11:09', '11:10', '11:11', '11:12', '11:13', '11:14', '11:15', '11:16', '11:17', '11:18', '11:19', '11:20', '11:21', '11:22', '11:23', '11:24', '11:25', '11:26', '11:27', '11:28', '11:29', '11:30', '13:00', '13:01', '13:02', '13:03', '13:04', '13:05', '13:06', '13:07', '13:08', '13:09', '13:10', '13:11', '13:12', '13:13', '13:14', '13:15', '13:16', '13:17', '13:18', '13:19', '13:20', '13:21', '13:22', '13:23', '13:24', '13:25', '13:26', '13:27', '13:28', '13:29', '13:30', '13:31', '13:32', '13:33', '13:34', '13:35', '13:36', '13:37', '13:38', '13:39', '13:40', '13:41', '13:42', '13:43', '13:44', '13:45', '13:46', '13:47', '13:48', '13:49', '13:50', '13:51', '13:52', '13:53', '13:54', '13:55', '13:56', '13:57', '13:58', '13:59', '14:00', '14:01', '14:02', '14:03', '14:04', '14:05', '14:06', '14:07', '14:08', '14:09', '14:10', '14:11', '14:12', '14:13', '14:14', '14:15', '14:16', '14:17', '14:18', '14:19', '14:20', '14:21', '14:22', '14:23', '14:24', '14:25', '14:26', '14:27', '14:28', '14:29', '14:30', '14:31', '14:32', '14:33', '14:34', '14:35', '14:36', '14:37', '14:38', '14:39', '14:40', '14:41', '14:42', '14:43', '14:44', '14:45', '14:46', '14:47', '14:48', '14:49', '14:50', '14:51', '14:52', '14:53', '14:54', '14:55', '14:56', '14:57', '14:58', '14:59', '15:00']
+2026-03-20 20:40:25,400 - quant_system - INFO - 程序启动
+2026-03-20 20:40:25,401 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 20:40:30,386 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\axis.py", line 1811, in convert_units
+    ret = self._converter.convert(x, self.units, self)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\category.py", line 49, in convert
+    raise ValueError(
+ValueError: Missing category information for StrCategoryConverter; this might be caused by unintendedly mixing categorical and numeric data
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 153, in on_fenshi_ready
+    self.fenshi_widget.update_data(df, base)  # 更新表格
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart_widget.py", line 14, in update_data
+    self.chart.draw(df, base)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart.py", line 231, in draw
+    self.canvas.draw()
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\backends\backend_agg.py", line 382, in draw
+    self.figure.draw(self.renderer)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 94, in draw_wrapper
+    result = draw(artist, renderer, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\figure.py", line 3257, in draw
+    mimage._draw_list_compositing_images(
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\image.py", line 134, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\axes\_base.py", line 3226, in draw
+    mimage._draw_list_compositing_images(
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\image.py", line 134, in _draw_list_compositing_images
+    a.draw(renderer)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\lines.py", line 766, in draw
+    self.recache()
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\lines.py", line 688, in recache
+    xconv = self.convert_xunits(self._xorig)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\artist.py", line 278, in convert_xunits
+    return ax.xaxis.convert_units(x)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\axis.py", line 1813, in convert_units
+    raise munits.ConversionError('Failed to convert value(s) to axis '
+matplotlib.units.ConversionError: Failed to convert value(s) to axis units: ['09:15', '09:16', '09:17', '09:18', '09:19', '09:20', '09:21', '09:22', '09:23', '09:24', '09:25', '09:26', '09:27', '09:28', '09:29', '09:30', '09:31', '09:32', '09:33', '09:34', '09:35', '09:36', '09:37', '09:38', '09:39', '09:40', '09:41', '09:42', '09:43', '09:44', '09:45', '09:46', '09:47', '09:48', '09:49', '09:50', '09:51', '09:52', '09:53', '09:54', '09:55', '09:56', '09:57', '09:58', '09:59', '10:00', '10:01', '10:02', '10:03', '10:04', '10:05', '10:06', '10:07', '10:08', '10:09', '10:10', '10:11', '10:12', '10:13', '10:14', '10:15', '10:16', '10:17', '10:18', '10:19', '10:20', '10:21', '10:22', '10:23', '10:24', '10:25', '10:26', '10:27', '10:28', '10:29', '10:30', '10:31', '10:32', '10:33', '10:34', '10:35', '10:36', '10:37', '10:38', '10:39', '10:40', '10:41', '10:42', '10:43', '10:44', '10:45', '10:46', '10:47', '10:48', '10:49', '10:50', '10:51', '10:52', '10:53', '10:54', '10:55', '10:56', '10:57', '10:58', '10:59', '11:00', '11:01', '11:02', '11:03', '11:04', '11:05', '11:06', '11:07', '11:08', '11:09', '11:10', '11:11', '11:12', '11:13', '11:14', '11:15', '11:16', '11:17', '11:18', '11:19', '11:20', '11:21', '11:22', '11:23', '11:24', '11:25', '11:26', '11:27', '11:28', '11:29', '11:30', '13:00', '13:01', '13:02', '13:03', '13:04', '13:05', '13:06', '13:07', '13:08', '13:09', '13:10', '13:11', '13:12', '13:13', '13:14', '13:15', '13:16', '13:17', '13:18', '13:19', '13:20', '13:21', '13:22', '13:23', '13:24', '13:25', '13:26', '13:27', '13:28', '13:29', '13:30', '13:31', '13:32', '13:33', '13:34', '13:35', '13:36', '13:37', '13:38', '13:39', '13:40', '13:41', '13:42', '13:43', '13:44', '13:45', '13:46', '13:47', '13:48', '13:49', '13:50', '13:51', '13:52', '13:53', '13:54', '13:55', '13:56', '13:57', '13:58', '13:59', '14:00', '14:01', '14:02', '14:03', '14:04', '14:05', '14:06', '14:07', '14:08', '14:09', '14:10', '14:11', '14:12', '14:13', '14:14', '14:15', '14:16', '14:17', '14:18', '14:19', '14:20', '14:21', '14:22', '14:23', '14:24', '14:25', '14:26', '14:27', '14:28', '14:29', '14:30', '14:31', '14:32', '14:33', '14:34', '14:35', '14:36', '14:37', '14:38', '14:39', '14:40', '14:41', '14:42', '14:43', '14:44', '14:45', '14:46', '14:47', '14:48', '14:49', '14:50', '14:51', '14:52', '14:53', '14:54', '14:55', '14:56', '14:57', '14:58', '14:59', '15:00']
+2026-03-20 20:45:27,221 - quant_system - INFO - 程序启动
+2026-03-20 20:45:27,221 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 20:48:19,714 - quant_system - INFO - 程序启动
+2026-03-20 20:48:19,714 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 20:50:31,233 - quant_system - INFO - 程序启动
+2026-03-20 20:50:31,234 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 20:53:30,031 - quant_system - INFO - 程序启动
+2026-03-20 20:53:30,031 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 20:58:58,289 - quant_system - INFO - 程序启动
+2026-03-20 20:58:58,291 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 21:05:46,260 - quant_system - INFO - 程序启动
+2026-03-20 21:05:46,260 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 21:09:28,040 - quant_system - INFO - 程序启动
+2026-03-20 21:09:28,041 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 21:10:06,808 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 95, in load_stock_daily
+    self.daily_tab.load_stock(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 88, in load_stock
+    self.open_stock_tab(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 58, in open_stock_tab
+    stock_tab.load_fenshi_data()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 135, in load_fenshi_data
+    self.thread.finished.connect(self.on_fenshi_ready)
+                                 ^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'StockTab' object has no attribute 'on_fenshi_ready'
+2026-03-20 21:12:43,852 - quant_system - INFO - 程序启动
+2026-03-20 21:12:43,852 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 21:15:39,248 - quant_system - INFO - 程序启动
+2026-03-20 21:15:39,248 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 21:15:47,733 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 95, in load_stock_daily
+    self.daily_tab.load_stock(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 88, in load_stock
+    self.open_stock_tab(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 52, in open_stock_tab
+    stock_tab = StockTab(code)
+                ^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 29, in __init__
+    self.initUI()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 90, in initUI
+    self.fenshi_widget = FenshiChartWidget()
+                         ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart_widget.py", line 10, in __init__
+    self.chart = FenshiChart()
+                 ^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart.py", line 25, in __init__
+    self.figure.subplots_adjust(left=0.1, right=0.1, top=0.92, bottom=0.15)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\figure.py", line 1351, in subplots_adjust
+    self.subplotpars.update(left, bottom, right, top, wspace, hspace)
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\matplotlib\gridspec.py", line 773, in update
+    raise ValueError('left cannot be >= right')
+ValueError: left cannot be >= right
+2026-03-20 21:17:45,238 - quant_system - INFO - 程序启动
+2026-03-20 21:17:45,239 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 21:17:52,358 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 143, in on_fenshi_ready
+    self.fenshi_widget.update_data(df, base)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart_widget.py", line 36, in update_data
+    prices, pcts = self.chart.draw(df, base)
+    ^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable NoneType object
+2026-03-20 21:19:45,806 - quant_system - INFO - 程序启动
+2026-03-20 21:19:45,808 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 21:19:57,724 - quant_system - ERROR - get_fenshi_data 异常 (code=000003)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 45, in get_fenshi_data
+    return self.fenshi_provider.fetch(code)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fenshi.py", line 40, in fetch
+    raise Exception(error_msg)
+Exception: API error for 000003: 股票代码无效 (ret=302)
+2026-03-20 21:20:25,015 - quant_system - ERROR - get_fenshi_data 异常 (code=000005)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 45, in get_fenshi_data
+    return self.fenshi_provider.fetch(code)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fenshi.py", line 40, in fetch
+    raise Exception(error_msg)
+Exception: API error for 000005: 股票代码无效 (ret=302)
+2026-03-20 21:21:15,324 - quant_system - INFO - 程序启动
+2026-03-20 21:21:15,324 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 21:30:29,209 - quant_system - INFO - 程序启动
+2026-03-20 21:30:29,210 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 21:39:47,182 - quant_system - INFO - 程序启动
+2026-03-20 21:39:47,182 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 21:42:09,185 - quant_system - INFO - 程序启动
+2026-03-20 21:42:09,186 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 21:45:13,916 - quant_system - INFO - 程序启动
+2026-03-20 21:45:13,918 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 21:47:30,968 - quant_system - INFO - 程序启动
+2026-03-20 21:47:30,969 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 21:47:58,363 - quant_system - ERROR - get_fenshi_data 异常 (code=000003)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 45, in get_fenshi_data
+    return self.fenshi_provider.fetch(code)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fenshi.py", line 40, in fetch
+    raise Exception(error_msg)
+Exception: API error for 000003: 股票代码无效 (ret=302)
+2026-03-20 21:54:46,189 - quant_system - INFO - 程序启动
+2026-03-20 21:54:46,189 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 22:00:16,539 - quant_system - INFO - 程序启动
+2026-03-20 22:00:16,540 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 22:09:15,654 - quant_system - INFO - 程序启动
+2026-03-20 22:09:15,654 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 22:09:31,950 - quant_system - ERROR - get_fenshi_data 异常 (code=000018)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 45, in get_fenshi_data
+    return self.fenshi_provider.fetch(code)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fenshi.py", line 40, in fetch
+    raise Exception(error_msg)
+Exception: API error for 000018: 股票代码无效 (ret=302)
+2026-03-20 22:16:19,522 - quant_system - INFO - 程序启动
+2026-03-20 22:16:19,523 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 22:21:11,476 - quant_system - INFO - 程序启动
+2026-03-20 22:21:11,477 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 22:21:16,890 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 141, in on_fenshi_ready
+    self.fenshi_widget.update_data(df, base)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart_widget.py", line 110, in update_data
+    self.chart.draw(df, base)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart.py", line 172, in draw
+    s_idx, s_prices = self._smooth_data(indices, prices)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart.py", line 117, in _smooth_data
+    spl = make_interp_spline(x, y, k=3)  # k=3 为三次样条
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\.venv\Lib\site-packages\scipy\interpolate\_bsplines.py", line 1573, in make_interp_spline
+    raise ValueError("Expect x to not have duplicates")
+ValueError: Expect x to not have duplicates
+2026-03-20 22:23:14,319 - quant_system - INFO - 程序启动
+2026-03-20 22:23:14,319 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 22:23:24,664 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 112, in resizeEvent
+    self.fenshi_widget.apply_size_constraints()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'FenshiChartWidget' object has no attribute 'apply_size_constraints'
+2026-03-20 22:23:26,698 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 112, in resizeEvent
+    self.fenshi_widget.apply_size_constraints()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'FenshiChartWidget' object has no attribute 'apply_size_constraints'
+2026-03-20 22:27:05,130 - quant_system - INFO - 程序启动
+2026-03-20 22:27:05,131 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 22:27:09,671 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 110, in resizeEvent
+    self.fenshi_widget.apply_size_constraints()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'FenshiChartWidget' object has no attribute 'apply_size_constraints'
+2026-03-20 22:27:10,834 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 110, in resizeEvent
+    self.fenshi_widget.apply_size_constraints()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'FenshiChartWidget' object has no attribute 'apply_size_constraints'
+2026-03-20 22:29:02,060 - quant_system - INFO - 程序启动
+2026-03-20 22:29:02,061 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 22:29:39,463 - quant_system - ERROR - get_fenshi_data 异常 (code=000003)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fetcher.py", line 45, in get_fenshi_data
+    return self.fenshi_provider.fetch(code)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\量化系统\data_preprocessing\fenshi.py", line 40, in fetch
+    raise Exception(error_msg)
+Exception: API error for 000003: 股票代码无效 (ret=302)
+2026-03-20 22:32:32,604 - quant_system - INFO - 程序启动
+2026-03-20 22:32:32,604 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 22:36:21,121 - quant_system - INFO - 程序启动
+2026-03-20 22:36:21,121 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 22:37:24,460 - quant_system - INFO - 程序启动
+2026-03-20 22:37:24,460 - quant_system - INFO - 当前数据版本: CSV
+2026-03-20 22:40:03,185 - quant_system - INFO - 程序启动
+2026-03-20 22:40:03,187 - quant_system - INFO - 当前数据版本: CSV

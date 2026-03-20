@@ -67,12 +67,18 @@ class FenshiDataProvider:
 
             return result_df
 
+
         except requests.RequestException as e:
+
             logger.error(f"Request failed for {code}: {e}")
-            return None
+
+            raise Exception(f"请求失败: {e}")  # 抛出异常
+
         except Exception as e:
+
             logger.exception(f"Unexpected error for {code}: {e}")
-            return None
+
+            raise  # 重新抛出原异常
 
     def save_to_db(self, df: pd.DataFrame) -> int:
         """将分时数据保存到 MySQL 数据库"""

@@ -3,6 +3,10 @@ import sys
 from PyQt6.QtWidgets import QApplication
 from ui.main_window import MainWindow
 from common.logger import setup_logger
+import matplotlib
+matplotlib.use('QtAgg')
+matplotlib.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'sans-serif']
+matplotlib.rcParams['axes.unicode_minus'] = False
 
 def main():
     # 初始化日志
