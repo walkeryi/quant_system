@@ -88,7 +88,7 @@ class DailyDataProvider:
             if 'amount' in df.columns:
                 df['amount'] = pd.to_numeric(df['amount'], errors='coerce')
 
-            df['date'] = pd.to_datetime(df['date'])
+            df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d', errors='coerce')
             df.set_index('date', inplace=True)
             df.sort_index(inplace=True)
 

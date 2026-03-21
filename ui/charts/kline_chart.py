@@ -4,7 +4,7 @@ from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg as FigureCanvas
 import numpy as np
 import pandas as pd
 from matplotlib.ticker import Formatter, MaxNLocator
-
+from matplotlib.collections import PolyCollection, LineCollection
 
 class DateFormatter(Formatter):
     def __init__(self, dates):
@@ -18,14 +18,13 @@ class DateFormatter(Formatter):
 
 
 class KlineChart:
-    """纯 matplotlib 打造的高性能专业交互 K 线图"""
+    """纯 matplotlib 打造的高性能专业交互 K 线图（支持日线/周线动态光标）"""
 
     def __init__(self, wrapper=None):
         self.widget_wrapper = wrapper
         self.bg_color = '#1e1e1e'
         self.figure = Figure(figsize=(10, 6), facecolor=self.bg_color)
         self.canvas = FigureCanvas(self.figure)
-
         self.figure.subplots_adjust(left=0.08, right=0.92, top=0.92, bottom=0.15, hspace=0.08)
 
         self.ax_main = self.figure.add_subplot(4, 1, (1, 3), facecolor=self.bg_color)
@@ -34,20 +33,25 @@ class KlineChart:
         self.bg_cache = None
         self.hover_data_map = {}
         self._last_hover_idx = None
-
-        self.v_line = self.ax_main.axvline(x=0, color='white', linestyle=':', visible=False, animated=True)
-        self.h_line = self.ax_main.axhline(y=0, color='white', linestyle=':', visible=False, animated=True)
-        self.v_line_vol = self.ax_vol.axvline(x=0, color='white', linestyle=':', visible=False, animated=True)
-
-        self.tooltip = self.ax_main.annotate("", xy=(0, 0), xytext=(15, 15), textcoords="offset points",
-                                             bbox=dict(boxstyle="round,pad=0.5", fc="#2a2a2a", ec="#555555",
-                                                       alpha=0.95),
-                                             color="#eeeeee", visible=False, animated=True, zorder=20, fontsize=9)
+        self.current_period = 'daily'  # 默认日线
 
         self.canvas.mpl_connect("draw_event", self.on_draw_event)
         self.canvas.mpl_connect("motion_notify_event", self.on_mouse_move)
         self.canvas.mpl_connect("axes_leave_event", self.on_mouse_leave)
+
+        # 初次初始化光标组件
+        self._init_cursor_artists()
         self._setup_axes()
+
+    def _init_cursor_artists(self):
+        """初始化/重建 十字光标和弹窗组件（必须 animated=True 供局部刷新）"""
+        self.v_line = self.ax_main.axvline(x=0, color='white', linestyle=':', visible=False, animated=True)
+        self.h_line = self.ax_main.axhline(y=0, color='white', linestyle=':', visible=False, animated=True)
+        self.v_line_vol = self.ax_vol.axvline(x=0, color='white', linestyle=':', visible=False, animated=True)
+        self.tooltip = self.ax_main.annotate("", xy=(0, 0), xytext=(15, 15), textcoords="offset points",
+                                             bbox=dict(boxstyle="round,pad=0.4", fc="#2a2a2a", ec="#666666",
+                                                       alpha=0.95),
+                                             color="#eeeeee", visible=False, animated=True, zorder=20, fontsize=9)
 
     def _setup_axes(self):
         for ax in [self.ax_main, self.ax_vol]:
@@ -55,33 +59,34 @@ class KlineChart:
             for spine in ax.spines.values(): spine.set_color('#333333')
             ax.grid(True, which='major', color='#444444', linestyle='-', linewidth=0.8, alpha=0.5)
             ax.grid(True, which='minor', color='#333333', linestyle='--', linewidth=0.5, alpha=0.3)
-
         self.ax_main.tick_params(labelbottom=False)
         self.ax_vol.set_ylabel('成交量', color='#cccccc', fontsize=8)
 
     def on_draw_event(self, event):
         self.bg_cache = self.canvas.copy_from_bbox(self.figure.bbox)
 
-    def draw(self, df):
+    def draw(self, df, period='daily'):
+        self.current_period = period
         self.ax_main.clear()
         self.ax_vol.clear()
         self._setup_axes()
         self.hover_data_map.clear()
+        self._last_hover_idx = None
 
         if df is None or df.empty:
-            self.ax_main.set_title('K线图 (无数据)', color='#cccccc')
+            p_name = "日" if period == 'daily' else "周" if period == 'weekly' else "月"
+            self.ax_main.set_title(f'{p_name}K线图 (无数据)', color='#cccccc')
             self.canvas.draw()
             return
 
-        # 1. 均线必须在数据截断前计算！保证前 20 天也能看到完整的均线
         df = df.copy()
         df['MA5'] = df['close'].rolling(5).mean()
         df['MA10'] = df['close'].rolling(10).mean()
         df['MA20'] = df['close'].rolling(20).mean()
 
-        # 2. 限制时间范围：默认显示 100 个交易日
-        if len(df) > 100:
-            df = df.tail(100).copy()
+        # 性能提升后，你可以放宽数据量，比如最高支持 500 根线依然丝滑
+        if len(df) > 500:
+            df = df.tail(500).copy()
 
         dates = df.index.tolist()
         indices = np.arange(len(dates))
@@ -90,46 +95,54 @@ class KlineChart:
         highs, lows = df['high'].values, df['low'].values
         vols = df['volume'].values
 
-        up_color = '#ef5350'  # 柔和明亮的红色（涨）
-        down_color = '#26a69a'  # 柔和明亮的青绿色（跌）
+        up_color, down_color = '#ef5350', '#26a69a'
         colors = [up_color if c >= o else down_color for c, o in zip(closes, opens)]
+        bar_width = 0.6
 
-        # 3. 缝隙控制：宽度 0.5 留出明显的间隔
-        bar_width = 0.5
-        body_heights = np.abs(closes - opens)
-        self.ax_main.bar(indices, body_heights, bottom=np.minimum(opens, closes),
-                         width=bar_width, color=colors, edgecolor=colors, linewidth=1, zorder=3)
+        # ================= 渲染性能革命：Collection 机制 =================
 
-        # 处理十字星
-        star_indices = np.where(body_heights < 0.001)[0]
-        if len(star_indices) > 0:
-            star_colors = [colors[i] for i in star_indices]
-            self.ax_main.hlines(closes[star_indices], star_indices - (bar_width / 2), star_indices + (bar_width / 2),
-                                colors=star_colors, linewidth=1.5, zorder=3)
+        # 1. 极速渲染上下影线
+        segments = [((i, low), (i, high)) for i, low, high in zip(indices, lows, highs)]
+        lines = LineCollection(segments, colors=colors, linewidths=1.2, zorder=2)
+        self.ax_main.add_collection(lines)
 
-        # 绘制影线
-        self.ax_main.vlines(indices, lows, highs, color=colors, linewidth=1.2, zorder=2)
+        # 2. 极速渲染K线实体
+        verts = []
+        for i, o, c in zip(indices, opens, closes):
+            if abs(c - o) < 0.001:  # 保护十字星，保证有一丝高度
+                c = o + 0.001
+            left, right = i - bar_width / 2, i + bar_width / 2
+            verts.append(((left, o), (left, c), (right, c), (right, o)))
 
-        # 4. Y 轴自适应修复，避免被压缩成小方块
-        y_max = highs.max()
-        y_min = lows.min()
-        y_margin = (y_max - y_min) * 0.05
-        if y_margin == 0: y_margin = y_min * 0.01
+        bodies = PolyCollection(verts, facecolors=colors, edgecolors=colors, linewidths=1, zorder=3)
+        self.ax_main.add_collection(bodies)
+
+        # 手动设置 X/Y 轴边界 (Collection不会自动算边界)
+        y_max, y_min = highs.max(), lows.min()
+        y_margin = (y_max - y_min) * 0.05 if y_max != y_min else y_min * 0.01
         self.ax_main.set_ylim(y_min - y_margin, y_max + y_margin)
+        self.ax_main.set_xlim(-1, len(dates) + 3)
 
-        # 成交量
-        self.ax_vol.bar(indices, vols, width=bar_width, color=colors, edgecolor=colors, linewidth=1, zorder=3)
+        # 3. 极速渲染成交量
+        vol_verts = []
+        for i, v in zip(indices, vols):
+            left, right = i - bar_width / 2, i + bar_width / 2
+            vol_verts.append(((left, 0), (left, v), (right, v), (right, 0)))
+        vol_bodies = PolyCollection(vol_verts, facecolors=colors, edgecolors=colors, linewidths=1, zorder=3)
+        self.ax_vol.add_collection(vol_bodies)
 
-        # 绘制均线
+        v_max = vols.max()
+        self.ax_vol.set_ylim(0, v_max * 1.05 if v_max > 0 else 1)
+        # ===================================================================
+
+        # 均线由于本来就是一根线 (Line2D)，保持 plot() 即可，速度很快
         self.ax_main.plot(indices, df['MA5'].values, color='#ff9800', linewidth=1.2, label='MA5')
         self.ax_main.plot(indices, df['MA10'].values, color='#2196f3', linewidth=1.2, label='MA10')
         self.ax_main.plot(indices, df['MA20'].values, color='#e91e63', linewidth=1.2, label='MA20')
         self.ax_main.legend(loc='upper left', frameon=False, labelcolor='#cccccc', fontsize=9)
 
-        # 坐标轴与留白优化
         self.ax_vol.xaxis.set_major_locator(MaxNLocator(8))
         self.ax_vol.xaxis.set_major_formatter(DateFormatter(dates))
-        self.ax_main.set_xlim(-1, len(dates) + 3)  # 右侧留出一定空间
 
         for i, d in enumerate(dates):
             self.hover_data_map[i] = {
@@ -138,13 +151,7 @@ class KlineChart:
                 'high': highs[i], 'low': lows[i], 'vol': vols[i]
             }
 
-        self.v_line = self.ax_main.axvline(x=0, color='white', linestyle=':', visible=False, animated=True)
-        self.h_line = self.ax_main.axhline(y=0, color='white', linestyle=':', visible=False, animated=True)
-        self.v_line_vol = self.ax_vol.axvline(x=0, color='white', linestyle=':', visible=False, animated=True)
-        self.tooltip = self.ax_main.annotate("", xy=(0, 0), xytext=(15, 15), textcoords="offset points",
-                                             bbox=dict(boxstyle="round,pad=0.4", fc="#2a2a2a", ec="#666666", alpha=0.9),
-                                             color="#eeeeee", visible=False, animated=True, zorder=20, fontsize=9)
-
+        self._init_cursor_artists()
         self.canvas.draw()
 
     def on_mouse_move(self, event):
@@ -158,7 +165,16 @@ class KlineChart:
         self.v_line_vol.set_xdata([x_idx, x_idx])
         self.h_line.set_ydata([p['close'], p['close']])
 
-        text = f"{p['date']}\n开盘: {p['open']:.2f}\n收盘: {p['close']:.2f}\n最高: {p['high']:.2f}\n最低: {p['low']:.2f}\n成交量: {p['vol']:,.0f}"
+        # 动态提示词
+        # 动态提示词
+        if self.current_period == 'daily':
+            period_str = "日线"
+        elif self.current_period == 'weekly':
+            period_str = "周线"
+        else:
+            period_str = "月线"
+        text = (f"【{period_str}】 {p['date']}\n开盘: {p['open']:.2f}\n收盘: {p['close']:.2f}\n"
+                f"最高: {p['high']:.2f}\n最低: {p['low']:.2f}\n成交量: {p['vol']:,.0f}")
         self.tooltip.set_text(text)
         y_pos = event.ydata if event.inaxes == self.ax_main else p['close']
         self.tooltip.xy = (x_idx, y_pos)

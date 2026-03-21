@@ -1992,3 +1992,94 @@ ValueError: left cannot be >= right
 2026-03-21 02:12:53,195 - quant_system - INFO - 当前数据版本: CSV
 2026-03-21 02:19:51,313 - quant_system - INFO - 程序启动
 2026-03-21 02:19:51,313 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 14:09:02,120 - quant_system - INFO - 程序启动
+2026-03-21 14:09:02,122 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 14:30:59,595 - quant_system - INFO - 程序启动
+2026-03-21 14:30:59,595 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 14:33:48,743 - quant_system - INFO - 程序启动
+2026-03-21 14:33:48,743 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 14:35:29,404 - quant_system - INFO - 程序启动
+2026-03-21 14:35:29,405 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 17:54:42,996 - quant_system - INFO - 程序启动
+2026-03-21 17:54:43,002 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 17:55:17,640 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 82, in on_kline_period_changed
+    self.load_weekly_data()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 135, in load_weekly_data
+    self.weekly_thread = WeeklyDataThread(self.code)
+                         ^^^^^^^^^^^^^^^^
+NameError: name 'WeeklyDataThread' is not defined
+2026-03-21 18:00:53,605 - quant_system - INFO - 程序启动
+2026-03-21 18:00:53,606 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 18:01:04,305 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 82, in on_kline_period_changed
+    self.load_weekly_data()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 135, in load_weekly_data
+    self.weekly_thread = WeeklyDataThread(self.code)
+                         ^^^^^^^^^^^^^^^^
+NameError: name 'WeeklyDataThread' is not defined
+2026-03-21 18:13:24,425 - quant_system - INFO - 程序启动
+2026-03-21 18:13:24,427 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 18:25:52,047 - quant_system - INFO - 程序启动
+2026-03-21 18:25:52,048 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 19:01:04,491 - quant_system - INFO - 程序启动
+2026-03-21 19:01:04,492 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 19:31:09,431 - quant_system - INFO - 程序启动
+2026-03-21 19:31:09,431 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 19:31:15,591 - quant_system - INFO - 用户登录成功
+2026-03-21 19:32:15,846 - quant_system - INFO - 程序启动
+2026-03-21 19:32:15,846 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 19:32:21,573 - quant_system - INFO - 用户登录成功
+2026-03-21 19:43:20,349 - quant_system - INFO - 程序启动
+2026-03-21 19:43:20,349 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 19:47:59,212 - quant_system - INFO - 程序启动
+2026-03-21 19:47:59,212 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 19:48:01,555 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 19:50:18,921 - quant_system - INFO - 程序启动
+2026-03-21 19:50:18,922 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 19:50:31,345 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 19:52:31,403 - quant_system - INFO - 程序启动
+2026-03-21 19:52:31,404 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 19:52:35,321 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 19:53:47,387 - quant_system - INFO - 程序启动
+2026-03-21 19:53:47,388 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 19:53:51,131 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 19:55:58,219 - quant_system - INFO - 程序启动
+2026-03-21 19:55:58,219 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 19:56:19,157 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 20:01:52,131 - quant_system - INFO - 程序启动
+2026-03-21 20:01:52,132 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 20:01:57,937 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 20:07:03,649 - quant_system - INFO - 程序启动
+2026-03-21 20:07:03,649 - quant_system - INFO - 当前数据版本: CSV
+2026-03-21 20:07:07,094 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 20:11:29,554 - quant_system - INFO - 程序启动
+2026-03-21 20:11:35,358 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 20:14:23,492 - quant_system - INFO - 程序启动
+2026-03-21 20:14:25,778 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 20:18:07,233 - quant_system - INFO - 程序启动
+2026-03-21 20:18:11,915 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 20:21:36,765 - quant_system - INFO - 程序启动
+2026-03-21 20:21:39,533 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 20:21:42,978 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 72, in load_stock_daily
+    self.daily_tab.load_stock(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 88, in load_stock
+    self.open_stock_tab(code)
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 58, in open_stock_tab
+    stock_tab.load_fenshi_data()
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 293, in load_fenshi_data
+    self.fenshi_price_widget.chart.ax_main.clear()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'FenshiChart' object has no attribute 'ax_main'
+2026-03-21 20:24:11,856 - quant_system - INFO - 程序启动
+2026-03-21 20:24:14,281 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 20:26:30,914 - quant_system - INFO - 程序启动
+2026-03-21 20:26:33,420 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 20:27:58,447 - quant_system - INFO - 程序启动
+2026-03-21 20:28:00,811 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 20:30:28,185 - quant_system - INFO - 程序启动
+2026-03-21 20:30:31,749 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）

@@ -4,12 +4,8 @@ from PyQt6.QtWidgets import (QMainWindow, QTabWidget, QStatusBar, QMessageBox,
                              QTableWidget)
 from PyQt6.QtGui import QAction
 from PyQt6.QtCore import Qt, QModelIndex, QTimer
-import pandas as pd
 
 from ui.stock_list_tab import StockListTab
-from ui.daily_tab import DailyTab
-from ui.backtest_tab import BacktestTab
-from ui.calendar_tab import CalendarTab
 from ui.search_completer import SearchCompleter
 
 
@@ -18,6 +14,11 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("量化交易系统")
         self.setGeometry(100, 100, 1300, 800)
+
+        # === 懒加载组件占位符 ===
+        self.daily_tab = None
+        self.backtest_tab = None
+        self.calendar_tab = None
 
         self.initUI()
         self.initMenu()
@@ -28,71 +29,73 @@ class MainWindow(QMainWindow):
         self.tabs = QTabWidget()
         self.setCentralWidget(self.tabs)
 
+        # 首屏只加载“股票列表”，保证极速启动
         self.stock_list_tab = StockListTab()
-        # 连接股票列表双击信号到个股详情加载方法
         self.stock_list_tab.stock_double_clicked.connect(self.load_stock_daily)
-
-        self.daily_tab = DailyTab()
-        self.backtest_tab = BacktestTab()
-        self.calendar_tab = CalendarTab()
-
         self.tabs.addTab(self.stock_list_tab, "股票数据")
-        self.tabs.addTab(self.daily_tab, "个股详情")
-        self.tabs.addTab(self.backtest_tab, "策略回测")
-        self.tabs.addTab(self.calendar_tab, "交易日历")
+
+        # 其它标签页只放置空的占位组件
+        self.tabs.addTab(QWidget(), "个股详情")
+        self.tabs.addTab(QWidget(), "策略回测")
+        self.tabs.addTab(QWidget(), "交易日历")
+
+        # 绑定点击切换事件，触发懒加载
+        self.tabs.currentChanged.connect(self.on_tab_changed)
+
+    def on_tab_changed(self, index):
+        """当用户第一次点击其它Tab时，才真正初始化其UI及图表"""
+        if index == 1 and self.daily_tab is None:
+            # 延迟导入，减少主程序启动时的库解析耗时
+            from ui.daily_tab import DailyTab
+            self.daily_tab = DailyTab()
+            self.tabs.removeTab(1)
+            self.tabs.insertTab(1, self.daily_tab, "个股详情")
+            self.tabs.setCurrentIndex(1)
+        elif index == 2 and self.backtest_tab is None:
+            from ui.backtest_tab import BacktestTab
+            self.backtest_tab = BacktestTab()
+            self.tabs.removeTab(2)
+            self.tabs.insertTab(2, self.backtest_tab, "策略回测")
+            self.tabs.setCurrentIndex(2)
+        elif index == 3 and self.calendar_tab is None:
+            from ui.calendar_tab import CalendarTab
+            self.calendar_tab = CalendarTab()
+            self.tabs.removeTab(3)
+            self.tabs.insertTab(3, self.calendar_tab, "交易日历")
+            self.tabs.setCurrentIndex(3)
+
+    def load_stock_daily(self, code):
+        if self.daily_tab is None:
+            self.on_tab_changed(1)  # 强制触发懒加载
+        else:
+            self.tabs.setCurrentIndex(1)
+        self.daily_tab.load_stock(code)
 
     def initGlobalSearch(self):
-        """现代化全局搜索框"""
         self.search_completer = SearchCompleter(self)
-
-        # 创建搜索框（将自动返回一个 QLineEdit）
         self.search_edit = self.search_completer.setup_search_box(self.menuBar())
-
-        # 设置数据源
         self.search_completer.set_data_source(self._get_search_results)
-
-        # 连接选中信号
         self.search_completer.item_selected.connect(self.on_search_item_selected)
 
-        # --- 新增：将搜索框放入容器，设置右边距 ---
         search_container = QWidget()
         search_layout = QHBoxLayout(search_container)
-        search_layout.setContentsMargins(0, 0, 15, 0)  # 右边距15像素
+        search_layout.setContentsMargins(0, 0, 15, 0)
         search_layout.addWidget(self.search_edit)
-
-        # 放置在菜单栏右侧（使用容器）
         self.menuBar().setCornerWidget(search_container, Qt.Corner.TopRightCorner)
 
     def _get_search_results(self, keyword):
-        """获取搜索结果 - 供搜索组件调用"""
         df = self.stock_list_tab.all_df
-        if df is None or not keyword:
-            return []
-
-        # 模糊匹配代码和名称
+        if df is None or not keyword: return []
         mask = (df['code'].astype(str).str.contains(keyword, case=False) |
                 df['name'].str.contains(keyword, case=False))
         filtered = df[mask].head(10)
-
-        # 格式化数据 [(code, name, exchange), ...]
         results = []
         for _, row in filtered.iterrows():
-            code = str(row['code'])
-            name = str(row['name'])
-            exchange = self.stock_list_tab._get_exchange(code)
-            results.append((code, name, exchange))
-
+            results.append((str(row['code']), str(row['name']), self.stock_list_tab._get_exchange(str(row['code']))))
         return results
 
     def on_search_item_selected(self, code):
-        """处理搜索项选择"""
         self.load_stock_daily(code)
-
-    def load_stock_daily(self, code):
-        """加载个股详情"""
-        print(f"跳转到个股详情，代码: {code}")  # 调试输出
-        self.tabs.setCurrentIndex(1)  # 切换到"个股详情"标签
-        self.daily_tab.load_stock(code)
 
     def initMenu(self):
         menubar = self.menuBar()

@@ -1,0 +1,136 @@
+即时买入下单
+接口说明：即时买入（五档即成剩余撤销）
+
+执行流程：返回100为接受订单待处理，同时生成单号，此后可通过单号查询执行结果；（注意：暂不支持同时执行多个订单）
+
+常规接口：http://www.sanhulianghua.com:2008/v1/ssjy_jimairu
+
+安全接口：https://www.sanhulianghua.com:608/v1/ssjy_jimairu
+
+请求方式：GET
+
+
+http://www.sanhulianghua.com:2008/v1/ssjy_jimairu?token=f75cc676f91464a63112979b855c4164&mykey=wCJ8pBgYhn6m-9yOxjO5ZkyDHvesRfUWKZNUIaWEMpEYXLLk&code=512010&price=1120&hand=1&policy=网格交易
+
+http://www.sanhulianghua.com:2008/v1/ssjy_jimairu?token=&mykey=我的私钥&code=512010&price=1120&hand=1&policy=网格交易
+请求参数
+参数名称	描述	类型	默认值	是否必须	取值范围	示例值
+token	会员令牌	string		是	非空，来自【 会员信息 】	f75cc676f91464a63112979b855c4164
+mykey	交易私钥	string		是	非空，来自【 会员信息 】：设置交易账户：下载密钥生成器	wCJ8pBgYhn6m-9yOxjO5ZkyDHvesRfUWKZNUIaWEMpEYXLLk
+code	股票代码	string		是	非空	512010
+price	限价	uint		是	单位：0.1分，必须在市价上下偏差30%以内，因交易所不支持可能导致限价无效	112 => 0.112元
+hand	手数	uint		是	单位：手	10 => 1000股
+policy	策略名称	string	NULL	否	用户自定义中英文字符串，字节长度不超过64，查询订单时原值返回	网格交易
+返回数据
+数据名称	描述	类型	示例值	备注
+ret	订单状态	uint	100	100:订单接受(生成单号)；300:令牌错误；301:余额不足；311:未连券商；312:订单阻塞；314:私钥错误；4XX:其他错误
+msg	提示信息	string	"success"	UTF-8
+orderid	订单号	uint	1000000001	订单接受时有效，非零
+time	下单时间	string	"2025-01-16 16:10:52"	订单接受时有效，UTF-8
+type	订单类型	string	"即时买入"	订单接受时有效，UTF-8
+code	股票代码	string	“512010”	订单接受时有效，UTF-8
+price	限价	uint	112	订单接受时有效，单位：0.1分，112 => 0.112元
+hand	手数	uint	10	订单接受时有效，单位：手，10 => 1000股
+policy	策略名称	string	"网格交易"	订单接受时有效，原值返回
+即时卖出下单
+接口说明：即时卖出（五档即成剩余撤销）
+
+执行流程：返回100为接受订单待处理，同时生成单号，此后可通过单号查询执行结果；（注意：暂不支持同时执行多个订单）
+
+常规接口：http://www.sanhulianghua.com:2008/v1/ssjy_jimaichu
+
+安全接口：https://www.sanhulianghua.com:608/v1/ssjy_jimaichu
+
+请求方式：GET
+
+
+http://www.sanhulianghua.com:2008/v1/ssjy_jimaichu?token=f75cc676f91464a63112979b855c4164&mykey=wCJ8pBgYhn6m-9yOxjO5ZkyDHvesRfUWKZNUIaWEMpEYXLLk&code=512010&price=22400&hand=1&policy=网格交易
+
+http://www.sanhulianghua.com:2008/v1/ssjy_jimaichu?token=&mykey=我的私钥&code=512010&price=22400&hand=1&policy=网格交易
+请求参数
+参数名称	描述	类型	默认值	是否必须	取值范围	示例值
+token	会员令牌	string		是	非空，来自【 会员信息 】	f75cc676f91464a63112979b855c4164
+mykey	交易私钥	string		是	非空，来自【 会员信息 】：设置交易账户：下载密钥生成器	wCJ8pBgYhn6m-9yOxjO5ZkyDHvesRfUWKZNUIaWEMpEYXLLk
+code	股票代码	string		是	非空	512010
+price	限价	uint		是	单位：0.1分，必须在市价上下偏差30%以内，因交易所不支持可能导致限价无效	112 => 0.112元
+hand	手数	uint		是	单位：手	10 => 1000股
+policy	策略名称	string	NULL	否	用户自定义中英文字符串，字节长度不超过64，查询订单时原值返回	网格交易
+返回数据
+数据名称	描述	类型	示例值	备注
+ret	订单状态	uint	100	100:订单接受(生成单号)；300:令牌错误；301:余额不足；311:未连券商；312:订单阻塞；314:私钥错误；4XX:其他错误
+msg	提示信息	string	"success"	UTF-8
+orderid	订单号	uint	1000000001	订单接受时有效，非零
+time	下单时间	string	"2025-01-16 16:10:52"	订单接受时有效，UTF-8
+type	订单类型	string	"即时卖出"	订单接受时有效，UTF-8
+code	股票代码	string	“512010”	订单接受时有效，UTF-8
+price	限价	uint	112	订单接受时有效，单位：0.1分，112 => 0.112元
+hand	手数	uint	10	订单接受时有效，单位：手，10 => 1000股
+policy	策略名称	string	"网格交易"	订单接受时有效，原值返回
+委托买入下单
+接口说明：委托限价买入
+
+执行流程：返回100为接受订单待处理，同时生成单号，此后可通过单号查询执行结果；（注意：暂不支持同时执行多个订单）
+
+常规接口：http://www.sanhulianghua.com:2008/v1/ssjy_weimairu
+
+安全接口：https://www.sanhulianghua.com:608/v1/ssjy_weimairu
+
+请求方式：GET
+
+
+http://www.sanhulianghua.com:2008/v1/ssjy_weimairu?token=f75cc676f91464a63112979b855c4164&mykey=wCJ8pBgYhn6m-9yOxjO5ZkyDHvesRfUWKZNUIaWEMpEYXLLk&code=512010&price=1120&hand=1&policy=网格交易
+
+http://www.sanhulianghua.com:2008/v1/ssjy_weimairu?token=&mykey=我的私钥&code=512010&price=1120&hand=1&policy=网格交易
+请求参数
+参数名称	描述	类型	默认值	是否必须	取值范围	示例值
+token	会员令牌	string		是	非空，来自【 会员信息 】	f75cc676f91464a63112979b855c4164
+mykey	交易私钥	string		是	非空，来自【 会员信息 】：设置交易账户：下载密钥生成器	wCJ8pBgYhn6m-9yOxjO5ZkyDHvesRfUWKZNUIaWEMpEYXLLk
+code	股票代码	string		是	非空	512010
+price	委托价	uint		是	单位：0.1分，必须在市价上下偏差30%以内	112 => 0.112元
+hand	手数	uint		是	单位：手	10 => 1000股
+policy	策略名称	string	NULL	否	用户自定义中英文字符串，字节长度不超过64，查询订单时原值返回	网格交易
+返回数据
+数据名称	描述	类型	示例值	备注
+ret	订单状态	uint	100	100:订单接受(生成单号)；300:令牌错误；301:余额不足；311:未连券商；312:订单阻塞；314:私钥错误；4XX:其他错误
+msg	提示信息	string	"success"	UTF-8
+orderid	订单号	uint	1000000001	订单接受时有效，非零
+time	下单时间	string	"2025-01-16 16:10:52"	订单接受时有效，UTF-8
+type	订单类型	string	"限价买入"	订单接受时有效，UTF-8
+code	股票代码	string	“512010”	订单接受时有效，UTF-8
+price	委托价	uint	112	订单接受时有效，单位：0.1分，112 => 0.112元
+hand	手数	uint	10	订单接受时有效，单位：手，10 => 1000股
+policy	策略名称	string	"网格交易"	订单接受时有效，原值返回
+委托卖出下单
+接口说明：委托限价卖出
+
+执行流程：返回100为接受订单待处理，同时生成单号，此后可通过单号查询执行结果；（注意：暂不支持同时执行多个订单）
+
+常规接口：http://www.sanhulianghua.com:2008/v1/ssjy_weimaichu
+
+安全接口：https://www.sanhulianghua.com:608/v1/ssjy_weimaichu
+
+请求方式：GET
+
+
+http://www.sanhulianghua.com:2008/v1/ssjy_weimaichu?token=f75cc676f91464a63112979b855c4164&mykey=wCJ8pBgYhn6m-9yOxjO5ZkyDHvesRfUWKZNUIaWEMpEYXLLk&code=512010&price=22400&hand=1&policy=网格交易
+
+http://www.sanhulianghua.com:2008/v1/ssjy_weimaichu?token=&mykey=我的私钥&code=512010&price=22400&hand=1&policy=网格交易
+请求参数
+参数名称	描述	类型	默认值	是否必须	取值范围	示例值
+token	会员令牌	string		是	非空，来自【 会员信息 】	f75cc676f91464a63112979b855c4164
+mykey	交易私钥	string		是	非空，来自【 会员信息 】：设置交易账户：下载密钥生成器	wCJ8pBgYhn6m-9yOxjO5ZkyDHvesRfUWKZNUIaWEMpEYXLLk
+code	股票代码	string		是	非空	512010
+price	委托价	uint		是	单位：0.1分，必须在市价上下偏差30%以内	112 => 0.112元
+hand	手数	uint		是	单位：手	10 => 1000股
+policy	策略名称	string	NULL	否	用户自定义中英文字符串，字节长度不超过64，查询订单时原值返回	网格交易
+返回数据
+数据名称	描述	类型	示例值	备注
+ret	订单状态	uint	100	100:订单接受(生成单号)；300:令牌错误；301:余额不足；311:未连券商；312:订单阻塞；314:私钥错误；4XX:其他错误
+msg	提示信息	string	"success"	UTF-8
+orderid	订单号	uint	1000000001	订单接受时有效，非零
+time	下单时间	string	"2025-01-16 16:10:52"	订单接受时有效，UTF-8
+type	订单类型	string	"限价卖出"	订单接受时有效，UTF-8
+code	股票代码	string	“512010”	订单接受时有效，UTF-8
+price	委托价	uint	112	订单接受时有效，单位：0.1分，112 => 0.112元
+hand	手数	uint	10	订单接受时有效，单位：手，10 => 1000股
+policy	策略名称	string	"网格交易"	订单接受时有效，原值返回

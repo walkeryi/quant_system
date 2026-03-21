@@ -12,7 +12,8 @@ class DailyDataThread(QThread):
     def run(self):
         try:
             dp = DataPreprocessor()
-            df = dp.get_daily_data(self.code, all_data=True)
+            # 将 all_data 改为 False，只获取最新 100 条日线数据
+            df = dp.get_daily_data(self.code, all_data=False)
             if df is None or df.empty:
                 self.error.emit("无法获取日线数据")
                 return

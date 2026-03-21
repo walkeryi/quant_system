@@ -67,7 +67,19 @@ class FenshiChart:
             idx = (h * 60 + m - 570) if h * 60 + m <= 690 else (h * 60 + m - 780 + 120)
             if 0 <= idx <= 240:
                 indices.append(idx); prices.append(row.price); avgs.append(row.avg_price)
-                self.hover_data_map[idx] = {'time': row.time, 'price': row.price, 'vol': getattr(row, 'minute_volume', 0)}
+                self.hover_data_map[idx] = \
+                    {
+                        'time': row.time,
+                        'price': row.price,
+                        'avg_price': row.avg_price,
+                        'pct_chg': row.pct_chg,
+                        'vol': getattr(row, 'minute_volume', 0),
+                        'nei_pan': getattr(row, 'nei_pan', 0),
+                        'wai_pan': getattr(row, 'wai_pan', 0),
+                        'huan_shou': getattr(row, 'huan_shou', 0),
+                        'liang_bi': getattr(row, 'liang_bi', 0),
+                        'wei_bi': getattr(row, 'wei_bi', 0),
+                    }
 
         u_idx, u_pos = np.unique(indices, return_index=True)
         u_prices, u_avgs = np.array(prices)[u_pos], np.array(avgs)[u_pos]
@@ -107,7 +119,17 @@ class FenshiChart:
         pct = ((p['price'] - self.zuoshou) / self.zuoshou * 100) if self.zuoshou > 0 else 0.0
 
         self.v_line.set_xdata([x_idx, x_idx]); self.h_line.set_ydata([p['price'], p['price']])
-        self.tooltip.set_text(f"{p['time']}\n价格: {p['price']:.2f}\n成交: {p['vol']:.0f}手")
+        self.tooltip.set_text(
+            f"{p['time']}\n"
+            f"价格: {p['price']:.2f}\n"
+            f"涨幅: {pct:+.2f}%\n"
+            f"均价: {p['avg_price']:.2f}\n"
+            f"成交量: {p['vol']:.0f}手\n"
+            f"内盘: {p['nei_pan']:.0f}  外盘: {p['wai_pan']:.0f}\n"
+            f"换手: {p['huan_shou']:.2f}%\n"
+            f"量比: {p['liang_bi']:.2f}\n"
+            f"委比: {p['wei_bi']:.2f}%"
+        )
         self.tooltip.xy = (x_idx, p['price'])
 
         self.canvas.restore_region(self.bg_cache)

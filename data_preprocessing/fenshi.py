@@ -35,7 +35,15 @@ class FenshiDataProvider:
 
             df['minute_volume'] = df['ZongLiang'].astype(float)
 
-            result_df = df[['time', 'price', 'avg_price', 'minute_volume', 'pct_chg']].copy()
+            # --- 提取额外字段（用于弹窗）---
+            df['nei_pan'] = df['NeiPan'].astype(float)  # 内盘（手）
+            df['wai_pan'] = df['WaiPan'].astype(float)  # 外盘（手）
+            df['huan_shou'] = df['HuanShou'].astype(float) / 1000.0  # 换手率（%）
+            df['liang_bi'] = df['LiangBi'].astype(float) / 1000.0  # 量比
+            df['wei_bi'] = df['WeiBi'].astype(float) / 1000.0  # 委比（%）
+
+            result_df = df[['time', 'price', 'avg_price', 'minute_volume', 'pct_chg',
+                            'nei_pan', 'wai_pan', 'huan_shou', 'liang_bi', 'wei_bi']].copy()
 
             # 附加完整 base 信息用于 UI 面板 (10个字段)
             result_df.attrs['base'] = {

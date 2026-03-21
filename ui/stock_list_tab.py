@@ -1,3 +1,5 @@
+import time
+import builtins
 import pandas as pd
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
                              QPushButton, QTableWidget, QTableWidgetItem,
@@ -10,6 +12,7 @@ from data_preprocessing import DataPreprocessor
 
 class NoFocusDelegate(QStyledItemDelegate):
     """强力消除单元格选中时的虚线框"""
+
     def paint(self, painter, option, index):
         if option.state & QStyle.StateFlag.State_HasFocus:
             option.state = option.state & ~QStyle.StateFlag.State_HasFocus
@@ -18,7 +21,7 @@ class NoFocusDelegate(QStyledItemDelegate):
 
 class StockListTab(QWidget):
     """股票列表页：支持双击跳转个股详情"""
-    stock_double_clicked = pyqtSignal(str)  # 定义信号，传递股票代码
+    stock_double_clicked = pyqtSignal(str)
 
     def __init__(self):
         super().__init__()
@@ -26,8 +29,10 @@ class StockListTab(QWidget):
         self.all_df = None
         self.current_category = "全部"
         self.initUI()
+
+        print(
+            f"[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | 股票列表 UI 框架初始化完毕，开始请求/读取数据...")
         self.load_from_cache()
-        # 连接表格的双击信号
         self.table.cellDoubleClicked.connect(self.on_cell_double_clicked)
 
     def initUI(self):
@@ -46,7 +51,6 @@ class StockListTab(QWidget):
         right_layout = QVBoxLayout(right_panel)
         right_layout.setContentsMargins(0, 0, 0, 0)
 
-        # 按钮栏
         tool_bar = QHBoxLayout()
         self.cache_btn = QPushButton("刷新缓存")
         self.update_btn = QPushButton("同步行情")
@@ -57,19 +61,16 @@ class StockListTab(QWidget):
         tool_bar.addWidget(self.date_lbl)
         right_layout.addLayout(tool_bar)
 
-        # 表格配置
         self.table = QTableWidget()
         self.table.setColumnCount(7)
         self.table.setHorizontalHeaderLabels(["代码", "名称", "最新价", "涨幅%", "最高", "最低", "成交量(手)"])
 
-        # 核心设置：消除光标与虚线
         self.table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
         self.table.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         self.table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
         self.table.setItemDelegate(NoFocusDelegate())
-        self.table.setStyleSheet("QTableWidget { outline: none; border: none; }")
+        self.table.setFrameShape(QTableWidget.Shape.NoFrame)
 
-        # 列宽美化
         fm = QFontMetrics(self.table.font())
         base_w = fm.horizontalAdvance("0" * 9) + 10
         for i in range(7):
@@ -84,12 +85,11 @@ class StockListTab(QWidget):
         self.update_btn.clicked.connect(self.force_update)
 
     def filter_table(self):
-        """筛选逻辑：带安全性检查"""
+        """极速筛选与渲染逻辑"""
         if self.all_df is None or self.all_df.empty:
             return
         df = self.all_df.copy()
 
-        # 解决 KeyError: 'code' 问题：确保 code 是列而不是索引
         if 'code' not in df.columns:
             df = df.reset_index()
 
@@ -107,6 +107,9 @@ class StockListTab(QWidget):
                 m = codes.str.startswith(('8', '9', '4'))
             df = df[m]
 
+        # ============ 核心加速区 ============
+        # 1. 锁死表格的界面刷新，禁止一边插入一边重绘界面
+        self.table.setUpdatesEnabled(False)
         self.table.setSortingEnabled(False)
         self.table.setRowCount(len(df))
 
@@ -115,7 +118,10 @@ class StockListTab(QWidget):
             item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
             return item
 
-        for idx, (_, row) in enumerate(df.iterrows()):
+        # 2. 将 DataFrame 转为字典列表（比 iterrows 遍历快数十倍）
+        records = df.to_dict('records')
+
+        for idx, row in enumerate(records):
             self.table.setItem(idx, 0, create_item(row.get('code', '--')))
             self.table.setItem(idx, 1, create_item(row.get('name', '--')))
 
@@ -138,15 +144,20 @@ class StockListTab(QWidget):
             self.table.setItem(idx, 6, create_item(row.get('volume', '--')))
 
         self.table.setSortingEnabled(True)
+        # 3. 数据全部塞进去后，再瞬间一次性重绘界面
+        self.table.setUpdatesEnabled(True)
+        # ==================================
 
     def on_category_changed(self, item):
         self.current_category = item.text()
         self.filter_table()
 
     def load_from_cache(self):
+        self.fetch_start_time = time.perf_counter()
         self._start_thread(True)
 
     def force_update(self):
+        self.fetch_start_time = time.perf_counter()
         self._start_thread(False)
 
     def _start_thread(self, cache):
@@ -155,25 +166,39 @@ class StockListTab(QWidget):
         self.thread.start()
 
     def on_data_loaded(self, df, date):
+        # 记录数据读取耗时
+        fetch_cost = time.perf_counter() - getattr(self, 'fetch_start_time', time.perf_counter())
+        print(
+            f"[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | 数据获取完成 (线程独立耗时: {fetch_cost:.4f}s)，准备渲染表格...")
+
+        # 记录表格绘制耗时
+        render_start = time.perf_counter()
         self.all_df = df
         self.date_lbl.setText(f"行情日期: {date or '--'}")
         self.filter_table()
+        render_cost = time.perf_counter() - render_start
+        print(
+            f"[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | UI 表格数据装载完毕 (渲染独立耗时: {render_cost:.4f}s)")
+
+        # 打印总耗时总结
+        total_time = time.perf_counter() - builtins.APP_START_TIME
+        print(f"\n=======================================================")
+        print(f"🚀 [性能计时] 数据完全加载完成！应用启动总耗时: {total_time:.4f} 秒")
+        print(f"=======================================================\n")
 
     def on_cell_double_clicked(self, row, column):
-        """处理表格双击事件，获取股票代码并发射信号"""
-        code_item = self.table.item(row, 0)  # 代码在第0列
+        code_item = self.table.item(row, 0)
         if code_item:
             code = code_item.text().strip()
             if code:
-                print(f"双击股票，代码: {code}")  # 调试输出
-                self.stock_double_clicked.emit(code)
-            else:
-                print("双击行但代码为空")
-        else:
-            print("双击行但获取代码项失败")
+                import time, builtins
+                # 记录双击这一瞬间的时间点
+                builtins.JUMP_START_TIME = time.perf_counter()
+                print(
+                    f"\n[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | ---> 鼠标双击股票 {code}，触发详情页跳转...")
 
+                self.stock_double_clicked.emit(code)
     def _get_exchange(self, code):
-        """根据股票代码判断所属市场（供搜索框调用）"""
         code = str(code).zfill(6)
         if code.startswith('60'):
             return '沪市'

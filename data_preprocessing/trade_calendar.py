@@ -65,7 +65,7 @@ class TradeCalendar:
             if 'date' not in df.columns or 'trade' not in df.columns:
                 return False
             # 筛选年份
-            df['date'] = pd.to_datetime(df['date'])
+            df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d', errors='coerce')
             year_mask = df['date'].dt.year == int(year)
             year_df = df[year_mask]
             if year_df.empty:
