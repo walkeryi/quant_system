@@ -2414,3 +2414,193 @@ SyntaxError: unmatched '}'
 2026-03-27 22:11:58,147 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
 2026-03-27 22:12:04,683 - quant_system - INFO - 缓存失效或过期，向 weekly API 请求最新100笔数据: 603580
 2026-03-27 22:12:07,683 - quant_system - INFO - 缓存失效或过期，向 monthly API 请求最新100笔数据: 603580
+2026-03-27 22:42:36,890 - quant_system - INFO - 程序启动
+2026-03-27 22:42:43,238 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 22:45:39,344 - quant_system - INFO - 程序启动
+2026-03-27 22:45:43,519 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 22:46:29,800 - quant_system - INFO - 程序启动
+2026-03-27 22:46:33,810 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 22:46:36,930 - quant_system - INFO - 缓存失效或过期，向 daily API 请求数据: 000001 (获取=100笔)
+2026-03-27 22:47:51,073 - quant_system - INFO - 程序启动
+2026-03-27 22:47:53,707 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 22:50:45,029 - quant_system - INFO - 缓存失效或过期，向 daily API 请求数据: 000001 (获取=全量)
+2026-03-27 22:51:35,426 - quant_system - INFO - 程序启动
+2026-03-27 22:51:38,223 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 22:52:32,355 - quant_system - INFO - 程序启动
+2026-03-27 22:52:35,086 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 22:53:10,328 - quant_system - INFO - 程序启动
+2026-03-27 22:53:12,556 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 22:54:26,199 - quant_system - INFO - 程序启动
+2026-03-27 22:54:31,000 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 22:58:04,973 - quant_system - INFO - 程序启动
+2026-03-27 22:58:12,409 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 22:59:31,681 - quant_system - INFO - 程序启动
+2026-03-27 22:59:34,076 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 23:01:04,513 - quant_system - INFO - 程序启动
+2026-03-27 23:01:07,148 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 23:04:03,512 - quant_system - INFO - 程序启动
+2026-03-27 23:04:07,310 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 23:09:50,943 - quant_system - INFO - 程序启动
+2026-03-27 23:09:53,472 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 23:13:36,748 - quant_system - INFO - 程序启动
+2026-03-27 23:13:39,200 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 23:14:47,805 - quant_system - INFO - 程序启动
+2026-03-27 23:14:50,341 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 23:15:35,075 - quant_system - INFO - 程序启动
+2026-03-27 23:15:42,867 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 23:17:33,089 - quant_system - INFO - 程序启动
+2026-03-27 23:17:37,987 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 23:20:08,017 - quant_system - INFO - 程序启动
+2026-03-27 23:20:11,171 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 23:20:12,654 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\ui\main_window.py", line 184, in load_stock_daily
+    self.daily_tab.load_stock(code)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\daily_tab.py", line 88, in load_stock
+    self.open_stock_tab(code)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\daily_tab.py", line 52, in open_stock_tab
+    stock_tab = StockTab(code)
+  File "C:\Users\ASUS\Desktop\quant_system\ui\widgets\stock_tab.py", line 33, in __init__
+    self.initUI()
+    ~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\widgets\stock_tab.py", line 143, in initUI
+    self.fenshi_price_widget = FenshiChartWidget()
+                               ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\charts\fenshi_chart_widget.py", line 11, in __init__
+    self.chart = FenshiChart(wrapper=self)
+                 ~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\charts\fenshi_chart.py", line 33, in __init__
+    self.canvas.mpl_connect("draw_event", self.on_draw_event)
+                                          ^^^^^^^^^^^^^^^^^^
+AttributeError: 'FenshiChart' object has no attribute 'on_draw_event'
+2026-03-27 23:37:03,696 - quant_system - INFO - 程序启动
+2026-03-27 23:37:08,425 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 23:37:10,397 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\ui\main_window.py", line 184, in load_stock_daily
+    self.daily_tab.load_stock(code)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\daily_tab.py", line 88, in load_stock
+    self.open_stock_tab(code)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\daily_tab.py", line 52, in open_stock_tab
+    stock_tab = StockTab(code)
+  File "C:\Users\ASUS\Desktop\quant_system\ui\widgets\stock_tab.py", line 33, in __init__
+    self.initUI()
+    ~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\widgets\stock_tab.py", line 143, in initUI
+    self.fenshi_price_widget = FenshiChartWidget()
+                               ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\charts\fenshi_chart_widget.py", line 11, in __init__
+    self.chart = FenshiChart(wrapper=self)
+                 ~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\charts\fenshi_chart.py", line 33, in __init__
+    self.canvas.mpl_connect("draw_event", self.on_draw_event)
+                                          ^^^^^^^^^^^^^^^^^^
+AttributeError: 'FenshiChart' object has no attribute 'on_draw_event'
+2026-03-27 23:49:35,003 - quant_system - INFO - 程序启动
+2026-03-27 23:49:37,715 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 23:49:39,699 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\ui\main_window.py", line 184, in load_stock_daily
+    self.daily_tab.load_stock(code)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\daily_tab.py", line 88, in load_stock
+    self.open_stock_tab(code)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\daily_tab.py", line 52, in open_stock_tab
+    stock_tab = StockTab(code)
+  File "C:\Users\ASUS\Desktop\quant_system\ui\widgets\stock_tab.py", line 33, in __init__
+    self.initUI()
+    ~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\widgets\stock_tab.py", line 143, in initUI
+    self.fenshi_price_widget = FenshiChartWidget()
+                               ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\charts\fenshi_chart_widget.py", line 11, in __init__
+    self.chart = FenshiChart(wrapper=self)
+                 ~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\charts\fenshi_chart.py", line 33, in __init__
+    self.canvas.mpl_connect("draw_event", self.on_draw_event)
+                                          ^^^^^^^^^^^^^^^^^^
+AttributeError: 'FenshiChart' object has no attribute 'on_draw_event'
+2026-03-27 23:50:31,384 - quant_system - INFO - 程序启动
+2026-03-27 23:50:34,925 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 23:50:51,239 - quant_system - INFO - 程序启动
+2026-03-27 23:50:53,817 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 23:51:33,858 - quant_system - INFO - 程序启动
+2026-03-27 23:51:36,304 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 23:51:37,913 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\ui\main_window.py", line 184, in load_stock_daily
+    self.daily_tab.load_stock(code)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\daily_tab.py", line 88, in load_stock
+    self.open_stock_tab(code)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\daily_tab.py", line 52, in open_stock_tab
+    stock_tab = StockTab(code)
+  File "C:\Users\ASUS\Desktop\quant_system\ui\widgets\stock_tab.py", line 33, in __init__
+    self.initUI()
+    ~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\widgets\stock_tab.py", line 143, in initUI
+    self.fenshi_price_widget = FenshiChartWidget()
+                               ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\charts\fenshi_chart_widget.py", line 11, in __init__
+    self.chart = FenshiChart(wrapper=self)
+                 ~~~~~~~~~~~^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\charts\fenshi_chart.py", line 33, in __init__
+    self.canvas.mpl_connect("draw_event", self.on_draw_event)
+                                          ^^^^^^^^^^^^^^^^^^
+AttributeError: 'FenshiChart' object has no attribute 'on_draw_event'
+2026-03-27 23:54:14,292 - quant_system - INFO - 程序启动
+2026-03-27 23:54:17,200 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\ui\stock_list_tab.py", line 171, in on_data_loaded
+    self.filter_table()
+    ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\stock_list_tab.py", line 139, in filter_table
+    self.table.setItem(idx, 4, create_item(row.get('high', '--')))
+                               ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\stock_list_tab.py", line 114, in create_item
+    item = QTableWidgetItem(str(text))
+KeyboardInterrupt
+2026-03-27 23:55:14,945 - quant_system - INFO - 程序启动
+2026-03-27 23:55:17,545 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 23:58:17,352 - quant_system - INFO - 程序启动
+2026-03-27 23:58:19,786 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 23:58:20,349 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\ui\main_window.py", line 181, in load_stock_daily
+    self.on_tab_changed(1)
+    ~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\main_window.py", line 161, in on_tab_changed
+    from ui.daily_tab import DailyTab
+  File "C:\Users\ASUS\Desktop\quant_system\ui\daily_tab.py", line 7, in <module>
+    from ui.widgets.stock_tab import StockTab
+  File "C:\Users\ASUS\Desktop\quant_system\ui\widgets\stock_tab.py", line 7, in <module>
+    from ui.charts.fenshi_chart_widget import FenshiChartWidget
+  File "C:\Users\ASUS\Desktop\quant_system\ui\charts\fenshi_chart_widget.py", line 3, in <module>
+    from .fenshi_chart import FenshiChart
+  File "C:\Users\ASUS\Desktop\quant_system\ui\charts\fenshi_chart.py", line 142
+    self.hover_data_map[idx
+                       ^
+SyntaxError: '[' was never closed
+2026-03-27 23:59:42,012 - quant_system - INFO - 程序启动
+2026-03-27 23:59:44,471 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-28 00:03:02,691 - quant_system - INFO - 程序启动
+2026-03-28 00:03:06,523 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-28 00:08:46,847 - quant_system - INFO - 程序启动
+2026-03-28 00:08:53,834 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-28 00:11:17,811 - quant_system - INFO - 程序启动
+2026-03-28 00:11:22,332 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-28 00:11:45,971 - quant_system - INFO - 程序启动
+2026-03-28 00:11:50,005 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-28 00:25:06,528 - quant_system - INFO - 程序启动
+2026-03-28 00:25:08,761 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-28 00:27:51,604 - quant_system - INFO - 程序启动
+2026-03-28 00:27:54,161 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-28 00:30:15,310 - quant_system - INFO - 程序启动
+2026-03-28 00:31:10,625 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-28 00:31:21,850 - quant_system - INFO - 缓存失效或过期，向 daily API 请求数据: 000002 (获取=100笔)

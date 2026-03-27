@@ -23,37 +23,42 @@ class DataPreprocessor:
         self.monthly_provider = MonthlyDataProvider()
 
     def get_daily_data(self, code: str, start_date: str = None, end_date: str = None, all_data: bool = False):
-        """整合后的日线获取逻辑"""
+        """整合后的日线获取逻辑：双轨制缓存"""
         status = self.storage.get_stock_status(code)
         if status == 302:
-            logger.warning(f"代码 {code} 已标记为无效/退市，跳过请求")
             return "DELISTED"
 
+        # 判断是否需要全量数据（回测传入日期范围时，强制视为需要全量）
+        is_all = all_data or (start_date and end_date)
+        suffix = "all" if is_all else "100"
+
         try:
-            cache_path = f"quant_system/cache/daily/{code}.parquet"
+            # 核心优化：看盘加载 _100.parquet，回测加载 _all.parquet，互不干扰
+            cache_path = f"quant_system/cache/daily/{code}_{suffix}.parquet"
             df = None
 
-            # 日线如果获取全量数据，同样校验是否在 1 天内
             if self.storage.is_cache_fresh(cache_path, max_age_days=1):
                 df = self.storage.load_parquet(cache_path)
 
-            if df is None:
-                if start_date and end_date:
-                    result = self.daily_provider.fetch_range(code, start_date, end_date)
-                else:
-                    result = self.daily_provider.fetch(code, all_data=all_data, use_cache=True)
+            if df is None or df.empty:
+                logger.info(f"缓存失效或过期，向 daily API 请求数据: {code} (获取={'全量' if is_all else '100笔'})")
+                df = self.daily_provider.fetch(code, all_data=is_all)
 
-                ret_code = getattr(result, 'ret', 200)
-                if hasattr(result, 'attrs'):
-                    ret_code = result.attrs.get('ret', ret_code)
+                if df is not None and not df.empty:
+                    ret_code = getattr(df, 'ret', 200)
+                    if hasattr(df, 'attrs'):
+                        ret_code = df.attrs.get('ret', ret_code)
 
-                if ret_code == 302 or (isinstance(result, str) and "302" in result):
-                    self.storage.update_stock_status(code, 302)
-                    return "DELISTED"
+                    if ret_code == 302:
+                        self.storage.update_stock_status(code, 302)
+                        return "DELISTED"
 
-                df = result
-                if df is not None and not (isinstance(df, pd.DataFrame) and df.empty):
                     self.storage.save_parquet(df, cache_path)
+
+            # 回测时如果传了起止时间，在这里进行精准截取
+            if df is not None and not df.empty and start_date and end_date:
+                mask = (df.index >= pd.to_datetime(start_date)) & (df.index <= pd.to_datetime(end_date))
+                return df.loc[mask]
 
             return df
         except Exception as e:
@@ -73,7 +78,6 @@ class DataPreprocessor:
             cache_path = f"quant_system/cache/{cache_type}/{code}.parquet"
             df = None
 
-            # 核心修复：检查缓存是否有效，避免“最新100笔”永远停留在历史某一天
             if self.storage.is_cache_fresh(cache_path, max_age_days=1):
                 df = self.storage.load_parquet(cache_path)
 
