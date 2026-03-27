@@ -1,3 +1,4 @@
+# ui/stock_list_tab.py
 import time
 import builtins
 import pandas as pd
@@ -9,15 +10,12 @@ from PyQt6.QtCore import Qt, pyqtSignal
 from .stock_list_thread import StockListThread
 from data_preprocessing import DataPreprocessor
 
-
 class NoFocusDelegate(QStyledItemDelegate):
     """强力消除单元格选中时的虚线框"""
-
     def paint(self, painter, option, index):
         if option.state & QStyle.StateFlag.State_HasFocus:
             option.state = option.state & ~QStyle.StateFlag.State_HasFocus
         super().paint(painter, option, index)
-
 
 class StockListTab(QWidget):
     """股票列表页：支持双击跳转个股详情"""
@@ -30,8 +28,7 @@ class StockListTab(QWidget):
         self.current_category = "全部"
         self.initUI()
 
-        print(
-            f"[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | 股票列表 UI 框架初始化完毕，开始请求/读取数据...")
+        print(f"[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | 股票列表 UI 框架初始化完毕，开始请求/读取数据...")
         self.load_from_cache()
         self.table.cellDoubleClicked.connect(self.on_cell_double_clicked)
 
@@ -69,6 +66,7 @@ class StockListTab(QWidget):
         self.table.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         self.table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
         self.table.setItemDelegate(NoFocusDelegate())
+        # 使用原生 C++ API 去除边框，消灭警告
         self.table.setFrameShape(QTableWidget.Shape.NoFrame)
 
         fm = QFontMetrics(self.table.font())
@@ -107,8 +105,7 @@ class StockListTab(QWidget):
                 m = codes.str.startswith(('8', '9', '4'))
             df = df[m]
 
-        # ============ 核心加速区 ============
-        # 1. 锁死表格的界面刷新，禁止一边插入一边重绘界面
+        # 1. 锁死表格的界面刷新
         self.table.setUpdatesEnabled(False)
         self.table.setSortingEnabled(False)
         self.table.setRowCount(len(df))
@@ -118,7 +115,7 @@ class StockListTab(QWidget):
             item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
             return item
 
-        # 2. 将 DataFrame 转为字典列表（比 iterrows 遍历快数十倍）
+        # 2. 将 DataFrame 转为字典列表加速渲染
         records = df.to_dict('records')
 
         for idx, row in enumerate(records):
@@ -144,9 +141,8 @@ class StockListTab(QWidget):
             self.table.setItem(idx, 6, create_item(row.get('volume', '--')))
 
         self.table.setSortingEnabled(True)
-        # 3. 数据全部塞进去后，再瞬间一次性重绘界面
+        # 3. 瞬间一次性重绘界面
         self.table.setUpdatesEnabled(True)
-        # ==================================
 
     def on_category_changed(self, item):
         self.current_category = item.text()
@@ -166,24 +162,19 @@ class StockListTab(QWidget):
         self.thread.start()
 
     def on_data_loaded(self, df, date):
-        # 记录数据读取耗时
         fetch_cost = time.perf_counter() - getattr(self, 'fetch_start_time', time.perf_counter())
-        print(
-            f"[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | 数据获取完成 (线程独立耗时: {fetch_cost:.4f}s)，准备渲染表格...")
+        print(f"[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | 数据获取完成 (线程独立耗时: {fetch_cost:.4f}s)，准备渲染表格...")
 
-        # 记录表格绘制耗时
         render_start = time.perf_counter()
         self.all_df = df
         self.date_lbl.setText(f"行情日期: {date or '--'}")
         self.filter_table()
         render_cost = time.perf_counter() - render_start
-        print(
-            f"[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | UI 表格数据装载完毕 (渲染独立耗时: {render_cost:.4f}s)")
+        print(f"[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | UI 表格数据装载完毕 (渲染独立耗时: {render_cost:.4f}s)")
 
-        # 打印总耗时总结
         total_time = time.perf_counter() - builtins.APP_START_TIME
         print(f"\n=======================================================")
-        print(f"🚀 [性能计时] 数据完全加载完成！应用启动总耗时: {total_time:.4f} 秒")
+        print(f" [性能计时] 数据完全加载完成！应用启动总耗时: {total_time:.4f} 秒")
         print(f"=======================================================\n")
 
     def on_cell_double_clicked(self, row, column):
@@ -192,12 +183,10 @@ class StockListTab(QWidget):
             code = code_item.text().strip()
             if code:
                 import time, builtins
-                # 记录双击这一瞬间的时间点
                 builtins.JUMP_START_TIME = time.perf_counter()
-                print(
-                    f"\n[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | ---> 鼠标双击股票 {code}，触发详情页跳转...")
-
+                print(f"\n[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | ---> 鼠标双击股票 {code}，触发详情页跳转...")
                 self.stock_double_clicked.emit(code)
+
     def _get_exchange(self, code):
         code = str(code).zfill(6)
         if code.startswith('60'):

@@ -1,12 +1,110 @@
 import sys
 from PyQt6.QtWidgets import (QMainWindow, QTabWidget, QStatusBar, QMessageBox,
-                             QLineEdit, QLabel, QWidget, QHBoxLayout, QSizePolicy,
-                             QTableWidget)
-from PyQt6.QtGui import QAction
-from PyQt6.QtCore import Qt, QModelIndex, QTimer
+                             QLineEdit, QLabel, QWidget, QHBoxLayout, QVBoxLayout,
+                             QSizePolicy, QPushButton, QDialog, QSizeGrip)
+from PyQt6.QtGui import QAction, QCursor, QMouseEvent
+from PyQt6.QtCore import Qt, QPoint
 
 from ui.stock_list_tab import StockListTab
 from ui.search_completer import SearchCompleter
+from login import LoginWindow, Session
+
+
+class CustomTitleBar(QWidget):
+    """自定义现代化无边框标题栏"""
+
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.parent_window = parent
+        self.setFixedHeight(38)
+        self.setStyleSheet("background-color: #202124; color: #ffffff;")
+
+        self.start_pos = None
+
+        layout = QHBoxLayout(self)
+        layout.setContentsMargins(15, 0, 0, 0)
+        layout.setSpacing(15)
+
+        # 1. Logo / 标题
+        title_label = QLabel("量化交易系统")
+        title_label.setStyleSheet("font-size: 14px; font-weight: bold; color: #e8eaed;")
+        layout.addWidget(title_label)
+
+        layout.addStretch()
+
+        # 2. 搜索框 (靠右)
+        self.parent_window.search_completer = SearchCompleter(self.parent_window)
+        self.parent_window.search_edit = self.parent_window.search_completer.setup_search_box(self)
+        self.parent_window.search_completer.set_data_source(self.parent_window._get_search_results)
+        self.parent_window.search_completer.item_selected.connect(self.parent_window.on_search_item_selected)
+        layout.addWidget(self.parent_window.search_edit)
+
+        # 3. 登录按钮 (靠右)
+        self.login_btn = QPushButton()
+        self.login_btn.setCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        self.login_btn.clicked.connect(self.parent_window.show_login_dialog)
+        layout.addWidget(self.login_btn)
+
+        # 4. 窗口控制按钮 (最小化、最大化、关闭，紧贴最右侧)
+        btn_style = """
+            QPushButton { background-color: transparent; border: none; font-size: 14px; color: #9aa0a6; }
+            QPushButton:hover { background-color: #303134; color: white; }
+        """
+        close_btn_style = """
+            QPushButton { background-color: transparent; border: none; font-size: 14px; color: #9aa0a6; }
+            QPushButton:hover { background-color: #e81123; color: white; }
+        """
+
+        ctrl_layout = QHBoxLayout()
+        ctrl_layout.setContentsMargins(10, 0, 0, 0)
+        ctrl_layout.setSpacing(0)
+
+        self.min_btn = QPushButton("—")
+        self.min_btn.setFixedSize(45, 38)
+        self.min_btn.setStyleSheet(btn_style)
+        self.min_btn.clicked.connect(self.parent_window.showMinimized)
+
+        self.max_btn = QPushButton("☐")
+        self.max_btn.setFixedSize(45, 38)
+        self.max_btn.setStyleSheet(btn_style)
+        self.max_btn.clicked.connect(self.toggle_max_restore)
+
+        self.close_btn = QPushButton("✕")
+        self.close_btn.setFixedSize(45, 38)
+        self.close_btn.setStyleSheet(close_btn_style)
+        self.close_btn.clicked.connect(self.parent_window.close)
+
+        ctrl_layout.addWidget(self.min_btn)
+        ctrl_layout.addWidget(self.max_btn)
+        ctrl_layout.addWidget(self.close_btn)
+
+        layout.addLayout(ctrl_layout)
+
+    def toggle_max_restore(self):
+        if self.parent_window.isMaximized():
+            self.parent_window.showNormal()
+            self.max_btn.setText("☐")
+        else:
+            self.parent_window.showMaximized()
+            self.max_btn.setText("❐")
+
+    # ================= 实现拖拽移动窗口 =================
+    def mousePressEvent(self, event: QMouseEvent):
+        if event.button() == Qt.MouseButton.LeftButton:
+            self.start_pos = event.globalPosition().toPoint()
+
+    def mouseMoveEvent(self, event: QMouseEvent):
+        if self.start_pos is not None:
+            delta = event.globalPosition().toPoint() - self.start_pos
+            self.parent_window.move(self.parent_window.pos() + delta)
+            self.start_pos = event.globalPosition().toPoint()
+
+    def mouseReleaseEvent(self, event: QMouseEvent):
+        self.start_pos = None
+
+    def mouseDoubleClickEvent(self, event: QMouseEvent):
+        if event.button() == Qt.MouseButton.LeftButton:
+            self.toggle_max_restore()
 
 
 class MainWindow(QMainWindow):
@@ -15,19 +113,34 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("量化交易系统")
         self.setGeometry(100, 100, 1300, 800)
 
+        # 【核心】隐藏操作系统自带的标题栏和边框
+        self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
+
         # === 懒加载组件占位符 ===
         self.daily_tab = None
         self.backtest_tab = None
         self.calendar_tab = None
 
         self.initUI()
-        self.initMenu()
         self.initStatusBar()
-        self.initGlobalSearch()
+        self.update_login_btn_state()
 
     def initUI(self):
+        # 建立一个全局容器来承载 自定义标题栏 和 主体内容
+        wrapper = QWidget()
+        self.setCentralWidget(wrapper)
+
+        main_layout = QVBoxLayout(wrapper)
+        main_layout.setContentsMargins(0, 0, 0, 0)
+        main_layout.setSpacing(0)
+
+        # 1. 顶部贴入我们自定义的标题栏
+        self.title_bar = CustomTitleBar(self)
+        main_layout.addWidget(self.title_bar)
+
+        # 2. 下方放入原本的选项卡
         self.tabs = QTabWidget()
-        self.setCentralWidget(self.tabs)
+        main_layout.addWidget(self.tabs)
 
         # 首屏只加载“股票列表”，保证极速启动
         self.stock_list_tab = StockListTab()
@@ -36,7 +149,7 @@ class MainWindow(QMainWindow):
 
         # 其它标签页只放置空的占位组件
         self.tabs.addTab(QWidget(), "个股详情")
-        self.tabs.addTab(QWidget(), "策略回测")
+        self.tabs.addTab(QWidget(), "量化回测")
         self.tabs.addTab(QWidget(), "交易日历")
 
         # 绑定点击切换事件，触发懒加载
@@ -45,17 +158,16 @@ class MainWindow(QMainWindow):
     def on_tab_changed(self, index):
         """当用户第一次点击其它Tab时，才真正初始化其UI及图表"""
         if index == 1 and self.daily_tab is None:
-            # 延迟导入，减少主程序启动时的库解析耗时
             from ui.daily_tab import DailyTab
             self.daily_tab = DailyTab()
             self.tabs.removeTab(1)
             self.tabs.insertTab(1, self.daily_tab, "个股详情")
             self.tabs.setCurrentIndex(1)
         elif index == 2 and self.backtest_tab is None:
-            from ui.backtest_tab import BacktestTab
-            self.backtest_tab = BacktestTab()
+            from ui.quant_backtest_tab import QuantBacktestTab
+            self.backtest_tab = QuantBacktestTab()
             self.tabs.removeTab(2)
-            self.tabs.insertTab(2, self.backtest_tab, "策略回测")
+            self.tabs.insertTab(2, self.backtest_tab, "量化回测")
             self.tabs.setCurrentIndex(2)
         elif index == 3 and self.calendar_tab is None:
             from ui.calendar_tab import CalendarTab
@@ -66,22 +178,33 @@ class MainWindow(QMainWindow):
 
     def load_stock_daily(self, code):
         if self.daily_tab is None:
-            self.on_tab_changed(1)  # 强制触发懒加载
+            self.on_tab_changed(1)
         else:
             self.tabs.setCurrentIndex(1)
         self.daily_tab.load_stock(code)
 
-    def initGlobalSearch(self):
-        self.search_completer = SearchCompleter(self)
-        self.search_edit = self.search_completer.setup_search_box(self.menuBar())
-        self.search_completer.set_data_source(self._get_search_results)
-        self.search_completer.item_selected.connect(self.on_search_item_selected)
+    def update_login_btn_state(self):
+        """根据会话动态更新自定义标题栏上按钮的UI和文字"""
+        if Session.is_logged_in:
+            self.title_bar.login_btn.setText(f"{Session.username}")
+            self.title_bar.login_btn.setStyleSheet("""
+                QPushButton { background-color: transparent; color: #4CAF50; border: none; font-size: 14px; font-weight: bold; }
+                QPushButton:hover { color: #81C784; }
+            """)
+            self.title_bar.login_btn.setToolTip("已登录 (点击可切换账号)")
+        else:
+            self.title_bar.login_btn.setText("登录")
+            self.title_bar.login_btn.setStyleSheet("""
+                QPushButton { background-color: transparent; color: #bbbbbb; border: none; font-size: 14px; font-weight: bold; }
+                QPushButton:hover { color: #2196F3; }
+            """)
+            self.title_bar.login_btn.setToolTip("未登录，点击进行身份验证")
 
-        search_container = QWidget()
-        search_layout = QHBoxLayout(search_container)
-        search_layout.setContentsMargins(0, 0, 15, 0)
-        search_layout.addWidget(self.search_edit)
-        self.menuBar().setCornerWidget(search_container, Qt.Corner.TopRightCorner)
+    def show_login_dialog(self):
+        """弹出登录框并处理回调"""
+        login_win = LoginWindow(self)
+        if login_win.exec() == QDialog.DialogCode.Accepted:
+            self.update_login_btn_state()
 
     def _get_search_results(self, keyword):
         df = self.stock_list_tab.all_df
@@ -97,12 +220,7 @@ class MainWindow(QMainWindow):
     def on_search_item_selected(self, code):
         self.load_stock_daily(code)
 
-    def initMenu(self):
-        menubar = self.menuBar()
-        file_menu = menubar.addMenu("文件")
-        exit_act = QAction("退出", self)
-        exit_act.triggered.connect(self.close)
-        file_menu.addAction(exit_act)
-
     def initStatusBar(self):
         self.statusBar().showMessage("系统就绪")
+        # 确保无边框窗口的右下角有拖拽调整大小的控件
+        self.statusBar().setSizeGripEnabled(True)

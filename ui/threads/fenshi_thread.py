@@ -1,6 +1,7 @@
 from PyQt6.QtCore import QThread, pyqtSignal
 from data_preprocessing import DataPreprocessor
 
+
 class FenshiDataThread(QThread):
     finished = pyqtSignal(object)
     error = pyqtSignal(str)
@@ -13,9 +14,17 @@ class FenshiDataThread(QThread):
         try:
             dp = DataPreprocessor()
             df = dp.get_fenshi_data(self.code)
+
+            if isinstance(df, str) and df == "DELISTED":
+                self.error.emit("302_DELISTED")
+                return
+
             if df is None or df.empty:
                 self.error.emit("无法获取分时数据")
                 return
             self.finished.emit(df)
         except Exception as e:
-            self.error.emit(str(e))
+            if "302" in str(e):
+                self.error.emit("302_DELISTED")
+            else:
+                self.error.emit(str(e))

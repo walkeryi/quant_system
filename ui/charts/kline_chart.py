@@ -6,6 +6,7 @@ import pandas as pd
 from matplotlib.ticker import Formatter, MaxNLocator
 from matplotlib.collections import PolyCollection, LineCollection
 
+
 class DateFormatter(Formatter):
     def __init__(self, dates):
         self.dates = dates
@@ -84,7 +85,6 @@ class KlineChart:
         df['MA10'] = df['close'].rolling(10).mean()
         df['MA20'] = df['close'].rolling(20).mean()
 
-        # 性能提升后，你可以放宽数据量，比如最高支持 500 根线依然丝滑
         if len(df) > 500:
             df = df.tail(500).copy()
 
@@ -101,15 +101,13 @@ class KlineChart:
 
         # ================= 渲染性能革命：Collection 机制 =================
 
-        # 1. 极速渲染上下影线
         segments = [((i, low), (i, high)) for i, low, high in zip(indices, lows, highs)]
         lines = LineCollection(segments, colors=colors, linewidths=1.2, zorder=2)
         self.ax_main.add_collection(lines)
 
-        # 2. 极速渲染K线实体
         verts = []
         for i, o, c in zip(indices, opens, closes):
-            if abs(c - o) < 0.001:  # 保护十字星，保证有一丝高度
+            if abs(c - o) < 0.001:
                 c = o + 0.001
             left, right = i - bar_width / 2, i + bar_width / 2
             verts.append(((left, o), (left, c), (right, c), (right, o)))
@@ -117,13 +115,11 @@ class KlineChart:
         bodies = PolyCollection(verts, facecolors=colors, edgecolors=colors, linewidths=1, zorder=3)
         self.ax_main.add_collection(bodies)
 
-        # 手动设置 X/Y 轴边界 (Collection不会自动算边界)
         y_max, y_min = highs.max(), lows.min()
         y_margin = (y_max - y_min) * 0.05 if y_max != y_min else y_min * 0.01
         self.ax_main.set_ylim(y_min - y_margin, y_max + y_margin)
         self.ax_main.set_xlim(-1, len(dates) + 3)
 
-        # 3. 极速渲染成交量
         vol_verts = []
         for i, v in zip(indices, vols):
             left, right = i - bar_width / 2, i + bar_width / 2
@@ -133,9 +129,8 @@ class KlineChart:
 
         v_max = vols.max()
         self.ax_vol.set_ylim(0, v_max * 1.05 if v_max > 0 else 1)
-        # ===================================================================
 
-        # 均线由于本来就是一根线 (Line2D)，保持 plot() 即可，速度很快
+        # 均线
         self.ax_main.plot(indices, df['MA5'].values, color='#ff9800', linewidth=1.2, label='MA5')
         self.ax_main.plot(indices, df['MA10'].values, color='#2196f3', linewidth=1.2, label='MA10')
         self.ax_main.plot(indices, df['MA20'].values, color='#e91e63', linewidth=1.2, label='MA20')
@@ -156,6 +151,17 @@ class KlineChart:
 
     def on_mouse_move(self, event):
         if not event.inaxes or not self.bg_cache: return
+
+        # ================= 终极防闪退防御机制 =================
+        # 当网络请求失败时，外部的 stock_tab.py 会强行调用 ax.clear() 来绘制红色报错文字。
+        # 这会导致底层的十字光标和 Tooltip 被无情剥离画布 (axes 变成 None)。
+        # 如果此时鼠标还在图表上滑动，必须强制拦截并清空悬浮记录，否则会触发 transData 报错！
+        if getattr(self, 'tooltip', None) is None or getattr(self.tooltip, 'axes', None) is None:
+            self.hover_data_map.clear()
+            self._last_hover_idx = None
+            return
+        # ====================================================
+
         x_idx = int(round(event.xdata))
         if x_idx not in self.hover_data_map or x_idx == self._last_hover_idx: return
         self._last_hover_idx = x_idx
@@ -166,30 +172,34 @@ class KlineChart:
         self.h_line.set_ydata([p['close'], p['close']])
 
         # 动态提示词
-        # 动态提示词
-        if self.current_period == 'daily':
-            period_str = "日线"
-        elif self.current_period == 'weekly':
-            period_str = "周线"
-        else:
-            period_str = "月线"
+        period_str = "日线" if self.current_period == 'daily' else "周线" if self.current_period == 'weekly' else "月线"
         text = (f"【{period_str}】 {p['date']}\n开盘: {p['open']:.2f}\n收盘: {p['close']:.2f}\n"
                 f"最高: {p['high']:.2f}\n最低: {p['low']:.2f}\n成交量: {p['vol']:,.0f}")
         self.tooltip.set_text(text)
+
         y_pos = event.ydata if event.inaxes == self.ax_main else p['close']
         self.tooltip.xy = (x_idx, y_pos)
 
-        self.canvas.restore_region(self.bg_cache)
-        for art in [self.v_line, self.h_line, self.v_line_vol, self.tooltip]:
-            art.set_visible(True)
-            if art == self.v_line_vol:
-                self.ax_vol.draw_artist(art)
-            else:
-                self.ax_main.draw_artist(art)
-        self.canvas.blit(self.figure.bbox)
+        try:
+            self.canvas.restore_region(self.bg_cache)
+            # 加强了对光标组件状态的判断，确保没被外部摧毁才去渲染
+            for art in [self.v_line, self.h_line, self.v_line_vol, self.tooltip]:
+                if getattr(art, 'axes', None) is not None:
+                    art.set_visible(True)
+                    if art == self.v_line_vol:
+                        self.ax_vol.draw_artist(art)
+                    else:
+                        self.ax_main.draw_artist(art)
+            self.canvas.blit(self.figure.bbox)
+        except Exception:
+            # 遭遇极端未知图层销毁状态时，不抛错，静默吸收
+            pass
 
     def on_mouse_leave(self, event):
-        if self.bg_cache:
-            self.canvas.restore_region(self.bg_cache)
-            self.canvas.blit(self.figure.bbox)
+        try:
+            if self.bg_cache:
+                self.canvas.restore_region(self.bg_cache)
+                self.canvas.blit(self.figure.bbox)
+        except Exception:
+            pass
         self._last_hover_idx = None

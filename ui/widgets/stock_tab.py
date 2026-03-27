@@ -35,9 +35,9 @@ class StockTab(QWidget):
     def update_trade_panel_title(self):
         """动态更新交易面板的标题"""
         if Session.is_logged_in:
-            self.trade_group.setTitle(f"⚡ 快捷交易 (已登录: {Session.username})")
+            self.trade_group.setTitle(f"快捷交易 (已登录: {Session.username})")
         else:
-            self.trade_group.setTitle("⚡ 快捷交易 (未登录游客，点击交易即可登录)")
+            self.trade_group.setTitle("快捷交易 (未登录，点击交易即可登录)")
 
     def initUI(self):
         main_layout = QVBoxLayout(self)
@@ -164,7 +164,12 @@ class StockTab(QWidget):
             if login_win.exec() != QDialog.DialogCode.Accepted:
                 return  # 如果用户还是关闭了登录框，终止交易流程
             else:
-                self.update_trade_panel_title() # 登录成功，更新标题
+                self.update_trade_panel_title()  # 登录成功，更新当前交易面板标题
+
+                # 【新增】通知主窗口更新右上角的登录按钮状态
+                top_window = self.window()
+                if hasattr(top_window, 'update_login_btn_state'):
+                    top_window.update_login_btn_state()
 
         price_str = self.trade_price.text().strip()
         hand_str = self.trade_hand.text().strip()
@@ -293,7 +298,7 @@ class StockTab(QWidget):
                 self.load_monthly_data()
 
     def load_fenshi_data(self):
-        # 1. 安全地添加加载提示，绝不使用 clear()（防止破坏图表底层光标对象）
+        # 1. 安全地添加加载提示
         if not hasattr(self, 'loading_text'):
             self.loading_text = self.fenshi_price_widget.chart.ax_price.text(
                 0.5, 0.5, '数据拉取中，请稍候...',
@@ -302,6 +307,8 @@ class StockTab(QWidget):
                 color='#2196F3', fontsize=16, fontweight='bold', zorder=999
             )
         else:
+            self.loading_text.set_text('数据拉取中，请稍候...')
+            self.loading_text.set_color('#2196F3')
             self.loading_text.set_visible(True)
 
         self.fenshi_price_widget.chart.canvas.draw()
@@ -309,7 +316,35 @@ class StockTab(QWidget):
         # 2. 开启线程拉取数据
         self.thread = FenshiDataThread(self.code)
         self.thread.finished.connect(self.on_fenshi_ready)
+        # 移除旧的弹窗信号，接入新的无弹窗错误处理
+        if hasattr(self.thread, 'error'):
+            self.thread.error.connect(self.on_data_load_failed)
         self.thread.start()
+
+    def on_data_load_failed(self, error_msg):
+        """【优化】退市及加载错误处理 - 不再弹窗，直接显示在图表上"""
+        if hasattr(self, 'loading_text'):
+            msg_text = "该股票已退市或代码无效" if "退市" in str(error_msg) or "302" in str(error_msg) or "DELISTED" in str(error_msg) else f"无数据/加载失败"
+            self.loading_text.set_text(msg_text)
+            self.loading_text.set_color('#f44336')  # 醒目红
+            self.fenshi_price_widget.chart.canvas.draw()
+
+    def on_kline_load_failed(self, error_msg, period_name):
+        """【优化】K线退市及错误处理 - 不再弹窗，直接显示在K线图表上"""
+        try:
+            msg = "该股票已退市或代码无效" if "退市" in str(error_msg) or "302" in str(error_msg) or "DELISTED" in str(error_msg) else f"无{period_name}数据/加载失败"
+            # 兼容获取 matplotlib axes 来绘制错误信息
+            if hasattr(self.kline_widget, 'chart') and hasattr(self.kline_widget.chart, 'figure'):
+                axes = self.kline_widget.chart.figure.axes
+                if axes:
+                    ax = axes[0]
+                    ax.clear()
+                    ax.text(0.5, 0.5, msg,
+                            horizontalalignment='center', verticalalignment='center',
+                            transform=ax.transAxes, color='#f44336', fontsize=16, fontweight='bold')
+                    self.kline_widget.chart.canvas.draw()
+        except Exception as e:
+            print(f"K线图错误提示渲染异常: {e}")
 
     def load_kline_data(self):
         import time, builtins
@@ -320,7 +355,8 @@ class StockTab(QWidget):
 
         self.kline_thread = DailyDataThread(self.code)
         self.kline_thread.finished.connect(self.on_daily_ready)
-        self.kline_thread.error.connect(lambda e: QMessageBox.warning(self, "错误", f"日线加载失败: {e}"))
+        # 接入无弹窗拦截
+        self.kline_thread.error.connect(lambda e: self.on_kline_load_failed(e, "日线"))
         self.kline_thread.start()
 
     def on_daily_ready(self, df):
@@ -351,7 +387,7 @@ class StockTab(QWidget):
     def load_weekly_data(self):
         self.weekly_thread = WeeklyDataThread(self.code)
         self.weekly_thread.finished.connect(self.on_weekly_ready)
-        self.weekly_thread.error.connect(lambda e: QMessageBox.warning(self, "错误", f"周线加载失败: {e}"))
+        self.weekly_thread.error.connect(lambda e: self.on_kline_load_failed(e, "周线"))
         self.weekly_thread.start()
 
     def on_weekly_ready(self, df):
@@ -362,7 +398,7 @@ class StockTab(QWidget):
     def load_monthly_data(self):
         self.monthly_thread = MonthlyDataThread(self.code)
         self.monthly_thread.finished.connect(self.on_monthly_ready)
-        self.monthly_thread.error.connect(lambda e: QMessageBox.warning(self, "错误", f"月线加载失败: {e}"))
+        self.monthly_thread.error.connect(lambda e: self.on_kline_load_failed(e, "月线"))
         self.monthly_thread.start()
 
     def on_monthly_ready(self, df):

@@ -1,4 +1,4 @@
-# data_preprocessing/weekly.py
+# quant_system/data_preprocessing/weekly.py
 import requests
 import pandas as pd
 from common.utils import setup_logger, log_exceptions
@@ -18,20 +18,22 @@ class WeeklyDataProvider:
         params = {
             'token': self.token,
             'code': code,
-            'all': 0  # 0表示获取最新100笔数据
+            'all': 0  # 严格遵循文档：0表示获取最新100笔数据
         }
         try:
-            logger.info(f"Fetching weekly data for {code} from API...")
+            logger.info(f"正在向周线 API 请求数据: code={code}, all=0")
             resp = requests.get(self.API_URL, params=params, timeout=15)
             resp.raise_for_status()
             data = resp.json()
 
             if data.get('ret') != 200:
-                logger.error(f"Weekly API error for {code}: {data.get('msg')}")
+                logger.error(f"周线 API 错误 ({code}): {data.get('msg')} | 完整响应: {data}")
                 return None
 
             records = data.get('data', [])
             if not records:
+                # 【诊断级日志】：用来排查是不是服务端没给数据
+                logger.warning(f"【服务端问题】周线接口成功响应(ret=200)，但并未返回100笔数据！服务端真实返回: {data}")
                 return pd.DataFrame()
 
             df = pd.DataFrame(records)
@@ -56,7 +58,7 @@ class WeeklyDataProvider:
             if 'amount' in df.columns:
                 df['amount'] = pd.to_numeric(df['amount'], errors='coerce')
 
-            df['date'] = pd.to_datetime(df['date'], format='%Y-%m-%d', errors='coerce')
+            df['date'] = pd.to_datetime(df['date'], errors='coerce')
             df.set_index('date', inplace=True)
             df.sort_index(inplace=True)
 
@@ -69,5 +71,5 @@ class WeeklyDataProvider:
             return df
 
         except Exception as e:
-            logger.exception(f"Unexpected weekly data error for {code}: {e}")
+            logger.exception(f"周线数据处理发生意外异常 ({code}): {e}")
             return None

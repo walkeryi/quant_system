@@ -19,7 +19,8 @@ USERS_CSV = os.path.join(os.path.dirname(__file__), "users", "users.csv")
 CACHE_DIR = os.path.join(os.path.dirname(__file__), "cache")
 os.makedirs(CACHE_DIR, exist_ok=True)
 
-STOCK_LIST_CACHE = os.path.join(CACHE_DIR, "stock_list.csv")
+# quant_system/config.py
+STOCK_LIST_CACHE = os.path.join(CACHE_DIR, "stock_list.parquet")
 TRADE_CALENDAR_CACHE = os.path.join(CACHE_DIR, "trade_calendar.csv")
 
 DAILY_DATA_DIR = os.path.join(CACHE_DIR, "daily")

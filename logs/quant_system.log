@@ -2083,3 +2083,334 @@ AttributeError: 'FenshiChart' object has no attribute 'ax_main'
 2026-03-21 20:28:00,811 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
 2026-03-21 20:30:28,185 - quant_system - INFO - 程序启动
 2026-03-21 20:30:31,749 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 22:47:38,523 - quant_system - INFO - 程序启动
+2026-03-21 22:47:42,716 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 22:48:48,159 - quant_system - INFO - 程序启动
+2026-03-21 22:48:53,702 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 22:50:41,479 - quant_system - INFO - 程序启动
+2026-03-21 22:50:50,054 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 22:54:09,204 - quant_system - INFO - 程序启动
+2026-03-21 22:54:13,407 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 23:00:48,216 - quant_system - INFO - 程序启动
+2026-03-21 23:00:52,742 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 23:01:25,312 - quant_system - INFO - 程序启动
+2026-03-21 23:01:28,544 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 23:15:57,876 - quant_system - INFO - 程序启动
+2026-03-21 23:16:01,683 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 23:23:08,410 - quant_system - INFO - 程序启动
+2026-03-21 23:23:11,884 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-21 23:44:34,935 - quant_system - INFO - 程序启动
+2026-03-21 23:44:39,596 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-22 03:52:14,267 - quant_system - INFO - 程序启动
+2026-03-22 03:52:17,984 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-22 03:52:20,600 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 191, in load_stock_daily
+    self.on_tab_changed(1)
+    ~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\ASUS\Desktop\量化系统\ui\main_window.py", line 165, in on_tab_changed
+    from ui.daily_tab import DailyTab
+  File "C:\Users\ASUS\Desktop\量化系统\ui\daily_tab.py", line 7, in <module>
+    from ui.widgets.stock_tab import StockTab
+  File "C:\Users\ASUS\Desktop\量化系统\ui\widgets\stock_tab.py", line 7, in <module>
+    from ui.charts.fenshi_chart_widget import FenshiChartWidget
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart_widget.py", line 3, in <module>
+    from .fenshi_chart import FenshiChart
+  File "C:\Users\ASUS\Desktop\量化系统\ui\charts\fenshi_chart.py", line 5, in <module>
+    from scipy.interpolate import make_interp_spline
+ModuleNotFoundError: No module named 'scipy'
+2026-03-22 13:12:17,612 - quant_system - INFO - 程序启动
+2026-03-22 13:12:26,518 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-22 13:15:06,491 - quant_system - INFO - 程序启动
+2026-03-22 13:15:11,085 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-22 13:25:29,319 - quant_system - INFO - 程序启动
+2026-03-22 13:25:34,103 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-22 18:56:27,251 - quant_system - INFO - 程序启动
+2026-03-22 18:56:37,393 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-22 23:25:49,873 - quant_system - INFO - 程序启动
+2026-03-24 16:40:01,184 - quant_system - INFO - 程序启动
+2026-03-24 16:40:04,491 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-24 16:41:14,781 - quant_system - INFO - 程序启动
+2026-03-24 16:41:20,153 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-24 17:04:55,495 - quant_system - INFO - 程序启动
+2026-03-24 17:04:58,441 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-24 17:04:59,063 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\ui\main_window.py", line 171, in on_tab_changed
+    self.backtest_tab = BacktestTab()
+                        ^^^^^^^^^^^
+NameError: name 'BacktestTab' is not defined. Did you mean: 'QuantBacktestTab'?
+2026-03-24 17:06:23,578 - quant_system - INFO - 程序启动
+2026-03-24 17:06:25,932 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-24 17:07:02,852 - quant_system - INFO - 程序启动
+2026-03-24 17:07:05,527 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-24 19:16:53,357 - quant_system - INFO - 程序启动
+2026-03-24 23:46:41,622 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 18:17:07,132 - quant_system - INFO - 程序启动
+2026-03-27 18:17:16,310 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 18:47:16,384 - quant_system - INFO - 程序启动
+2026-03-27 18:47:19,608 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 18:49:08,818 - quant_system - INFO - 程序启动
+2026-03-27 18:49:11,021 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 19:00:18,914 - quant_system - INFO - 程序启动
+2026-03-27 19:00:20,566 - quant_system - ERROR - get_stock_list 异常
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\fetcher.py", line 51, in get_stock_list
+    return self.stock_list_provider.fetch(use_cache=use_cache)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\stock_list.py", line 12, in fetch
+    df = Storage.load_csv(STOCK_LIST_CACHE)
+         ^^^^^^^^^^^^^^^^
+AttributeError: type object 'Storage' has no attribute 'load_csv'
+2026-03-27 19:00:21,896 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 19:00:24,808 - quant_system - ERROR - get_stock_list 异常
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\fetcher.py", line 51, in get_stock_list
+    return self.stock_list_provider.fetch(use_cache=use_cache)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\stock_list.py", line 12, in fetch
+    df = Storage.load_csv(STOCK_LIST_CACHE)
+         ^^^^^^^^^^^^^^^^
+AttributeError: type object 'Storage' has no attribute 'load_csv'
+2026-03-27 19:00:41,666 - quant_system - INFO - 程序启动
+2026-03-27 19:00:42,920 - quant_system - ERROR - get_stock_list 异常
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\fetcher.py", line 51, in get_stock_list
+    return self.stock_list_provider.fetch(use_cache=use_cache)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\stock_list.py", line 12, in fetch
+    df = Storage.load_csv(STOCK_LIST_CACHE)
+         ^^^^^^^^^^^^^^^^
+AttributeError: type object 'Storage' has no attribute 'load_csv'
+2026-03-27 19:00:44,261 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 19:03:54,712 - quant_system - INFO - 程序启动
+2026-03-27 19:03:57,378 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 19:09:53,271 - quant_system - INFO - 程序启动
+2026-03-27 19:09:53,378 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\main.py", line 49, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\ASUS\Desktop\quant_system\main.py", line 34, in main
+    window = MainWindow()
+  File "C:\Users\ASUS\Desktop\quant_system\ui\main_window.py", line 124, in __init__
+    self.initUI()
+    ~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\main_window.py", line 146, in initUI
+    self.stock_list_tab = StockListTab()
+                          ~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\stock_list_tab.py", line 28, in __init__
+    self.dp = DataPreprocessor()
+              ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\fetcher.py", line 13, in __init__
+    self.storage = Storage()
+                   ^^^^^^^
+NameError: name 'Storage' is not defined
+2026-03-27 19:11:42,218 - quant_system - INFO - 程序启动
+2026-03-27 19:11:46,686 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 19:12:57,760 - quant_system - INFO - 程序启动
+2026-03-27 19:13:00,180 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 19:18:57,148 - quant_system - INFO - 程序启动
+2026-03-27 19:19:00,329 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 19:20:39,979 - quant_system - INFO - 程序启动
+2026-03-27 19:20:42,425 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 19:27:47,042 - quant_system - INFO - 程序启动
+2026-03-27 19:27:49,242 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 19:39:26,553 - quant_system - INFO - 程序启动
+2026-03-27 19:39:29,337 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 19:45:49,648 - quant_system - INFO - 程序启动
+2026-03-27 19:45:52,709 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 19:47:11,570 - quant_system - INFO - 程序启动
+2026-03-27 19:47:14,435 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 19:48:13,523 - quant_system - INFO - 程序启动
+2026-03-27 19:48:16,179 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 19:58:21,828 - quant_system - INFO - 程序启动
+2026-03-27 19:58:28,465 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 20:03:35,087 - quant_system - INFO - 程序启动
+2026-03-27 20:03:41,103 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 20:04:21,041 - quant_system - INFO - 程序启动
+2026-03-27 20:04:24,292 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 20:10:38,519 - quant_system - INFO - 程序启动
+2026-03-27 20:10:40,995 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 20:27:53,139 - quant_system - INFO - 程序启动
+2026-03-27 20:27:59,946 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 20:36:25,634 - quant_system - INFO - 程序启动
+2026-03-27 20:36:28,291 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 20:36:29,368 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\ui\main_window.py", line 167, in on_tab_changed
+    from ui.quant_backtest_tab import QuantBacktestTab
+  File "C:\Users\ASUS\Desktop\quant_system\ui\quant_backtest_tab.py", line 11, in <module>
+    from ui.threads.backtest_thread import BacktestThread
+ModuleNotFoundError: No module named 'ui.threads.backtest_thread'
+2026-03-27 20:42:44,299 - quant_system - INFO - 程序启动
+2026-03-27 20:42:55,012 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 20:43:09,666 - quant_system - ERROR - get_daily_data 异常: 000001
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\fetcher.py", line 37, in get_daily_data
+    result = self.daily_provider.fetch_range(code, start_date, end_date)
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\daily.py", line 119, in fetch_range
+    df = self.fetch(code, all_data=True, use_cache=True)
+  File "C:\Users\ASUS\Desktop\quant_system\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\daily.py", line 29, in fetch
+    if use_cache and all_data and Storage.is_cache_fresh(cache_file, max_age_days=1):
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'Storage' has no attribute 'is_cache_fresh'
+2026-03-27 20:43:17,494 - quant_system - ERROR - get_daily_data 异常: 000001
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\fetcher.py", line 37, in get_daily_data
+    result = self.daily_provider.fetch_range(code, start_date, end_date)
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\daily.py", line 119, in fetch_range
+    df = self.fetch(code, all_data=True, use_cache=True)
+  File "C:\Users\ASUS\Desktop\quant_system\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\daily.py", line 29, in fetch
+    if use_cache and all_data and Storage.is_cache_fresh(cache_file, max_age_days=1):
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'Storage' has no attribute 'is_cache_fresh'
+2026-03-27 20:50:04,531 - quant_system - INFO - 程序启动
+2026-03-27 20:50:08,528 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 20:51:43,415 - quant_system - INFO - 程序启动
+2026-03-27 20:51:46,138 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 20:51:50,623 - quant_system - ERROR - get_daily_data 异常: 000001
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\fetcher.py", line 37, in get_daily_data
+    result = self.daily_provider.fetch_range(code, start_date, end_date)
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\daily.py", line 119, in fetch_range
+    df = self.fetch(code, all_data=True, use_cache=True)
+  File "C:\Users\ASUS\Desktop\quant_system\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\daily.py", line 29, in fetch
+    if use_cache and all_data and Storage.is_cache_fresh(cache_file, max_age_days=1):
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'Storage' has no attribute 'is_cache_fresh'
+2026-03-27 21:19:01,418 - quant_system - INFO - 程序启动
+2026-03-27 21:19:04,391 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 21:19:08,529 - quant_system - ERROR - get_daily_data 异常: 000001
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\fetcher.py", line 83, in get_daily_data
+    result = self.daily_provider.fetch_range(code, start_date, end_date)
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\daily.py", line 119, in fetch_range
+    df = self.fetch(code, all_data=True, use_cache=True)
+  File "C:\Users\ASUS\Desktop\quant_system\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\daily.py", line 29, in fetch
+    if use_cache and all_data and Storage.is_cache_fresh(cache_file, max_age_days=1):
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'Storage' has no attribute 'is_cache_fresh'
+2026-03-27 21:19:10,446 - quant_system - ERROR - get_daily_data 异常: 000001
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\fetcher.py", line 83, in get_daily_data
+    result = self.daily_provider.fetch_range(code, start_date, end_date)
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\daily.py", line 119, in fetch_range
+    df = self.fetch(code, all_data=True, use_cache=True)
+  File "C:\Users\ASUS\Desktop\quant_system\common\utils.py", line 37, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Users\ASUS\Desktop\quant_system\data_preprocessing\daily.py", line 29, in fetch
+    if use_cache and all_data and Storage.is_cache_fresh(cache_file, max_age_days=1):
+                                  ^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: type object 'Storage' has no attribute 'is_cache_fresh'
+2026-03-27 21:20:53,101 - quant_system - INFO - 程序启动
+2026-03-27 21:20:56,569 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 21:22:07,968 - quant_system - INFO - 程序启动
+2026-03-27 21:22:11,025 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 21:24:10,326 - quant_system - INFO - 程序启动
+2026-03-27 21:24:19,663 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 21:24:22,303 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\ui\quant_backtest_tab.py", line 283, in on_backtest_finished
+    self.chart.draw(df, equity_df, trades)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\charts\backtest_chart.py", line 78, in draw
+    base_close = df['close'].fillna(method='ffill')
+TypeError: NDFrame.fillna() got an unexpected keyword argument 'method'
+2026-03-27 21:26:37,241 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\.venv\Lib\site-packages\matplotlib\backends\backend_qt.py", line 265, in eventFilter
+    def eventFilter(self, source, event):
+    
+KeyboardInterrupt
+2026-03-27 21:26:44,739 - quant_system - INFO - 程序启动
+2026-03-27 21:26:47,842 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 21:28:50,234 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\ui\main_window.py", line 161, in on_tab_changed
+    from ui.daily_tab import DailyTab
+  File "C:\Users\ASUS\Desktop\quant_system\ui\daily_tab.py", line 7, in <module>
+    from ui.widgets.stock_tab import StockTab
+  File "C:\Users\ASUS\Desktop\quant_system\ui\widgets\stock_tab.py", line 12, in <module>
+    from ui.threads.weekly_thread import WeeklyDataThread
+  File "C:\Users\ASUS\Desktop\quant_system\ui\threads\weekly_thread.py", line 3, in <module>
+    class WeeklyDataThread(QThread):
+                           ^^^^^^^
+NameError: name 'QThread' is not defined
+2026-03-27 21:28:52,679 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\ui\main_window.py", line 161, in on_tab_changed
+    from ui.daily_tab import DailyTab
+  File "C:\Users\ASUS\Desktop\quant_system\ui\daily_tab.py", line 7, in <module>
+    from ui.widgets.stock_tab import StockTab
+  File "C:\Users\ASUS\Desktop\quant_system\ui\widgets\stock_tab.py", line 12, in <module>
+    from ui.threads.weekly_thread import WeeklyDataThread
+  File "C:\Users\ASUS\Desktop\quant_system\ui\threads\weekly_thread.py", line 3, in <module>
+    class WeeklyDataThread(QThread):
+                           ^^^^^^^
+NameError: name 'QThread' is not defined
+2026-03-27 21:28:55,969 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\ui\main_window.py", line 181, in load_stock_daily
+    self.on_tab_changed(1)
+    ~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\main_window.py", line 161, in on_tab_changed
+    from ui.daily_tab import DailyTab
+  File "C:\Users\ASUS\Desktop\quant_system\ui\daily_tab.py", line 7, in <module>
+    from ui.widgets.stock_tab import StockTab
+  File "C:\Users\ASUS\Desktop\quant_system\ui\widgets\stock_tab.py", line 12, in <module>
+    from ui.threads.weekly_thread import WeeklyDataThread
+  File "C:\Users\ASUS\Desktop\quant_system\ui\threads\weekly_thread.py", line 3, in <module>
+    class WeeklyDataThread(QThread):
+                           ^^^^^^^
+NameError: name 'QThread' is not defined
+2026-03-27 21:31:09,061 - quant_system - INFO - 程序启动
+2026-03-27 21:31:18,330 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 21:32:07,519 - quant_system - INFO - 程序启动
+2026-03-27 21:32:12,557 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 21:35:37,733 - quant_system - INFO - 程序启动
+2026-03-27 21:35:40,412 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 21:35:41,029 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\ui\main_window.py", line 161, in on_tab_changed
+    from ui.daily_tab import DailyTab
+  File "C:\Users\ASUS\Desktop\quant_system\ui\daily_tab.py", line 7, in <module>
+    from ui.widgets.stock_tab import StockTab
+  File "C:\Users\ASUS\Desktop\quant_system\ui\widgets\stock_tab.py", line 408
+    }
+    ^
+SyntaxError: unmatched '}'
+2026-03-27 21:38:34,430 - quant_system - INFO - 程序启动
+2026-03-27 21:38:39,710 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 21:39:03,723 - quant_system - INFO - 缓存失效，正在请求 weekly API: 000004
+2026-03-27 21:39:05,857 - quant_system - INFO - 缓存失效，正在请求 monthly API: 000004
+2026-03-27 21:42:17,882 - quant_system - INFO - 程序启动
+2026-03-27 21:42:20,671 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 21:42:30,137 - quant_system - INFO - 缓存失效，正在请求 weekly API: 000001
+2026-03-27 21:42:31,663 - quant_system - INFO - 缓存失效，正在请求 monthly API: 000001
+2026-03-27 21:46:57,607 - quant_system - INFO - 程序启动
+2026-03-27 21:47:00,645 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 21:47:23,119 - quant_system - INFO - 程序启动
+2026-03-27 21:47:25,721 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 21:53:36,603 - quant_system - INFO - 程序启动
+2026-03-27 21:53:39,362 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 22:03:35,267 - quant_system - INFO - 程序启动
+2026-03-27 22:03:38,761 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 22:04:21,463 - quant_system - INFO - 程序启动
+2026-03-27 22:04:24,214 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 22:04:40,306 - quant_system - INFO - 缓存失效或过期，向 weekly API 请求最新100笔数据: 000002
+2026-03-27 22:04:41,401 - quant_system - INFO - 缓存失效或过期，向 monthly API 请求最新100笔数据: 000002
+2026-03-27 22:08:53,969 - quant_system - INFO - 程序启动
+2026-03-27 22:08:56,853 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 22:11:54,886 - quant_system - INFO - 程序启动
+2026-03-27 22:11:58,147 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-27 22:12:04,683 - quant_system - INFO - 缓存失效或过期，向 weekly API 请求最新100笔数据: 603580
+2026-03-27 22:12:07,683 - quant_system - INFO - 缓存失效或过期，向 monthly API 请求最新100笔数据: 603580

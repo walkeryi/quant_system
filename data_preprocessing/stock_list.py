@@ -9,7 +9,8 @@ class StockListProvider:
 
     def fetch(self, use_cache=True):
         if use_cache:
-            df = Storage.load_csv(STOCK_LIST_CACHE)
+            # 修改处：改用 load_parquet
+            df = Storage.load_parquet(STOCK_LIST_CACHE)
             if df is not None: return df, "Cache"
 
         try:
@@ -17,6 +18,9 @@ class StockListProvider:
             data = resp.json()
             if data.get('ret') == 200:
                 df = pd.DataFrame(data.get('data', []))
-                Storage.save_csv(df, STOCK_LIST_CACHE)
+                # 修改处：改用 save_parquet
+                Storage.save_parquet(df, STOCK_LIST_CACHE)
                 return df, data.get('ver', "")
-        except: return None, None
+        except Exception as e:
+            print(f"Fetch stock list error: {e}")
+            return None, None
