@@ -1,13 +1,18 @@
-# ui/threads/backtest_thread.py
+# 文件路径: quant_system/ui/threads/backtest_thread.py
 import traceback
 import pandas as pd
 import numpy as np
 from PyQt6.QtCore import QThread, pyqtSignal
 from data_preprocessing.fetcher import DataPreprocessor
 
+# 导入编译好的 C++ 核心库
+try:
+    import backtest_core
+except ImportError:
+    raise ImportError("无法导入 backtest_core C++ 模块，请确认已运行 python setup.py build_ext --inplace 进行编译！")
+
 
 class BacktestThread(QThread):
-    # 定义信号：回传 (行情数据框, 资金数据框, 交易记录列表, 统计指标字典)
     finished = pyqtSignal(object, object, list, dict)
     error = pyqtSignal(str)
 
@@ -30,16 +35,13 @@ class BacktestThread(QThread):
                 self.error.emit(f"无法获取 {self.stock_code} 在指定时间范围的历史数据，请检查代码或网络！")
                 return
 
-            # 【修复核心错误1：索引转换问题】确保 date 是一列而不是单独的 index
             if 'date' not in df.columns:
                 df = df.reset_index()
 
-            # 防御性校验
             if 'date' not in df.columns or 'close' not in df.columns:
                 self.error.emit(f"数据源结构异常，缺失关键列。当前列名: {df.columns.tolist()}")
                 return
 
-            # 确保日期列格式正确并按时间升序排列，同时清除价格为 NaN 的异常数据
             df['date'] = pd.to_datetime(df['date'])
             df = df.dropna(subset=['close']).sort_values('date').reset_index(drop=True)
 
@@ -48,7 +50,6 @@ class BacktestThread(QThread):
                 return
 
             # ================= 2. 动态编译并执行用户编写的策略 =================
-            # 创建纯净的命名空间，注入 pandas 和 numpy
             namespace = {'pd': pd, 'np': np}
             try:
                 exec(self.strategy_code, namespace)
@@ -62,100 +63,67 @@ class BacktestThread(QThread):
 
             func = namespace['generate_signals']
             try:
-                # 把历史数据传给用户的策略进行运算，生成买卖信号
                 df = func(df.copy())
             except Exception as e:
-                self.error.emit(f"策略运行期间崩溃，请检查您的策略代码逻辑：\n{traceback.format_exc()}")
+                self.error.emit(f"策略运行期间崩溃：\n{traceback.format_exc()}")
                 return
 
             if 'signal' not in df.columns:
                 self.error.emit("策略执行完毕后，返回的数据中未包含关键的 'signal' 信号列！")
                 return
 
-            # ================= 3. 回测引擎：模拟撮合与资金计算 =================
-            cash = self.initial_capital
-            holdings = 0
-            buy_price = 0.0
+            # ================= 3. 调用 C++ 高性能回测引擎 =================
+            # 将 DataFrame 转换为 C++ 能直接通过指针读取的 Numpy 连续内存数组
+            prices = df['close'].values.astype(np.float64)
+            signals = df['signal'].values.astype(np.int32)
 
-            equity_records = []
+            engine = backtest_core.BacktestEngine(self.initial_capital)
+
+            # C++ 极速撮合计算核心 (此过程 GIL 已释放)
+            res = engine.run(prices, signals, self.stop_loss)
+
+            equity_curve = res['equity_curve']
+            trades_array = res['trades']
+
+            # ================= 4. 结果反序列化与高级指标计算 (向量化) =================
+            # 利用 Pandas 的底层向量化能力快速计算回撤和收益，避免在 Python 中写循环
+            equity_df = pd.DataFrame({
+                'date': df['date'],
+                'equity': equity_curve
+            })
+
+            # 计算总收益率序列
+            equity_df['total_return'] = (equity_df['equity'] - self.initial_capital) / self.initial_capital * 100
+
+            # 向量化计算最大回撤
+            equity_df['max_equity'] = equity_df['equity'].cummax()
+            equity_df['drawdown'] = np.where(
+                equity_df['max_equity'] > 0,
+                (equity_df['equity'] - equity_df['max_equity']) / equity_df['max_equity'] * 100,
+                0.0
+            )
+
+            # 解析 C++ 返回的交易记录矩阵
             trades = []
-
-            max_equity = cash
-
-            # 模拟时间回流，逐日遍历
-            for i, row in df.iterrows():
-                current_date = row['date']
-                current_price = float(row['close'])
-                signal = row.get('signal', 0)
-
-                # 剔除无效价格以防除零报错
-                if current_price <= 0 or pd.isna(current_price):
-                    continue
-
-                # --- 止损拦截逻辑 ---
-                # 【修复核心错误2：增加 buy_price > 0 判断防止除 0 异常】
-                if holdings > 0 and self.stop_loss > 0 and buy_price > 0:
-                    loss_pct = (current_price - buy_price) / buy_price * 100
-                    if loss_pct <= -self.stop_loss:
-                        signal = -1  # 强制熔断，触发卖出信号
-
-                # --- 撮合买入逻辑 ---
-                if signal == 1 and cash >= current_price * 100:
-                    # 全仓买入（按100股的整数倍计算最大可买手数）
-                    max_shares = int(cash // (current_price * 100)) * 100
-                    if max_shares > 0:
-                        cost = max_shares * current_price
-                        cash -= cost
-                        holdings += max_shares
-                        buy_price = current_price
-                        trades.append({
-                            'date': current_date.strftime('%Y-%m-%d'),
-                            'type': 'buy',
-                            'price': current_price,
-                            'amount': max_shares
-                        })
-
-                # --- 撮合卖出逻辑 ---
-                elif signal == -1 and holdings > 0:
-                    # 清仓卖出
-                    revenue = holdings * current_price
-                    cash += revenue
-                    trades.append({
-                        'date': current_date.strftime('%Y-%m-%d'),
-                        'type': 'sell',
-                        'price': current_price,
-                        'amount': holdings
-                    })
-                    holdings = 0
-                    buy_price = 0.0
-
-                # --- 每日盘后清算 ---
-                current_equity = cash + holdings * current_price
-                max_equity = max(max_equity, current_equity)  # 记录历史最高资产
-
-                # 【修复核心错误3：资产回撤计算除0防御】
-                drawdown = ((current_equity - max_equity) / max_equity * 100) if max_equity > 0 else 0.0
-
-                equity_records.append({
-                    'date': current_date,
-                    'equity': current_equity,
-                    'total_return': ((
-                                                 current_equity - self.initial_capital) / self.initial_capital * 100) if self.initial_capital > 0 else 0.0,
-                    'drawdown': drawdown
+            for row in trades_array:
+                idx = int(row[0])
+                trade_type = 'buy' if int(row[1]) == 1 else 'sell'
+                trades.append({
+                    'date': df['date'].iloc[idx].strftime('%Y-%m-%d'),
+                    'type': trade_type,
+                    'price': float(row[2]),
+                    'amount': int(row[3])
                 })
 
-            # 防御无记录生成的崩溃
-            if not equity_records:
+            if equity_df.empty:
                 self.error.emit("回测执行完毕，但没有生成任何有效的资产变动记录！")
                 return
 
-            equity_df = pd.DataFrame(equity_records)
-
-            # ================= 4. 统计策略综合绩效指标 =================
-            final_equity = equity_df['equity'].iloc[-1]
+            # ================= 5. 组装最终绩效评价指标 =================
+            final_equity = res['final_equity']
             total_return = (
                                        final_equity - self.initial_capital) / self.initial_capital * 100 if self.initial_capital > 0 else 0.0
-            max_drawdown = equity_df['drawdown'].min()  # 回撤已经是负数，取 min 即可
+            max_drawdown = equity_df['drawdown'].min()
 
             metrics = {
                 'final_equity': final_equity,
@@ -164,7 +132,6 @@ class BacktestThread(QThread):
                 'trade_count': len(trades)
             }
 
-            # ================= 5. 将结果发送给图表和 UI 更新 =================
             self.finished.emit(df, equity_df, trades, metrics)
 
         except Exception as e:

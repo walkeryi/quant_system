@@ -1,0 +1,84 @@
+会员令牌信息：f3ce3145a0170c3c683fcf83026de94b
+
+=================================接口说明：获取沪深两市股票列表=============================================================
+
+更新时间：交易日开盘半小时后更新
+
+常规接口：http://www.sanhulianghua.com:2008/v1/hsa_gupiao
+
+安全接口：https://www.sanhulianghua.com:608/v1/hsa_gupiao
+
+请求方式：GET
+
+收费标准：参考【 价格与账单 】
+
+http://www.sanhulianghua.com:2008/v1/hsa_gupiao?token=f3ce3145a0170c3c683fcf83026de94b
+请求参数
+参数名称	描述	类型	默认值	是否必须	取值范围	示例值
+token	会员令牌	string		是	非空，来自【 账户与配置 】	f75cc676f91464a63112979b855c4164
+返回数据
+数据名称	描述	类型	示例值	备注
+ret	返回码	uint	200	200:成功；300:令牌错误；301:余额不足；4XX:其他错误
+msg	提示信息	string	"success"	UTF-8
+ver	更新日期	string	"2025-01-01"	UTF-8
+data	股票列表	array[object]
+- code	股票代码	string	"601857"	UTF-8
+- name	股票名称	string	"中国石油"	UTF-8
+
+=========================接口说明：获取沪深两市所有个股和ETF的实时分时数据======================================================
+
+更新时间：实时更新（交易日开盘前清空数据）
+
+常规接口：http://www.sanhulianghua.com:2008/v1/hsa_fenshi
+
+安全接口：https://www.sanhulianghua.com:608/v1/hsa_fenshi
+
+请求方式：GET
+
+收费标准：参考【 价格与账单 】
+
+
+http://www.sanhulianghua.com:2008/v1/hsa_fenshi?token=f3ce3145a0170c3c683fcf83026de94b&code=002423&all=1
+请求参数
+参数名称	描述	类型	默认值	是否必须	取值范围	示例值
+token	会员令牌	string		是	非空，来自【 账户与配置 】	f75cc676f91464a63112979b855c4164
+code	股票代码	string		是	非空	601857
+all	是否获取全日数据	uint	0	否	0：获取最新数据；1：获取全日数据	1
+返回数据
+数据名称	描述	类型	示例值	备注
+ret	返回码	uint	200	200:成功；201:盘前无数据；300:令牌错误；301:余额不足；302:股票代码无效；4XX:其他错误
+msg	提示信息	string	"success"	UTF-8
+data	行情列表	array[object]
+- ShiJian	行情时间	string	"14:02"	分钟
+- JiaGe	最新价格	uint	12450	单位：0.1分
+- ZongLiang	总成交量	uint	89500	单位：手
+- JinE	成交金额	uint64	111000000	单位：元
+- JunJia	均价	uint	12440	单位：0.1分
+- HuanShou	换手	int	390	单位：0.001%
+- ZhangFu	涨幅	int	730	单位：0.001%，负值为下跌
+- ZhangSu	涨速	int	0	单位：0.001%，负值为下跌
+- LiangBi	量比	int	650	单位：0.001%
+- WeiBi	委比	int	710	单位：0.001%
+- NeiPan	内盘	uint	36700	单位：手
+- WaiPan	外盘	uint	52800	单位：手
+base	基本数据	object
+- code	股票代码	string	"601857"	UTF-8
+- name	股票名称	string	"中国石油"	UTF-8
+- date	行情日期	string	"2024-01-01"	UTF-8
+- KaiPan	开盘	uint	12360	单位：0.1分
+- ZuiGao	最高	uint	12500	单位：0.1分
+- ZuiDi	最低	uint	12320	单位：0.1分
+- ZuoShou	昨收	uint	12360	单位：0.1分
+- ZhenFu	振幅	int	1460	单位：0.001%
+- NeiWaiBi	内外比	int	690	单位：0.001%
+- ShiYingLv	市盈率	int	1320	单位：0.001%
+- ShiJingLv	市净率	int	1320	单位：0.001%
+- ShiZhi	市值	uint	2869000	单位：万
+- LianZhangTian	连涨天数	int	-1	单位：天，负值为连跌天数
+- 03RiZhangFu	近3日涨幅	int	-2510	单位：0.001%，负值为下跌
+- 05RiZhangFu	近5日涨幅	int	-1110	单位：0.001%，负值为下跌
+- 10RiZhangFu	近10日涨幅	int	-1110	单位：0.001%，负值为下跌
+- 20RiZhangFu	近20日涨幅	int	-1110	单位：0.001%，负值为下跌
+- 60RiZhangFu	近60日涨幅	int	-1110	单位：0.001%，负值为下跌
+- NianZhangFu	近1年涨幅	int	-3710	单位：0.001%，负值为下跌
+

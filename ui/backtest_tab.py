@@ -161,7 +161,7 @@ class BacktestTab(QWidget):
         font = QFont("Consolas", 12)
         self.code_editor.setFont(font)
         self.code_editor.setStyleSheet("background-color: #1e1e1e; color: #d4d4d4; padding: 10px; border-radius: 5px;")
-
+        self.code_editor.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
         self.btn_save = QPushButton("💾 保存 / 更新当前源码")
         self.btn_save.setFixedHeight(35)
         self.btn_save.setStyleSheet(

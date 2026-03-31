@@ -39,7 +39,30 @@ class StockListTab(QWidget):
         self.category_list = QListWidget()
         self.category_list.setMaximumWidth(110)
         self.category_list.addItems(["全部", "沪市主板", "深市主板", "创业板", "科创板", "北交所"])
-        self.category_list.setCurrentRow(0)
+        self.category_list.setStyleSheet("""
+                    QListWidget {
+                        background-color: #1e1e1e;
+                        border: none;
+                        outline: 0; /* 消除虚线框 */
+                    }
+                    QListWidget::item {
+                        color: #aaaaaa;
+                        padding: 15px 10px; /* 撑开高度 */
+                        border-radius: 5px;
+                        margin: 2px 5px;    /* 左右留白 */
+                    }
+                    QListWidget::item:hover {
+                        background-color: #2a2a2a;
+                        color: #ffffff;
+                    }
+                    QListWidget::item:selected {
+                        background-color: #2196F3;
+                        color: white;
+                        font-weight: bold;
+                    }
+                """)
+        # 👆 新增结束
+
         self.category_list.itemClicked.connect(self.on_category_changed)
         layout.addWidget(self.category_list)
 
@@ -69,11 +92,68 @@ class StockListTab(QWidget):
         # 使用原生 C++ API 去除边框，消灭警告
         self.table.setFrameShape(QTableWidget.Shape.NoFrame)
 
+        # 👇 新增：强制隐藏网格线和左侧自带的默认行号（序号）
+        self.table.setShowGrid(False)
+        self.table.verticalHeader().setVisible(False)
+
+        # 👇 新增：右侧股票列表的现代化暗黑 UI 样式（包含定制滚动条）
+        self.table.setStyleSheet("""
+                    /* 表格全局背景 */
+                    QTableWidget {
+                        background-color: #1e1e1e;
+                        border: none;
+                        outline: 0;
+                    }
+                    /* 每一行的单元格 */
+                    QTableWidget::item {
+                        padding: 2px 5px;
+                        border-bottom: 1px solid #282828; /* 用极淡的底边框替代全包围网格线 */
+                        color: #d4d4d4;
+                    }
+                    /* 鼠标悬停时的整行高亮 */
+                    QTableWidget::item:hover {
+                        background-color: #2c2c2c;
+                    }
+                    /* 选中时的整行颜色 */
+                    QTableWidget::item:selected {
+                        background-color: #1a4b77; /* 沉稳的暗蓝色选中效果 */
+                        color: #ffffff;
+                    }
+                    /* 现代化的表头设计 */
+                    QHeaderView::section {
+                        background-color: #252526;
+                        color: #888888;
+                        padding: 8px;
+                        border: none;
+                        border-bottom: 2px solid #333333;
+                        font-weight: bold;
+                        font-size: 13px;
+                    }
+                    /* 竖向滚动条 */
+                    QScrollBar:vertical {
+                        border: none; background: #1e1e1e; width: 10px; margin: 0px;
+                    }
+                    QScrollBar::handle:vertical {
+                        background: #555555; min-height: 30px; border-radius: 5px;
+                    }
+                    QScrollBar::handle:vertical:hover { background: #777777; }
+                    QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0px; }
+                    QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical { background: none; }
+                """)
+        # 👆 新增结束
+
         fm = QFontMetrics(self.table.font())
-        base_w = fm.horizontalAdvance("0" * 9) + 10
+        # ... 后续的 setColumnWidth 等代码保持不变 ...
+
+        fm = QFontMetrics(self.table.font())
+        # 假设最长的是成交量（例如 "12345678.00"），我们用 12 个 "0" 加上 20 像素的留白做标尺
+        safe_base_w = fm.horizontalAdvance("0" * 12) + 20
+        min_w = fm.horizontalAdvance("汉字") + 20
+        self.table.horizontalHeader().setMinimumSectionSize(min_w)
+        # 循环应用到所有列
         for i in range(7):
-            self.table.setColumnWidth(i, base_w)
-        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Fixed)
+            self.table.setColumnWidth(i, safe_base_w)
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Interactive)
 
         self.table.setSortingEnabled(True)
         right_layout.addWidget(self.table)
@@ -113,6 +193,7 @@ class StockListTab(QWidget):
         def create_item(text):
             item = QTableWidgetItem(str(text))
             item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
+            item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
             return item
 
         # 2. 将 DataFrame 转为字典列表加速渲染

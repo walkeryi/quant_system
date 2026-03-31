@@ -2604,3 +2604,148 @@ SyntaxError: '[' was never closed
 2026-03-28 00:30:15,310 - quant_system - INFO - 程序启动
 2026-03-28 00:31:10,625 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
 2026-03-28 00:31:21,850 - quant_system - INFO - 缓存失效或过期，向 daily API 请求数据: 000002 (获取=100笔)
+2026-03-28 19:16:35,801 - quant_system - INFO - 程序启动
+2026-03-28 19:16:39,036 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-28 23:28:58,710 - quant_system - INFO - 程序启动
+2026-03-28 23:31:37,839 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-28 23:31:41,178 - quant_system - INFO - 缓存失效或过期，向 daily API 请求数据: 000001 (获取=全量)
+2026-03-28 23:40:29,084 - quant_system - INFO - 程序启动
+2026-03-28 23:40:34,929 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-28 23:42:07,799 - quant_system - INFO - 程序启动
+2026-03-28 23:42:10,596 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-28 23:50:06,035 - quant_system - INFO - 程序启动
+2026-03-28 23:50:08,537 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-30 12:28:31,020 - quant_system - INFO - 程序启动
+2026-03-30 12:28:37,303 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-30 12:29:44,068 - quant_system - INFO - 程序启动
+2026-03-30 12:29:47,619 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-30 12:29:50,916 - quant_system - INFO - 缓存失效或过期，向 daily API 请求数据: 000001 (获取=100笔)
+2026-03-30 12:29:53,354 - quant_system - INFO - 缓存失效或过期，向 weekly API 请求最新100笔数据: 000001
+2026-03-30 12:29:53,692 - quant_system - INFO - 缓存失效或过期，向 monthly API 请求最新100笔数据: 000001
+2026-03-30 12:30:02,430 - quant_system - INFO - 缓存失效或过期，向 daily API 请求数据: 000001 (获取=全量)
+2026-03-30 12:33:05,129 - quant_system - INFO - 程序启动
+2026-03-30 12:33:13,800 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-30 12:39:24,054 - quant_system - INFO - 程序启动
+2026-03-30 12:39:26,632 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-30 12:43:56,415 - quant_system - INFO - 程序启动
+2026-03-30 12:44:00,899 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-30 13:48:02,312 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\.venv\Lib\site-packages\matplotlib\backends\backend_qt.py", line 265, in eventFilter
+    def eventFilter(self, source, event):
+    
+KeyboardInterrupt
+2026-03-31 20:19:22,169 - quant_system - INFO - 程序启动
+2026-03-31 20:19:31,918 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-31 20:19:42,515 - quant_system - INFO - 缓存失效或过期，向 daily API 请求数据: 000001 (获取=全量)
+2026-03-31 20:21:52,307 - quant_system - INFO - 程序启动
+2026-03-31 20:22:21,991 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-31 20:29:01,717 - quant_system - INFO - 程序启动
+2026-03-31 20:29:04,782 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-31 20:30:02,488 - quant_system - INFO - 程序启动
+2026-03-31 20:30:06,126 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-31 20:30:58,515 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\.venv\Lib\site-packages\matplotlib\backends\backend_qt.py", line 265, in eventFilter
+    def eventFilter(self, source, event):
+    
+KeyboardInterrupt
+2026-03-31 20:31:04,438 - quant_system - INFO - 程序启动
+2026-03-31 20:31:06,544 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-31 20:34:28,629 - quant_system - INFO - 程序启动
+2026-03-31 20:34:33,447 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-31 20:35:28,476 - quant_system - INFO - 程序启动
+2026-03-31 20:35:33,915 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-31 20:35:59,988 - quant_system - INFO - 程序启动
+2026-03-31 20:36:04,505 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-31 20:37:53,536 - quant_system - INFO - 程序启动
+2026-03-31 20:37:56,741 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-31 20:41:44,613 - quant_system - INFO - 程序启动
+2026-03-31 20:41:49,270 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-31 20:52:25,097 - quant_system - INFO - 程序启动
+2026-03-31 20:53:02,466 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-31 20:53:05,754 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\ui\main_window.py", line 168, in on_tab_changed
+    self.backtest_tab = QuantBacktestTab()
+                        ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\quant_backtest_tab.py", line 94, in __init__
+    self.initUI()
+    ~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\quant_backtest_tab.py", line 104, in initUI
+    self.initCenterTab()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\quant_backtest_tab.py", line 116, in initCenterTab
+    self.center_list = QListWidget()
+                       ^^^^^^^^^^^
+NameError: name 'QListWidget' is not defined. Did you mean: 'QTabWidget'?
+2026-03-31 20:54:39,021 - quant_system - INFO - 程序启动
+2026-03-31 20:54:41,629 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-31 20:54:43,020 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\ui\main_window.py", line 168, in on_tab_changed
+    self.backtest_tab = QuantBacktestTab()
+                        ~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\quant_backtest_tab.py", line 95, in __init__
+    self.initUI()
+    ~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\quant_backtest_tab.py", line 105, in initUI
+    self.initCenterTab()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\ASUS\Desktop\quant_system\ui\quant_backtest_tab.py", line 303, in initCenterTab
+    self.center_list.setCurrentCell(0, 0)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'QListWidget' object has no attribute 'setCurrentCell'. Did you mean: 'setCurrentItem'?
+2026-03-31 20:56:03,122 - quant_system - INFO - 程序启动
+2026-03-31 20:56:07,074 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-31 21:00:29,285 - quant_system - INFO - 程序启动
+2026-03-31 21:00:31,513 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-31 21:02:13,924 - quant_system - INFO - 程序启动
+2026-03-31 21:03:06,970 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-03-31 22:02:34,874 - quant_system - INFO - 程序启动
+2026-03-31 22:02:37,344 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-04-01 18:54:45,252 - quant_system - INFO - 程序启动
+2026-04-01 18:54:48,165 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-04-01 18:55:53,568 - quant_system - INFO - 缓存失效或过期，向 daily API 请求数据: 000008 (获取=100笔)
+2026-04-01 18:56:17,228 - quant_system - INFO - 缓存失效或过期，向 weekly API 请求最新100笔数据: 000008
+2026-04-01 18:56:26,164 - quant_system - INFO - 缓存失效或过期，向 monthly API 请求最新100笔数据: 000008
+2026-04-01 19:51:07,472 - quant_system - INFO - 程序启动
+2026-04-01 19:51:33,503 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-04-10 18:30:35,539 - quant_system - INFO - 程序启动
+2026-04-10 18:30:42,220 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-04-10 18:39:39,141 - quant_system - INFO - 程序启动
+2026-04-10 18:39:41,955 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-04-10 18:39:44,675 - quant_system - CRITICAL - Unhandled exception
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\ui\threads\backtest_thread.py", line 10, in <module>
+    import backtest_core
+ModuleNotFoundError: No module named 'backtest_core'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\ASUS\Desktop\quant_system\ui\main_window.py", line 167, in on_tab_changed
+    from ui.quant_backtest_tab import QuantBacktestTab
+  File "C:\Users\ASUS\Desktop\quant_system\ui\quant_backtest_tab.py", line 14, in <module>
+    from ui.threads.backtest_thread import BacktestThread
+  File "C:\Users\ASUS\Desktop\quant_system\ui\threads\backtest_thread.py", line 12, in <module>
+    raise ImportError("无法导入 backtest_core C++ 模块，请确认已运行 python setup.py build_ext --inplace 进行编译！")
+ImportError: 无法导入 backtest_core C++ 模块，请确认已运行 python setup.py build_ext --inplace 进行编译！
+2026-04-12 19:18:43,334 - quant_system - INFO - 程序启动
+2026-04-12 19:18:49,683 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-04-12 19:21:20,589 - quant_system - INFO - 程序启动
+2026-04-12 19:21:22,966 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-04-12 19:21:32,100 - quant_system - INFO - 程序启动
+2026-04-12 19:21:36,509 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-04-12 19:22:42,335 - quant_system - INFO - 程序启动
+2026-04-12 19:22:46,128 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-04-12 20:22:22,540 - quant_system - INFO - 程序启动
+2026-04-12 20:22:25,515 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-04-12 20:25:57,376 - quant_system - INFO - 程序启动
+2026-04-12 20:25:59,579 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-04-12 20:26:12,230 - quant_system - INFO - 程序启动
+2026-04-12 20:26:14,723 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-04-12 20:26:51,362 - quant_system - INFO - 程序启动
+2026-04-12 20:27:06,947 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
+2026-04-12 20:57:09,841 - quant_system - INFO - 程序启动
+2026-04-12 20:57:12,283 - quant_system - INFO - 用户跳过登录，以游客身份进入（仅看盘）
