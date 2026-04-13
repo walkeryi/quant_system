@@ -1,16 +1,25 @@
 # 文件路径: quant_system/ui/threads/backtest_thread.py
+print("  [线程追踪] 进入 backtest_thread.py")
+import sys
+import os
 import traceback
 import pandas as pd
 import numpy as np
 from PyQt6.QtCore import QThread, pyqtSignal
 from data_preprocessing.fetcher import DataPreprocessor
+print("  [线程追踪] 准备导入 DataPreprocessor...")
+from data_preprocessing.fetcher import DataPreprocessor
 
-# 导入编译好的 C++ 核心库
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
+print("  [线程追踪] 准备导入 C++ 核心库 backtest_core...")
 try:
     import backtest_core
-except ImportError:
-    raise ImportError("无法导入 backtest_core C++ 模块，请确认已运行 python setup.py build_ext --inplace 进行编译！")
-
+    print(f"  [线程追踪] 成功找到并导入 C++ 核心模块: {backtest_core.__file__}")
+except ImportError as e:
+    print(f"  [线程追踪] 导入失败！错误详情: {str(e)}")
 
 class BacktestThread(QThread):
     finished = pyqtSignal(object, object, list, dict)

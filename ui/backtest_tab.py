@@ -1,17 +1,29 @@
 # ui/backtest_tab.py
+print("\n[加载追踪] 开始读取 quant_backtest_tab.py...")
+
 import os
 import json
+import pandas as pd
+print("[加载追踪] pandas 等基础库导入成功。")
 from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
                              QPushButton, QLineEdit, QGroupBox, QListWidget,
                              QFormLayout, QMessageBox, QSplitter, QTabWidget,
                              QPlainTextEdit, QInputDialog, QFileDialog, QApplication)
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
-from datetime import datetime, timedelta
+print("[加载追踪] PyQt6 组件导入成功。")
 
+print("[加载追踪] 准备导入 BacktestChart...")
 from ui.charts.backtest_chart import BacktestChart
+print("[加载追踪] BacktestChart 导入成功！")
+
+print("[加载追踪] 准备导入 BacktestThread...")
 from ui.threads.backtest_thread import BacktestThread
-from config import CACHE_DIR
+print("[加载追踪] BacktestThread 导入成功！")
+
+print("[加载追踪] 准备导入 OptimizerThread...")
+from ui.threads.optimizer_thread import OptimizerThread
+print("[加载追踪] OptimizerThread 导入成功！")
 
 # 策略保存路径
 STRATEGIES_FILE = os.path.join(CACHE_DIR, "custom_strategies.json")

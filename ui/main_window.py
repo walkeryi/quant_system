@@ -156,26 +156,56 @@ class MainWindow(QMainWindow):
         self.tabs.currentChanged.connect(self.on_tab_changed)
 
     def on_tab_changed(self, index):
-        """当用户第一次点击其它Tab时，才真正初始化其UI及图表"""
-        if index == 1 and self.daily_tab is None:
-            from ui.daily_tab import DailyTab
-            self.daily_tab = DailyTab()
-            self.tabs.removeTab(1)
-            self.tabs.insertTab(1, self.daily_tab, "个股详情")
-            self.tabs.setCurrentIndex(1)
-        elif index == 2 and self.backtest_tab is None:
-            from ui.quant_backtest_tab import QuantBacktestTab
-            self.backtest_tab = QuantBacktestTab()
-            self.tabs.removeTab(2)
-            self.tabs.insertTab(2, self.backtest_tab, "量化回测")
-            self.tabs.setCurrentIndex(2)
-        elif index == 3 and self.calendar_tab is None:
-            from ui.calendar_tab import CalendarTab
-            self.calendar_tab = CalendarTab()
-            self.tabs.removeTab(3)
-            self.tabs.insertTab(3, self.calendar_tab, "交易日历")
-            self.tabs.setCurrentIndex(3)
+        print(f"\n[主窗口追踪] 捕获到 Tab 切换动作，目标索引: {index}")
+        try:
+            if index == 1 and self.daily_tab is None:
+                from ui.daily_tab import DailyTab
+                self.daily_tab = DailyTab()
+                self.tabs.blockSignals(True)
+                self.tabs.removeTab(1)
+                self.tabs.insertTab(1, self.daily_tab, "个股详情")
+                self.tabs.setCurrentIndex(1)
+                self.tabs.blockSignals(False)
 
+            elif index == 2 and self.backtest_tab is None:
+                print("[主窗口追踪] ---> 开始懒加载【量化回测】模块 <---")
+
+                print("[主窗口追踪] 步骤 1：尝试导入 ui.quant_backtest_tab 模块...")
+                from ui.quant_backtest_tab import QuantBacktestTab
+
+                print("[主窗口追踪] 步骤 2：导入成功！准备实例化 QuantBacktestTab...")
+                self.backtest_tab = QuantBacktestTab()
+
+                print("[主窗口追踪] 步骤 3：实例化完成！准备替换组件...")
+                self.tabs.blockSignals(True)
+
+                print("[主窗口追踪] 步骤 4：尝试移除旧的占位 Tab...")
+                self.tabs.removeTab(2)
+
+                print("[主窗口追踪] 步骤 5：尝试插入真正的回测 Tab...")
+                self.tabs.insertTab(2, self.backtest_tab, "量化回测")
+
+                print("[主窗口追踪] 步骤 6：尝试切换页面焦点...")
+                self.tabs.setCurrentIndex(2)
+
+                print("[主窗口追踪] 步骤 7：恢复系统信号...")
+                self.tabs.blockSignals(False)
+
+                print("[主窗口追踪] ---> 量化回测模块加载彻底完成！ <---")
+
+            elif index == 3 and self.calendar_tab is None:
+                from ui.calendar_tab import CalendarTab
+                self.calendar_tab = CalendarTab()
+                self.tabs.blockSignals(True)
+                self.tabs.removeTab(3)
+                self.tabs.insertTab(3, self.calendar_tab, "交易日历")
+                self.tabs.setCurrentIndex(3)
+                self.tabs.blockSignals(False)
+
+        except Exception as e:
+            print(f"\n[主窗口致命错误] 捕获到异常: {str(e)}")
+            import traceback
+            traceback.print_exc()
     def load_stock_daily(self, code):
         if self.daily_tab is None:
             self.on_tab_changed(1)
