@@ -1,0 +1,376 @@
+{
+    "1776312867818": {
+        "id": "1776312867818",
+        "owner_id": "guest",
+        "title": "未命名报告_7818",
+        "timestamp": "2026-04-16 12:14:27",
+        "conditions": {
+            "strategy_name": "单均线趋势策略",
+            "code": "000001",
+            "capital": 100000.0,
+            "start": "2025-04-16",
+            "end": "2026-04-16",
+            "quantity": "100"
+        },
+        "metrics": {
+            "total_profit": -986.9999999999418,
+            "total_return": -0.9869999999999417,
+            "annual_return": -0.9869999999999418,
+            "sharpe_ratio": -0.04799691721338355,
+            "max_drawdown": -15.466955160342646,
+            "trade_count": 27
+        },
+        "strategy_code": "def generate_signals(df):\n    df['MA20'] = df['close'].rolling(window=20).mean()\n    df['signal'] = 0\n    df.loc[df['close'] > df['MA20'], 'signal'] = 1\n    df.loc[df['close'] <= df['MA20'], 'signal'] = -1\n    return df\n",
+        "trades": [
+            {
+                "amount": 8700,
+                "date": "2025-05-16",
+                "price": 11.38,
+                "type": "buy"
+            },
+            {
+                "amount": 8700,
+                "date": "2025-06-13",
+                "price": 11.58,
+                "type": "sell"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-06-16",
+                "price": 11.79,
+                "type": "buy"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-07-22",
+                "price": 12.49,
+                "type": "sell"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-08-25",
+                "price": 12.45,
+                "type": "buy"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-08-27",
+                "price": 12.06,
+                "type": "sell"
+            },
+            {
+                "amount": 9000,
+                "date": "2025-10-14",
+                "price": 11.57,
+                "type": "buy"
+            },
+            {
+                "amount": 9000,
+                "date": "2025-10-15",
+                "price": 11.4,
+                "type": "sell"
+            },
+            {
+                "amount": 8900,
+                "date": "2025-10-16",
+                "price": 11.54,
+                "type": "buy"
+            },
+            {
+                "amount": 8900,
+                "date": "2025-10-17",
+                "price": 11.4,
+                "type": "sell"
+            },
+            {
+                "amount": 8800,
+                "date": "2025-10-22",
+                "price": 11.52,
+                "type": "buy"
+            },
+            {
+                "amount": 8800,
+                "date": "2025-10-29",
+                "price": 11.39,
+                "type": "sell"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-11-04",
+                "price": 11.59,
+                "type": "buy"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-11-28",
+                "price": 11.61,
+                "type": "sell"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-12-01",
+                "price": 11.69,
+                "type": "buy"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-12-02",
+                "price": 11.64,
+                "type": "sell"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-12-18",
+                "price": 11.64,
+                "type": "buy"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-12-22",
+                "price": 11.52,
+                "type": "sell"
+            },
+            {
+                "amount": 8500,
+                "date": "2025-12-23",
+                "price": 11.56,
+                "type": "buy"
+            },
+            {
+                "amount": 8500,
+                "date": "2025-12-30",
+                "price": 11.48,
+                "type": "sell"
+            },
+            {
+                "amount": 8500,
+                "date": "2026-01-05",
+                "price": 11.5,
+                "type": "buy"
+            },
+            {
+                "amount": 8500,
+                "date": "2026-01-08",
+                "price": 11.51,
+                "type": "sell"
+            },
+            {
+                "amount": 8900,
+                "date": "2026-02-09",
+                "price": 11.07,
+                "type": "buy"
+            },
+            {
+                "amount": 8900,
+                "date": "2026-02-12",
+                "price": 10.96,
+                "type": "sell"
+            },
+            {
+                "amount": 8900,
+                "date": "2026-03-12",
+                "price": 10.94,
+                "type": "buy"
+            },
+            {
+                "amount": 8900,
+                "date": "2026-03-20",
+                "price": 10.77,
+                "type": "sell"
+            },
+            {
+                "amount": 8800,
+                "date": "2026-03-24",
+                "price": 10.88,
+                "type": "buy"
+            }
+        ]
+    },
+    "1776318746843": {
+        "id": "1776318746843",
+        "owner_id": "guest",
+        "title": "未命名报告_6843",
+        "timestamp": "2026-04-16 13:52:26",
+        "conditions": {
+            "strategy_name": "单均线趋势策略",
+            "code": "000001",
+            "capital": 100000.0,
+            "start": "2025-04-16",
+            "end": "2026-04-16",
+            "quantity": "100"
+        },
+        "metrics": {
+            "total_profit": -986.9999999999418,
+            "total_return": -0.9869999999999417,
+            "annual_return": -0.9869999999999418,
+            "sharpe_ratio": -0.04799691721338355,
+            "max_drawdown": -15.466955160342646,
+            "trade_count": 27
+        },
+        "strategy_code": "def generate_signals(df):\n    df['MA20'] = df['close'].rolling(window=20).mean()\n    df['signal'] = 0\n    df.loc[df['close'] > df['MA20'], 'signal'] = 1\n    df.loc[df['close'] <= df['MA20'], 'signal'] = -1\n    return df\n",
+        "trades": [
+            {
+                "amount": 8700,
+                "date": "2025-05-16",
+                "price": 11.38,
+                "type": "buy"
+            },
+            {
+                "amount": 8700,
+                "date": "2025-06-13",
+                "price": 11.58,
+                "type": "sell"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-06-16",
+                "price": 11.79,
+                "type": "buy"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-07-22",
+                "price": 12.49,
+                "type": "sell"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-08-25",
+                "price": 12.45,
+                "type": "buy"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-08-27",
+                "price": 12.06,
+                "type": "sell"
+            },
+            {
+                "amount": 9000,
+                "date": "2025-10-14",
+                "price": 11.57,
+                "type": "buy"
+            },
+            {
+                "amount": 9000,
+                "date": "2025-10-15",
+                "price": 11.4,
+                "type": "sell"
+            },
+            {
+                "amount": 8900,
+                "date": "2025-10-16",
+                "price": 11.54,
+                "type": "buy"
+            },
+            {
+                "amount": 8900,
+                "date": "2025-10-17",
+                "price": 11.4,
+                "type": "sell"
+            },
+            {
+                "amount": 8800,
+                "date": "2025-10-22",
+                "price": 11.52,
+                "type": "buy"
+            },
+            {
+                "amount": 8800,
+                "date": "2025-10-29",
+                "price": 11.39,
+                "type": "sell"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-11-04",
+                "price": 11.59,
+                "type": "buy"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-11-28",
+                "price": 11.61,
+                "type": "sell"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-12-01",
+                "price": 11.69,
+                "type": "buy"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-12-02",
+                "price": 11.64,
+                "type": "sell"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-12-18",
+                "price": 11.64,
+                "type": "buy"
+            },
+            {
+                "amount": 8600,
+                "date": "2025-12-22",
+                "price": 11.52,
+                "type": "sell"
+            },
+            {
+                "amount": 8500,
+                "date": "2025-12-23",
+                "price": 11.56,
+                "type": "buy"
+            },
+            {
+                "amount": 8500,
+                "date": "2025-12-30",
+                "price": 11.48,
+                "type": "sell"
+            },
+            {
+                "amount": 8500,
+                "date": "2026-01-05",
+                "price": 11.5,
+                "type": "buy"
+            },
+            {
+                "amount": 8500,
+                "date": "2026-01-08",
+                "price": 11.51,
+                "type": "sell"
+            },
+            {
+                "amount": 8900,
+                "date": "2026-02-09",
+                "price": 11.07,
+                "type": "buy"
+            },
+            {
+                "amount": 8900,
+                "date": "2026-02-12",
+                "price": 10.96,
+                "type": "sell"
+            },
+            {
+                "amount": 8900,
+                "date": "2026-03-12",
+                "price": 10.94,
+                "type": "buy"
+            },
+            {
+                "amount": 8900,
+                "date": "2026-03-20",
+                "price": 10.77,
+                "type": "sell"
+            },
+            {
+                "amount": 8800,
+                "date": "2026-03-24",
+                "price": 10.88,
+                "type": "buy"
+            }
+        ]
+    }
+}

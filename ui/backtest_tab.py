@@ -1,55 +1,38 @@
-# ui/backtest_tab.py
-print("\n[加载追踪] 开始读取 quant_backtest_tab.py...")
-
+# 文件路径: quant_system/ui/quant_backtest_tab.py
 import os
 import json
 import pandas as pd
-print("[加载追踪] pandas 等基础库导入成功。")
-from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
-                             QPushButton, QLineEdit, QGroupBox, QListWidget,
-                             QFormLayout, QMessageBox, QSplitter, QTabWidget,
-                             QPlainTextEdit, QInputDialog, QFileDialog, QApplication)
-from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel, QTableWidget,
+                             QPushButton, QLineEdit, QGroupBox, QHeaderView,
+                             QFormLayout, QMessageBox, QSplitter, QTabWidget, QTableWidgetItem,
+                             QPlainTextEdit, QDateEdit, QScrollArea, QFrame, QInputDialog,
+                             QListWidget)
+from PyQt6.QtCore import Qt, QDate
 from PyQt6.QtGui import QFont
-print("[加载追踪] PyQt6 组件导入成功。")
 
-print("[加载追踪] 准备导入 BacktestChart...")
 from ui.charts.backtest_chart import BacktestChart
-print("[加载追踪] BacktestChart 导入成功！")
-
-print("[加载追踪] 准备导入 BacktestThread...")
 from ui.threads.backtest_thread import BacktestThread
-print("[加载追踪] BacktestThread 导入成功！")
-
-print("[加载追踪] 准备导入 OptimizerThread...")
 from ui.threads.optimizer_thread import OptimizerThread
-print("[加载追踪] OptimizerThread 导入成功！")
 
-# 策略保存路径
-STRATEGIES_FILE = os.path.join(CACHE_DIR, "custom_strategies.json")
-
-# 为新手准备的预存示例算法库
-DEFAULT_STRATEGIES = {
-    "预存: 双均线策略 (5日/20日)": '''def generate_signals(df):
-    """
-    预存策略: 双均线策略
-    当5日均线上穿20日均线时买入，下穿时卖出
-    """
+# 预设的系统策略库
+STRATEGY_CENTER_DATA = {
+    "双均线金叉策略": {
+        "desc": "经典趋势跟踪策略 (5日均线上穿20日均线买入)",
+        "code": '''def generate_signals(df):
+    # 策略逻辑：计算快慢均线并生成买卖信号
     df['MA5'] = df['close'].rolling(window=5).mean()
     df['MA20'] = df['close'].rolling(window=20).mean()
 
     df['signal'] = 0
     df.loc[df['MA5'] > df['MA20'], 'signal'] = 1  
     df.loc[df['MA5'] <= df['MA20'], 'signal'] = -1 
-
     return df
-''',
-    "预存: 均值回归策略 (RSI)": '''def generate_signals(df):
-    """
-    预存策略: RSI 均值回归
-    RSI < 30 买入 (超卖区域)
-    RSI > 70 卖出 (超买区域)
-    """
+'''
+    },
+    "RSI 均值回归": {
+        "desc": "超跌反弹策略 (RSI<30买入，RSI>70卖出)",
+        "code": '''def generate_signals(df):
+    # 策略逻辑：利用 RSI 指标识别超买超卖区域
     delta = df['close'].diff()
     gain = (delta.where(delta > 0, 0)).rolling(window=14).mean()
     loss = (-delta.where(delta < 0, 0)).rolling(window=14).mean()
@@ -59,392 +42,375 @@ DEFAULT_STRATEGIES = {
     df['signal'] = 0
     df.loc[df['RSI'] < 30, 'signal'] = 1
     df.loc[df['RSI'] > 70, 'signal'] = -1
-
     return df
 '''
+    }
 }
 
 
-class BacktestTab(QWidget):
-    """真正的专业级策略开发与回测工作台"""
+class StrategyRow(QFrame):
+    """'我的策略' 列表中的自定义交互行组件"""
 
+    def __init__(self, name, parent_tab):
+        super().__init__()
+        self.setObjectName("StrategyRow")
+        self.setStyleSheet(
+            "#StrategyRow { border-bottom: 1px solid #333; padding: 5px; } #StrategyRow:hover { background-color: #2c2c2c; }")
+        layout = QHBoxLayout(self)
+
+        self.name_label = QLabel(name)
+        self.name_label.setStyleSheet("font-weight: bold; font-size: 14px; color: #e8eaed;")
+        layout.addWidget(self.name_label)
+        layout.addStretch()
+
+        btn_style = "QPushButton { padding: 4px 8px; font-size: 12px; border-radius: 3px; background-color: #333; color: white; }"
+        self.btn_sim = QPushButton("▶ 回测")
+        self.btn_set = QPushButton("⚙️ 编辑源码")
+        self.btn_del = QPushButton("🗑️ 删除")
+
+        self.btn_sim.setStyleSheet(btn_style + "QPushButton { color: #00e676; font-weight: bold; }")
+        self.btn_set.setStyleSheet(btn_style)
+        self.btn_del.setStyleSheet(btn_style)
+
+        self.btn_sim.clicked.connect(lambda checked, n=name: parent_tab.run_my_strategy(n))
+        self.btn_set.clicked.connect(lambda checked, n=name: parent_tab.edit_my_strategy(n))
+        self.btn_del.clicked.connect(lambda checked, n=name: parent_tab.delete_my_strategy(n))
+
+        layout.addWidget(self.btn_sim)
+        layout.addWidget(self.btn_set)
+        layout.addWidget(self.btn_del)
+
+
+class QuantBacktestTab(QWidget):
     def __init__(self):
         super().__init__()
-        self.strategies = {}
-        self.last_backtest_result = None
+        self.my_strategies_file = "quant_system/cache/my_strategies.json"
+        self.current_editing_strategy = None
         self.initUI()
-        self.load_strategies()
 
     def initUI(self):
-        main_layout = QHBoxLayout(self)
-        main_layout.setContentsMargins(10, 10, 10, 10)
-
-        # ================= 左侧：策略库管理器 =================
-        left_panel = QWidget()
-        left_panel.setMaximumWidth(260)
-        left_layout = QVBoxLayout(left_panel)
-        left_layout.setContentsMargins(0, 0, 0, 0)
-
-        list_group = QGroupBox("📚 策略中心")
-        list_group.setStyleSheet("QGroupBox { font-weight: bold; font-size: 14px; }")
-        list_layout = QVBoxLayout(list_group)
-
-        self.list_strategies = QListWidget()
-        self.list_strategies.setStyleSheet("QListWidget { font-size: 13px; padding: 5px; }")
-        self.list_strategies.itemClicked.connect(self.on_strategy_selected)
-        list_layout.addWidget(self.list_strategies)
-
-        btn_layout = QHBoxLayout()
-        self.btn_new = QPushButton("➕ 新建")
-        self.btn_del = QPushButton("🗑️ 删除")
-        self.btn_share = QPushButton("🔗 分享")
-
-        self.btn_new.clicked.connect(self.new_algorithm)
-        self.btn_del.clicked.connect(self.delete_algorithm)
-        self.btn_share.clicked.connect(self.share_algorithm)
-
-        self.btn_share.setStyleSheet("color: #00e676;")
-        self.btn_del.setStyleSheet("color: #ff5252;")
-
-        btn_layout.addWidget(self.btn_new)
-        btn_layout.addWidget(self.btn_del)
-        btn_layout.addWidget(self.btn_share)
-        list_layout.addLayout(btn_layout)
-
-        left_layout.addWidget(list_group)
-
-        # ================= 右侧：参数、源码与效益图 =================
-        right_panel = QWidget()
-        right_layout = QVBoxLayout(right_panel)
-        right_layout.setContentsMargins(0, 0, 0, 0)
-
-        # --- 1. 右侧上方：回测运行参数 ---
-        param_group = QGroupBox("⚙️ 回测运行参数设置")
-        param_group.setStyleSheet("QGroupBox { font-weight: bold; font-size: 14px; }")
-        param_layout = QHBoxLayout(param_group)
-
-        form1 = QFormLayout()
-        self.input_code = QLineEdit("000001")
-        self.input_capital = QLineEdit("100000")
-        form1.addRow("标的代码:", self.input_code)
-        form1.addRow("初始资金:", self.input_capital)
-
-        form2 = QFormLayout()
-        end_dt = datetime.now()
-        start_dt = end_dt - timedelta(days=365)
-        self.input_start = QLineEdit(start_dt.strftime("%Y-%m-%d"))
-        self.input_end = QLineEdit(end_dt.strftime("%Y-%m-%d"))
-        form2.addRow("开始日期:", self.input_start)
-        form2.addRow("结束日期:", self.input_end)
-
-        form3 = QFormLayout()
-        self.input_stop_loss = QLineEdit("5.0")
-        form3.addRow("止损幅度(%):", self.input_stop_loss)
-
-        self.btn_run = QPushButton("▶ 启动策略回测")
-        self.btn_run.setFixedHeight(45)
-        self.btn_run.setStyleSheet("""
-            QPushButton { background-color: #e53935; color: white; font-size: 15px; font-weight: bold; border-radius: 4px; padding: 0 20px; }
-            QPushButton:hover { background-color: #f44336; }
-            QPushButton:disabled { background-color: #555555; color: #888888; }
-        """)
-        self.btn_run.clicked.connect(self.run_backtest)
-
-        param_layout.addLayout(form1)
-        param_layout.addLayout(form2)
-        param_layout.addLayout(form3)
-        param_layout.addStretch()
-        param_layout.addWidget(self.btn_run)
-
-        right_layout.addWidget(param_group)
-
-        # --- 2. 右侧下方核心：带有切换按钮的 Tab 页面 ---
+        main_layout = QVBoxLayout(self)
         self.tabs = QTabWidget()
-        self.tabs.setStyleSheet("""
-            QTabBar::tab { padding: 10px 30px; font-size: 15px; font-weight: bold; }
-            QTabBar::tab:selected { color: #2196F3; }
+        self.tabs.setStyleSheet("QTabBar::tab { padding: 10px 20px; font-size: 14px; font-weight: bold; }")
+
+        self.center_tab = QWidget()
+        self.my_strategy_tab = QWidget()
+
+        self.initCenterTab()
+        self.initMyStrategyTab()
+
+        self.tabs.addTab(self.center_tab, "策略中心")
+        self.tabs.addTab(self.my_strategy_tab, "我的策略")
+        main_layout.addWidget(self.tabs)
+
+    def initCenterTab(self):
+        layout = QHBoxLayout(self.center_tab)
+        main_splitter = QSplitter(Qt.Orientation.Horizontal)
+        main_splitter.setStyleSheet(
+            "QSplitter::handle { background-color: transparent; width: 4px; } QSplitter::handle:hover { background-color: #555555; }")
+
+        # 1. 左侧策略选择列表
+        self.center_list = QListWidget()
+        self.center_list.setMinimumWidth(180)
+        self.center_list.addItems(list(STRATEGY_CENTER_DATA.keys()))
+        self.center_list.setStyleSheet("""
+            QListWidget { background-color: #1e1e1e; border: 1px solid #333; outline: 0; padding: 6px; font-size: 14px; }
+            QListWidget::item { color: #d4d4d4; padding: 12px 10px; margin-bottom: 3px; border-radius: 5px; }
+            QListWidget::item:selected { background-color: #2196F3; color: white; font-weight: bold; }
         """)
+        self.center_list.itemSelectionChanged.connect(self.on_strategy_selected)
+        main_splitter.addWidget(self.center_list)
 
-        # 【Tab 1: 策略源码】
-        code_tab = QWidget()
-        code_layout = QVBoxLayout(code_tab)
+        # 2. 右侧大区：参数配置与图表展示
+        right_container = QWidget()
+        right_panel = QVBoxLayout(right_container)
 
-        self.code_editor = QPlainTextEdit()
-        font = QFont("Consolas", 12)
-        self.code_editor.setFont(font)
-        self.code_editor.setStyleSheet("background-color: #1e1e1e; color: #d4d4d4; padding: 10px; border-radius: 5px;")
-        self.code_editor.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOn)
-        self.btn_save = QPushButton("💾 保存 / 更新当前源码")
-        self.btn_save.setFixedHeight(35)
-        self.btn_save.setStyleSheet(
-            "background-color: #4CAF50; color: white; font-size: 14px; font-weight: bold; border-radius: 4px;")
-        self.btn_save.clicked.connect(self.save_algorithm)
+        # 顶部参数栏
+        param_bar = QHBoxLayout()
+        self.input_code = QLineEdit("000001")
+        self.input_code.setFixedWidth(80)
+        self.date_start = QDateEdit(QDate.currentDate().addYears(-1))
+        self.date_end = QDateEdit(QDate.currentDate())
 
-        code_layout.addWidget(self.code_editor)
-        code_layout.addWidget(self.btn_save)
-        self.tabs.addTab(code_tab, "💻 策略源码")
+        param_bar.addWidget(QLabel("代码:"))
+        param_bar.addWidget(self.input_code)
+        param_bar.addWidget(QLabel(" 起始:"))
+        param_bar.addWidget(self.date_start)
+        param_bar.addWidget(QLabel(" 结束:"))
+        param_bar.addWidget(self.date_end)
+        param_bar.addStretch()
 
-        # 【Tab 2: 回测效益图】
-        chart_tab = QWidget()
-        chart_layout = QVBoxLayout(chart_tab)
+        # 按钮组
+        self.btn_run = QPushButton("▶ 执行单次测算")
+        self.btn_run.setStyleSheet(
+            "background-color: #e53935; color: white; font-weight: bold; padding: 6px 15px; border-radius: 4px;")
+        self.btn_run.clicked.connect(self.run_center_backtest)
 
-        # 结果统计数据条
-        res_layout = QHBoxLayout()
-        self.lbl_returns = QLabel("总收益率: --")
-        self.lbl_drawdown = QLabel("最大回撤: --")
-        self.lbl_trades = QLabel("交易次数: --")
-        self.lbl_final_cash = QLabel("期末资产: --")
+        self.btn_optimize = QPushButton("⚙️ 并行参数寻优")
+        self.btn_optimize.setStyleSheet(
+            "background-color: #673AB7; color: white; font-weight: bold; padding: 6px 15px; border-radius: 4px;")
+        self.btn_optimize.clicked.connect(self.run_parameter_optimization)
 
-        for lbl in [self.lbl_returns, self.lbl_drawdown, self.lbl_trades, self.lbl_final_cash]:
-            lbl.setStyleSheet("font-size: 14px; font-weight: bold; padding: 5px;")
-            res_layout.addWidget(lbl)
+        param_bar.addWidget(self.btn_run)
+        param_bar.addWidget(self.btn_optimize)
+        right_panel.addLayout(param_bar)
 
-        res_layout.addStretch()
-        self.btn_export = QPushButton("📥 导出报告")
-        self.btn_export.setEnabled(False)
-        self.btn_export.clicked.connect(self.save_backtest_report)
-        res_layout.addWidget(self.btn_export)
+        # 中间：三图展示区 + 参数表格
+        self.right_tabs = QTabWidget()
+        self.right_tabs.setStyleSheet("QTabBar::tab { padding: 8px 25px; font-size: 13px; }")
 
-        chart_layout.addLayout(res_layout)
-
+        # Tab 1: 图表展示
+        chart_container = QSplitter(Qt.Orientation.Horizontal)
         self.chart = BacktestChart()
-        chart_layout.addWidget(self.chart.canvas)
+        chart_container.addWidget(self.chart.canvas)
 
-        self.tabs.addTab(chart_tab, "📈 回测效益图")
+        self.param_table = QTableWidget(4, 2)
+        self.param_table.setHorizontalHeaderLabels(["参数名", "当前值"])
+        self.param_table.setFixedWidth(200)
+        param_items = [("初始资金", "100000"), ("交易费率", "0.0003"), ("滑点", "0.01"), ("止损(%)", "5.0")]
+        for i, (k, v) in enumerate(param_items):
+            self.param_table.setItem(i, 0, QTableWidgetItem(k))
+            self.param_table.setItem(i, 1, QTableWidgetItem(v))
+        chart_container.addWidget(self.param_table)
+        chart_container.setSizes([800, 200])
 
-        right_layout.addWidget(self.tabs)
+        self.right_tabs.addTab(chart_container, "📈 回测净值曲线")
 
-        # 组装主分割器
-        splitter = QSplitter(Qt.Orientation.Horizontal)
-        splitter.addWidget(left_panel)
-        splitter.addWidget(right_panel)
-        splitter.setSizes([260, 1000])
+        # Tab 2: 源码编辑器 (新版带日志控制台)
+        source_container = QSplitter(Qt.Orientation.Vertical)
+        source_container.setStyleSheet("QSplitter::handle { background-color: #333; height: 2px; }")
 
-        main_layout.addWidget(splitter)
+        # 2.1 上半部分：代码编辑器
+        editor_group = QGroupBox("策略逻辑 (Python 代码)")
+        editor_layout = QVBoxLayout(editor_group)
+        self.lbl_desc = QLabel("策略描述加载中...")
+        self.lbl_desc.setStyleSheet("color: #aaaaaa; font-style: italic;")
+        self.source_viewer = QPlainTextEdit()
+        self.source_viewer.setStyleSheet(
+            "background-color: #1e1e1e; color: #d4d4d4; font-family: Consolas; font-size: 13px;")
 
-    # ================= 策略管理逻辑 =================
-    def load_strategies(self):
-        """加载预存策略与自定义策略"""
-        self.strategies = DEFAULT_STRATEGIES.copy()
-        if os.path.exists(STRATEGIES_FILE):
-            try:
-                with open(STRATEGIES_FILE, 'r', encoding='utf-8') as f:
-                    custom = json.load(f)
-                    for k, v in custom.items():
-                        prefix_name = f"自定义: {k}" if not k.startswith("自定义:") else k
-                        self.strategies[prefix_name] = v
-            except Exception:
-                pass
+        self.btn_save_code = QPushButton("💾 保存修改")
+        self.btn_save_code.setStyleSheet(
+            "background-color: #4CAF50; color: white; border-radius: 3px; padding: 4px 10px;")
+        self.btn_save_code.setVisible(False)
+        self.btn_save_code.clicked.connect(self.save_current_code)
 
-        self.list_strategies.clear()
-        self.list_strategies.addItems(list(self.strategies.keys()))
+        editor_layout.addWidget(self.lbl_desc)
+        editor_layout.addWidget(self.source_viewer)
+        editor_layout.addWidget(self.btn_save_code, alignment=Qt.AlignmentFlag.AlignRight)
 
-        # 默认选中第一条
-        if self.list_strategies.count() > 0:
-            self.list_strategies.setCurrentRow(0)
-            self.on_strategy_selected(self.list_strategies.item(0))
+        source_container.addWidget(editor_group)
 
-    def on_strategy_selected(self, item):
-        """点击列表项切换策略内容"""
-        strategy_name = item.text()
-        if strategy_name in self.strategies:
-            self.code_editor.setPlainText(self.strategies[strategy_name])
+        # 2.2 下半部分：输出控制台
+        self.console_tabs = QTabWidget()
+        self.console_tabs.setStyleSheet("QTabBar::tab { padding: 4px 15px; font-size: 12px; }")
 
-            # 权限控制：预存策略不可分享和删除，且只能另存为
-            if strategy_name.startswith("预存:"):
-                self.btn_del.setEnabled(False)
-                self.btn_share.setEnabled(False)
-                self.btn_save.setText("另存为自定义策略")
-                self.btn_save.setStyleSheet("background-color: #FF9800; color: white; font-weight: bold;")
-            else:
-                self.btn_del.setEnabled(True)
-                self.btn_share.setEnabled(True)
-                self.btn_save.setText("💾 保存 / 更新源码")
-                self.btn_save.setStyleSheet("background-color: #4CAF50; color: white; font-weight: bold;")
+        # 运行日志框 (模仿 VSCode Terminal 风格)
+        self.console_log = QPlainTextEdit()
+        self.console_log.setReadOnly(True)
+        self.console_log.setStyleSheet(
+            "background-color: #0d1117; color: #58a6ff; font-family: Consolas; font-size: 13px;")
 
-            # 自动跳回源码查看 Tab
-            self.tabs.setCurrentIndex(0)
+        # 错误清单框
+        self.console_error = QPlainTextEdit()
+        self.console_error.setReadOnly(True)
+        self.console_error.setStyleSheet(
+            "background-color: #0d1117; color: #ff7b72; font-family: Consolas; font-size: 13px;")
 
-    def new_algorithm(self):
-        """完全自主编写新策略"""
-        self.code_editor.setPlainText('''def generate_signals(df):
-    """
-    在这里编写您的自定义量化交易策略
-    """
-    df['signal'] = 0
-    # TODO: 编写买卖逻辑
+        self.console_tabs.addTab(self.console_log, "📝 运行日志 (Print输出)")
+        self.console_tabs.addTab(self.console_error, "❌ 错误清单 (报错追踪)")
 
-    return df
-''')
-        self.tabs.setCurrentIndex(0)
-        self.list_strategies.clearSelection()
-        self.btn_save.setText("💾 保存为自定义策略")
-        self.btn_save.setStyleSheet("background-color: #2196F3; color: white; font-weight: bold;")
+        source_container.addWidget(self.console_tabs)
+        source_container.setSizes([600, 250])  # 设置上下比例 (代码为主，控制台为辅)
 
-    def save_algorithm(self):
-        """保存或更新策略逻辑"""
-        code = self.code_editor.toPlainText()
-        current_item = self.list_strategies.currentItem()
-        strategy_name = current_item.text() if current_item else ""
+        self.right_tabs.addTab(source_container, "💻 源码编辑器")
 
-        if not strategy_name or strategy_name.startswith("预存:"):
-            name, ok = QInputDialog.getText(self, "保存策略", "请输入自定义策略的名称:")
-            if ok and name:
-                clean_name = name.replace("预存:", "").replace("自定义:", "").strip()
-                if not clean_name: return
-                save_name = f"自定义: {clean_name}"
-                self._write_strategy_to_disk(save_name, code)
-                QMessageBox.information(self, "成功", f"【{save_name}】创建成功！")
-        else:
-            self._write_strategy_to_disk(strategy_name, code)
-            QMessageBox.information(self, "成功", f"【{strategy_name}】源码已更新！")
+        right_panel.addWidget(self.right_tabs)
+        main_splitter.addWidget(right_container)
+        main_splitter.setSizes([220, 1000])
+        layout.addWidget(main_splitter)
 
-    def _write_strategy_to_disk(self, name, code):
-        custom_strats = {}
-        if os.path.exists(STRATEGIES_FILE):
-            with open(STRATEGIES_FILE, 'r', encoding='utf-8') as f:
-                custom_strats = json.load(f)
+        self.center_list.setCurrentRow(0)
 
-        custom_strats[name] = code
-        with open(STRATEGIES_FILE, 'w', encoding='utf-8') as f:
-            json.dump(custom_strats, f, ensure_ascii=False, indent=4)
+    def initMyStrategyTab(self):
+        layout = QVBoxLayout(self.my_strategy_tab)
+        toolbar = QHBoxLayout()
+        self.btn_new = QPushButton("+ 新建策略")
+        self.btn_new.setStyleSheet("background-color: #4CAF50; color: white; font-weight: bold; padding: 8px 15px;")
+        self.btn_new.clicked.connect(self.create_new_strategy)
+        toolbar.addWidget(self.btn_new)
+        toolbar.addStretch()
+        layout.addLayout(toolbar)
 
-        self.load_strategies()
-        # 重新定位到刚保存的项
-        items = self.list_strategies.findItems(name, Qt.MatchFlag.MatchExactly)
-        if items:
-            self.list_strategies.setCurrentItem(items[0])
-            self.on_strategy_selected(items[0])
+        scroll = QScrollArea()
+        scroll.setWidgetResizable(True)
+        scroll.setStyleSheet("QScrollArea { border: none; background-color: #1e1e1e; }")
+        self.list_container = QWidget()
+        self.list_layout = QVBoxLayout(self.list_container)
+        self.list_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
+        scroll.setWidget(self.list_container)
+        layout.addWidget(scroll)
+        self.refresh_my_strategies_list()
 
-    def delete_algorithm(self):
-        """删除自定义策略"""
-        current_item = self.list_strategies.currentItem()
-        if not current_item: return
-        name = current_item.text()
+    # ================= 控制台辅助方法 =================
+    def append_log(self, text):
+        self.console_log.moveCursor(self.console_log.textCursor().MoveOperation.End)
+        self.console_log.insertPlainText(text)
+        self.console_log.verticalScrollBar().setValue(self.console_log.verticalScrollBar().maximum())
 
-        reply = QMessageBox.question(self, "确认删除", f"确定要永久删除 【{name}】 吗？",
-                                     QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No)
-        if reply == QMessageBox.StandardButton.Yes:
-            if os.path.exists(STRATEGIES_FILE):
-                with open(STRATEGIES_FILE, 'r', encoding='utf-8') as f:
-                    custom_strats = json.load(f)
-                if name in custom_strats:
-                    del custom_strats[name]
-                    with open(STRATEGIES_FILE, 'w', encoding='utf-8') as f:
-                        json.dump(custom_strats, f, ensure_ascii=False, indent=4)
-                    QMessageBox.information(self, "成功", "策略已删除！")
-                    self.load_strategies()
+    def append_error(self, text):
+        self.console_error.moveCursor(self.console_error.textCursor().MoveOperation.End)
+        self.console_error.insertPlainText(text)
+        self.console_error.verticalScrollBar().setValue(self.console_error.verticalScrollBar().maximum())
 
-    def share_algorithm(self):
-        """分享自定义策略"""
-        current_item = self.list_strategies.currentItem()
-        if not current_item: return
-        name = current_item.text()
-        code = self.code_editor.toPlainText()
+        # 自动跳转到错误面板
+        self.right_tabs.setCurrentIndex(1)
+        self.console_tabs.setCurrentIndex(1)
 
-        share_token = f"!!QUANT_SHARE_{hash(code) % 1000000}!!"
-        clipboard = QApplication.clipboard()
-        clipboard.setText(f"我正在使用量化系统分享策略【{name}】，\n分享口令：{share_token}\n源码如下：\n{code}")
-        QMessageBox.information(self, "分享成功",
-                                f"【{name}】分享口令已生成并复制到系统剪贴板！\n您可以直接粘贴发送给朋友。")
+        # ================= 核心计算调度逻辑 =================
 
-    # ================= 运行回测与报告生成 =================
-    def run_backtest(self):
+    def run_center_backtest(self):
+        """执行基于纯 Python 内核的单次回测"""
         code = self.input_code.text().strip()
-        start_date = self.input_start.text().strip()
-        end_date = self.input_end.text().strip()
-        custom_code = self.code_editor.toPlainText()
+        strategy_code = self.source_viewer.toPlainText()
+        start_date = self.date_start.date().toString("yyyy-MM-dd")
+        end_date = self.date_end.date().toString("yyyy-MM-dd")
 
         try:
-            capital = float(self.input_capital.text().strip())
-            stop_loss = float(self.input_stop_loss.text().strip())
-        except ValueError:
-            QMessageBox.warning(self, "参数错误", "资金和止损幅度必须是数字！")
+            capital = float(self.param_table.item(0, 1).text())
+            stop_loss = float(self.param_table.item(3, 1).text())
+        except:
+            QMessageBox.warning(self, "错误", "回测参数格式不正确")
             return
 
-        if not code:
-            QMessageBox.warning(self, "参数错误", "请输入股票代码！")
-            return
-
-        # 准备执行，自动切回效益图 Tab，并展示等待状态
-        self.tabs.setCurrentIndex(1)
         self.btn_run.setEnabled(False)
-        self.btn_run.setText("⏳ 测算运行中...")
-        self.btn_export.setEnabled(False)
+        self.btn_run.setText("⏳ 核心运算中...")
 
-        current_item = self.list_strategies.currentItem()
-        strategy_name = current_item.text() if current_item else "未命名策略"
+        # 每次运行前清空控制台
+        self.console_log.clear()
+        self.console_error.clear()
+        self.console_tabs.setCurrentIndex(0)
+        self.append_log(">>> 启动量化回测引擎...\n")
 
-        self.last_backtest_result = {
-            'code': code, 'strategy': strategy_name,
-            'start': start_date, 'end': end_date, 'capital': capital, 'stop_loss': stop_loss
-        }
+        self.thread = BacktestThread(code, strategy_code, start_date, end_date, capital, stop_loss)
 
-        self.thread = BacktestThread(code, custom_code, start_date, end_date, capital, stop_loss)
+        # 绑定日志和报错信号流
+        self.thread.log_msg.connect(self.append_log)
+        self.thread.error_msg.connect(self.append_error)
+
         self.thread.finished.connect(self.on_backtest_finished)
         self.thread.error.connect(self.on_backtest_error)
         self.thread.start()
 
     def on_backtest_finished(self, df, equity_df, trades, metrics):
         self.btn_run.setEnabled(True)
-        self.btn_run.setText("▶ 启动策略回测")
-
-        self.last_backtest_result['metrics'] = metrics
-        self.last_backtest_result['trades'] = trades
-        self.btn_export.setEnabled(True)
-
-        ret = metrics['total_return']
-        self.lbl_returns.setText(f"总收益率: {ret:+.2f}%")
-        self.lbl_returns.setStyleSheet(
-            f"font-size: 14px; font-weight: bold; padding: 5px; color: {'#ff5252' if ret > 0 else '#00e676'};")
-        self.lbl_drawdown.setText(f"最大回撤: {metrics['max_drawdown']:.2f}%")
-        self.lbl_trades.setText(f"交易次数: {metrics['trade_count']} 次")
-        self.lbl_final_cash.setText(f"期末资产: {metrics['final_equity']:,.2f} 元")
-
-        # 将数据丢给图表画图
+        self.btn_run.setText("▶ 执行单次测算")
         self.chart.draw(df, equity_df, trades)
 
-    def on_backtest_error(self, err_msg):
+        # 成功后自动切回图表页面展示结果
+        self.right_tabs.setCurrentIndex(0)
+
+        QMessageBox.information(self, "测算完成",
+                                f"总收益率: {metrics['total_return']:+.2f}%\n"
+                                f"最大回撤: {metrics['max_drawdown']:.2f}%\n"
+                                f"交易次数: {metrics['trade_count']}")
+
+    def run_parameter_optimization(self):
+        param_ranges = {
+            'fast': range(5, 16, 2),
+            'slow': range(20, 61, 5)
+        }
+
+        self.btn_optimize.setEnabled(False)
+        self.opt_thread = OptimizerThread(
+            self.input_code.text().strip(),
+            self.source_viewer.toPlainText(),  # 新增：传入代码编辑器中的策略源码
+            self.date_start.date().toString("yyyy-MM-dd"),
+            self.date_end.date().toString("yyyy-MM-dd"),
+            float(self.param_table.item(0, 1).text()),
+            param_ranges
+        )
+        self.opt_thread.progress.connect(lambda p: self.btn_optimize.setText(f"寻优中 {p}%"))
+        self.opt_thread.finished.connect(self.on_optimization_finished)
+        self.opt_thread.start()
+
+    def on_optimization_finished(self, result_df):
+        self.btn_optimize.setEnabled(True)
+        self.btn_optimize.setText("⚙️ 并行参数寻优")
+
+        best = result_df.sort_values('return', ascending=False).iloc[0]
+        msg = f"并行测算完成！共验证 {len(result_df)} 组组合。\n\n"
+        msg += f"最佳参数: 快线({int(best['fast'])}), 慢线({int(best['slow'])})\n"
+        msg += f"最高收益率: {best['return']:.2f}%"
+        QMessageBox.information(self, "优化结果", msg)
+
+    # ================= 辅助管理方法 =================
+    def on_strategy_selected(self):
+        item = self.center_list.currentItem()
+        if not item: return
+        data = STRATEGY_CENTER_DATA.get(item.text(), {})
+        self.current_editing_strategy = None
+        self.lbl_desc.setText(f"🔒 系统只读策略：{data.get('desc')}")
+        self.source_viewer.setPlainText(data.get('code'))
+        self.source_viewer.setReadOnly(True)
+        self.btn_save_code.setVisible(False)
+
+    def edit_my_strategy(self, name):
+        data = self.load_my_strategies()
+        if name in data:
+            self.current_editing_strategy = name
+            self.lbl_desc.setText(f"🟢 正在编辑：【{name}】 (修改后请保存)")
+            self.source_viewer.setPlainText(data[name].get('code'))
+            self.source_viewer.setReadOnly(False)
+            self.btn_save_code.setVisible(True)
+            self.tabs.setCurrentIndex(0)
+            self.right_tabs.setCurrentIndex(1)
+
+    def save_current_code(self):
+        if not self.current_editing_strategy: return
+        data = self.load_my_strategies()
+        data[self.current_editing_strategy]['code'] = self.source_viewer.toPlainText()
+        self.save_my_strategies(data)
+        QMessageBox.information(self, "成功", "源码已保存")
+
+    def load_my_strategies(self):
+        if os.path.exists(self.my_strategies_file):
+            with open(self.my_strategies_file, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        return {}
+
+    def save_my_strategies(self, data):
+        with open(self.my_strategies_file, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+
+    def refresh_my_strategies_list(self):
+        for i in reversed(range(self.list_layout.count())):
+            self.list_layout.itemAt(i).widget().setParent(None)
+        data = self.load_my_strategies()
+        for name in data:
+            self.list_layout.addWidget(StrategyRow(name, self))
+
+    def create_new_strategy(self):
+        name, ok = QInputDialog.getText(self, "新建", "名称:")
+        if ok and name.strip():
+            data = self.load_my_strategies()
+            data[name.strip()] = {"desc": "自定义策略",
+                                  "code": "def generate_signals(df):\n    df['signal'] = 0\n    return df\n"}
+            self.save_my_strategies(data)
+            self.refresh_my_strategies_list()
+
+    def delete_my_strategy(self, name):
+        data = self.load_my_strategies()
+        if name in data:
+            del data[name]
+            self.save_my_strategies(data)
+            self.refresh_my_strategies_list()
+
+    def run_my_strategy(self, name):
+        self.edit_my_strategy(name)
+        self.run_center_backtest()
+
+    def on_backtest_error(self, msg):
         self.btn_run.setEnabled(True)
-        self.btn_run.setText("▶ 启动策略回测")
-        self.tabs.setCurrentIndex(0)  # 报错就跳回代码页面方便改 BUG
-        self.btn_export.setEnabled(False)
-        QMessageBox.critical(self, "回测中断", err_msg)
-
-    def save_backtest_report(self):
-        """保存回测结果为本地 TXT 报告"""
-        if not self.last_backtest_result: return
-
-        data = self.last_backtest_result
-        default_name = f"回测报告_{data['code']}_{datetime.now().strftime('%Y%m%d%H%M')}.txt"
-        file_path, _ = QFileDialog.getSaveFileName(self, "保存回测报告", default_name, "Text Files (*.txt)")
-
-        if file_path:
-            try:
-                with open(file_path, 'w', encoding='utf-8') as f:
-                    f.write("=" * 50 + "\n")
-                    f.write("量化智能策略回测报告\n")
-                    f.write("=" * 50 + "\n\n")
-
-                    f.write("【基本参数】\n")
-                    f.write(f"测试标的: {data['code']}\n")
-                    f.write(f"使用策略: {data['strategy']}\n")
-                    f.write(f"时间范围: {data['start']} 至 {data['end']}\n")
-                    f.write(f"初始资金: {data['capital']} 元\n")
-                    f.write(f"止损幅度: {data['stop_loss']}%\n\n")
-
-                    m = data['metrics']
-                    f.write("【表现评估】\n")
-                    f.write(f"期末资产: {m['final_equity']:.2f} 元\n")
-                    f.write(f"总收益率: {m['total_return']:.2f}%\n")
-                    f.write(f"最大回撤: {m['max_drawdown']:.2f}%\n")
-                    f.write(f"交易总次数: {m['trade_count']} 次\n\n")
-
-                    f.write("【交易明细记录】\n")
-                    for t in data['trades']:
-                        f.write(
-                            f"[{t['date']}] 动作:{'买入' if t['type'] == 'buy' else '卖出'} | 成交价:{t['price']:.2f} | 数量:{t['amount']}股\n")
-
-                QMessageBox.information(self, "成功", f"回测报告已成功保存至:\n{file_path}")
-            except Exception as e:
-                QMessageBox.warning(self, "保存失败", f"无法写入文件:\n{str(e)}")
+        self.btn_run.setText("▶ 执行单次测算")
+        QMessageBox.critical(self, "错误", msg)

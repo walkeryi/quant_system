@@ -9,13 +9,17 @@ from PyQt6.QtGui import QFontMetrics
 from PyQt6.QtCore import Qt, pyqtSignal
 from .stock_list_thread import StockListThread
 from data_preprocessing import DataPreprocessor
+from PyQt6.QtGui import QFontMetrics, QColor, QBrush
+from common import db_manager
 
 class NoFocusDelegate(QStyledItemDelegate):
     """强力消除单元格选中时的虚线框"""
+
     def paint(self, painter, option, index):
         if option.state & QStyle.StateFlag.State_HasFocus:
             option.state = option.state & ~QStyle.StateFlag.State_HasFocus
         super().paint(painter, option, index)
+
 
 class StockListTab(QWidget):
     """股票列表页：支持双击跳转个股详情"""
@@ -28,7 +32,8 @@ class StockListTab(QWidget):
         self.current_category = "全部"
         self.initUI()
 
-        print(f"[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | 股票列表 UI 框架初始化完毕，开始请求/读取数据...")
+        print(
+            f"[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | 股票列表 UI 框架初始化完毕，开始请求/读取数据...")
         self.load_from_cache()
         self.table.cellDoubleClicked.connect(self.on_cell_double_clicked)
 
@@ -96,50 +101,51 @@ class StockListTab(QWidget):
         self.table.setShowGrid(False)
         self.table.verticalHeader().setVisible(False)
 
-        # 👇 新增：右侧股票列表的现代化暗黑 UI 样式（包含定制滚动条）
+        # 👇 修改后的样式表
         self.table.setStyleSheet("""
-                    /* 表格全局背景 */
-                    QTableWidget {
-                        background-color: #1e1e1e;
-                        border: none;
-                        outline: 0;
-                    }
-                    /* 每一行的单元格 */
-                    QTableWidget::item {
-                        padding: 2px 5px;
-                        border-bottom: 1px solid #282828; /* 用极淡的底边框替代全包围网格线 */
-                        color: #d4d4d4;
-                    }
-                    /* 鼠标悬停时的整行高亮 */
-                    QTableWidget::item:hover {
-                        background-color: #2c2c2c;
-                    }
-                    /* 选中时的整行颜色 */
-                    QTableWidget::item:selected {
-                        background-color: #1a4b77; /* 沉稳的暗蓝色选中效果 */
-                        color: #ffffff;
-                    }
-                    /* 现代化的表头设计 */
-                    QHeaderView::section {
-                        background-color: #252526;
-                        color: #888888;
-                        padding: 8px;
-                        border: none;
-                        border-bottom: 2px solid #333333;
-                        font-weight: bold;
-                        font-size: 13px;
-                    }
-                    /* 竖向滚动条 */
-                    QScrollBar:vertical {
-                        border: none; background: #1e1e1e; width: 10px; margin: 0px;
-                    }
-                    QScrollBar::handle:vertical {
-                        background: #555555; min-height: 30px; border-radius: 5px;
-                    }
-                    QScrollBar::handle:vertical:hover { background: #777777; }
-                    QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0px; }
-                    QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical { background: none; }
-                """)
+                            /* 表格全局背景和默认文字颜色 */
+                            QTableWidget {
+                                background-color: #1e1e1e;
+                                border: none;
+                                outline: 0;
+                                color: #d4d4d4; /* 移到这里：作为默认底色，允许被代码覆盖 */
+                            }
+                            /* 每一行的单元格 */
+                            QTableWidget::item {
+                                padding: 2px 5px;
+                                border-bottom: 1px solid #282828; 
+                                /* 删除了这里的 color 属性 */
+                            }
+                            /* 鼠标悬停时的整行高亮 */
+                            QTableWidget::item:hover {
+                                background-color: #2c2c2c;
+                            }
+                            /* 选中时的整行颜色 */
+                            QTableWidget::item:selected {
+                                background-color: #1a4b77; 
+                                color: #ffffff; /* 选中时强制白色 */
+                            }
+                            /* 现代化的表头设计 */
+                            QHeaderView::section {
+                                background-color: #252526;
+                                color: #888888;
+                                padding: 8px;
+                                border: none;
+                                border-bottom: 2px solid #333333;
+                                font-weight: bold;
+                                font-size: 13px;
+                            }
+                            /* 竖向滚动条 */
+                            QScrollBar:vertical {
+                                border: none; background: #1e1e1e; width: 10px; margin: 0px;
+                            }
+                            QScrollBar::handle:vertical {
+                                background: #555555; min-height: 30px; border-radius: 5px;
+                            }
+                            QScrollBar::handle:vertical:hover { background: #777777; }
+                            QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0px; }
+                            QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical { background: none; }
+                        """)
         # 👆 新增结束
 
         fm = QFontMetrics(self.table.font())
@@ -209,10 +215,16 @@ class StockListTab(QWidget):
 
             pct_item = create_item(f"{pct}%" if pct != '--' else '--')
             try:
-                if pct != '--' and float(pct) > 0:
-                    pct_item.setForeground(Qt.GlobalColor.red)
-                elif pct != '--' and float(pct) < 0:
-                    pct_item.setForeground(Qt.GlobalColor.green)
+                if pct != '--':
+                    pct_val = float(pct)
+                    if pct_val > 0:
+                        pct_item.setForeground(QColor("#ef5350"))
+                        self.table.setItem(idx, 2, create_item(price))
+                        self.table.item(idx, 2).setForeground(QColor("#ef5350"))
+                    elif pct_val < 0:
+                        pct_item.setForeground(QColor("#26a69a"))
+                        self.table.setItem(idx, 2, create_item(price))
+                        self.table.item(idx, 2).setForeground(QColor("#26a69a"))
             except:
                 pass
 
@@ -229,8 +241,40 @@ class StockListTab(QWidget):
         self.current_category = item.text()
         self.filter_table()
 
+    def _load_sqlite_snapshot(self):
+        """启动时优先从 SQLite 读取历史记忆行情"""
+        try:
+            db_df = db_manager.load_stock_list_df()
+            if db_df is not None and not db_df.empty:
+                db_df['code'] = db_df['code'].astype(str).str.zfill(6)
+                self.all_df = db_df[['code', 'name', 'price', 'pct_chg', 'high', 'low', 'volume']].copy()
+                self.date_lbl.setText("行情日期: SQLite缓存")
+                self.filter_table()
+        except Exception as e:
+            print(f"SQLite 启动加载失败: {e}")
+
+    def _merge_db_prices(self, df):
+        """将 SQLite 中保存的价格记忆合并到最新列表数据"""
+        try:
+            db_df = db_manager.load_stock_list_df()
+            if db_df is None or db_df.empty:
+                return df
+            merged = df.copy()
+            merged['code'] = merged['code'].astype(str).str.zfill(6)
+            db_mem = db_df[['code', 'price', 'pct_chg', 'high', 'low', 'volume']].copy()
+            db_mem['code'] = db_mem['code'].astype(str).str.zfill(6)
+            merged = merged.merge(db_mem, on='code', how='left', suffixes=('', '_db'))
+            for col in ['price', 'pct_chg', 'high', 'low', 'volume']:
+                merged[col] = merged[f'{col}_db'].where(merged[f'{col}_db'].notna(), merged[col])
+                merged.drop(columns=[f'{col}_db'], inplace=True)
+            return merged
+        except Exception as e:
+            print(f"SQLite 记忆合并失败: {e}")
+            return df
+
     def load_from_cache(self):
         self.fetch_start_time = time.perf_counter()
+        self._load_sqlite_snapshot()
         self._start_thread(True)
 
     def force_update(self):
@@ -244,14 +288,24 @@ class StockListTab(QWidget):
 
     def on_data_loaded(self, df, date):
         fetch_cost = time.perf_counter() - getattr(self, 'fetch_start_time', time.perf_counter())
-        print(f"[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | 数据获取完成 (线程独立耗时: {fetch_cost:.4f}s)，准备渲染表格...")
+        print(
+            f"[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | 数据获取完成 (线程独立耗时: {fetch_cost:.4f}s)，准备渲染表格...")
 
         render_start = time.perf_counter()
-        self.all_df = df
+        if df is not None and not df.empty:
+            try:
+                df['code'] = df['code'].astype(str).str.zfill(6)
+            except Exception:
+                pass
+            self.all_df = self._merge_db_prices(df)
+            db_manager.bulk_upsert_from_df(self.all_df)
+        else:
+            self.all_df = df
         self.date_lbl.setText(f"行情日期: {date or '--'}")
         self.filter_table()
         render_cost = time.perf_counter() - render_start
-        print(f"[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | UI 表格数据装载完毕 (渲染独立耗时: {render_cost:.4f}s)")
+        print(
+            f"[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | UI 表格数据装载完毕 (渲染独立耗时: {render_cost:.4f}s)")
 
         total_time = time.perf_counter() - builtins.APP_START_TIME
         print(f"\n=======================================================")
@@ -265,7 +319,8 @@ class StockListTab(QWidget):
             if code:
                 import time, builtins
                 builtins.JUMP_START_TIME = time.perf_counter()
-                print(f"\n[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | ---> 鼠标双击股票 {code}，触发详情页跳转...")
+                print(
+                    f"\n[性能计时] {time.perf_counter() - builtins.APP_START_TIME:.4f}s | ---> 鼠标双击股票 {code}，触发详情页跳转...")
                 self.stock_double_clicked.emit(code)
 
     def _get_exchange(self, code):
@@ -282,3 +337,76 @@ class StockListTab(QWidget):
             return '北交所'
         else:
             return '其他'
+    def update_single_stock_price(self, code, data):
+        """
+        接收详情页传来的行情包，更新列表并持久化保存到 SQLite
+        """
+        import time
+        print(f"[{time.strftime('%H:%M:%S')}] 📡 收到广播 -> 股票: {code} | 现价: {data['price']} | 涨幅: {data['pct_chg']}%")
+
+        if not hasattr(self, 'table'):
+            return
+
+        code = str(code).zfill(6)
+        target_row = -1
+        for row in range(self.table.rowCount()):
+            item_code = self.table.item(row, 0)
+            if item_code and item_code.text().zfill(6) == code:
+                target_row = row
+                break
+
+        if target_row == -1:
+            print(f"⚠️ 忽略: {code} 不在当前显示列表中")
+        else:
+            pct = float(data['pct_chg'])
+            if pct > 0:
+                color = QColor("#ef5350")
+            elif pct < 0:
+                color = QColor("#26a69a")
+            else:
+                color = QColor("#dddddd")
+
+            update_map = {
+                2: f"{data['price']:.2f}",
+                3: f"{data['pct_chg']:.2f}%",
+                4: f"{data['high']:.2f}",
+                5: f"{data['low']:.2f}",
+                6: f"{data['volume']:.0f}"
+            }
+            for col, text in update_map.items():
+                item = self.table.item(target_row, col)
+                if item:
+                    item.setText(text)
+                    if col in [2, 3]:
+                        item.setForeground(QBrush(color))
+                    else:
+                        item.setForeground(QBrush(QColor("#d4d4d4")))
+            self.table.viewport().update()
+
+        if self.all_df is not None and not self.all_df.empty:
+            self.all_df['code'] = self.all_df['code'].astype(str).str.zfill(6)
+            idx = self.all_df.index[self.all_df['code'] == code]
+            if len(idx) > 0:
+                self.all_df.loc[idx, 'price'] = data['price']
+                self.all_df.loc[idx, 'pct_chg'] = data['pct_chg']
+                self.all_df.loc[idx, 'high'] = data['high']
+                self.all_df.loc[idx, 'low'] = data['low']
+                self.all_df.loc[idx, 'volume'] = data['volume']
+
+        try:
+            stock_name = None
+            if self.all_df is not None and not self.all_df.empty:
+                hit = self.all_df[self.all_df['code'].astype(str).str.zfill(6) == code]
+                if not hit.empty and 'name' in hit.columns:
+                    stock_name = hit.iloc[0].get('name')
+            db_manager.upsert_stock_quote(
+                code=code,
+                name=stock_name,
+                price=data.get('price'),
+                pct_chg=data.get('pct_chg'),
+                high=data.get('high'),
+                low=data.get('low'),
+                volume=data.get('volume'),
+            )
+        except Exception as e:
+            print(f"❌ SQLite 写入失败: {e}")

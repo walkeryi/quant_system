@@ -1,0 +1,18 @@
+======= 量化策略回测报告 =======
+标的代码: 000001
+测试时间: 2025-04-16 至 2026-04-16
+------------------------------
+总收益率: +1.28%
+最大回撤: -14.14%
+交易次数: 17
+------------------------------
+策略源码:
+def generate_signals(df):
+    # 策略逻辑：计算快慢均线并生成买卖信号
+    df['MA5'] = df['close'].rolling(window=5).mean()
+    df['MA20'] = df['close'].rolling(window=20).mean()
+
+    df['signal'] = 0
+    df.loc[df['MA5'] > df['MA20'], 'signal'] = 1  
+    df.loc[df['MA5'] <= df['MA20'], 'signal'] = -1 
+    return df

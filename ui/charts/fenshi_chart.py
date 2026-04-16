@@ -159,11 +159,19 @@ class FenshiChart:
     def draw(self, df, base):
         """绘制分时图主数据"""
         if df.empty: return
+
+        for line in self.ax_price.lines:
+            if line not in [self.v_line, self.h_line, self.hline_zuoshou]:
+                line.remove()
         self.hover_data_map = {}
         prices, avgs, indices = [], [], []
 
         for row in df.itertuples():
-            h, m = map(int, row.time.split(':'))
+            try:
+                h, m = map(int, row.time.split(':'))
+            except ValueError:
+                continue  # 防止偶尔出现的时间格式异常
+
             # 将时间换算为 0-240 索引
             idx = (h * 60 + m - 570) if h * 60 + m <= 690 else (h * 60 + m - 780 + 120)
             if 0 <= idx <= 240:
@@ -176,7 +184,7 @@ class FenshiChart:
                     'time': row.time,
                     'price': row.price,
                     'avg_price': row.avg_price,
-                    'pct_chg': row.pct_chg,
+                    'pct_chg': getattr(row, 'pct_chg', 0),
                     'vol': getattr(row, 'minute_volume', 0),
                     'huan_shou': getattr(row, 'huan_shou', 0),
                     'liang_bi': getattr(row, 'liang_bi', 0),
@@ -185,23 +193,59 @@ class FenshiChart:
                     'wai_pan': getattr(row, 'wai_pan', 0)
                 }
 
-        self.zuoshou = base.get('ZuoShou', prices[0])
-        diff = max(abs(max(prices) - self.zuoshou), abs(self.zuoshou - min(prices))) * 1.1
-        self.ax_price.set_ylim(self.zuoshou - diff, self.zuoshou + diff)
-        self.ax_pct.set_ylim(-diff / self.zuoshou * 100, diff / self.zuoshou * 100)
+        # ================= 安全处理核心逻辑 =================
+        self.zuoshou = base.get('ZuoShou')
 
-        self.ax_price.plot(indices, prices, color='#00a8ff', linewidth=1.5)
-        self.ax_price.plot(indices, avgs, color='#f39c12', linewidth=1)
+        # 如果过滤后没有任何数据点（比如现在是早晨 09:25，还在集合竞价）
+        if not prices:
+            # 如果没有现价，也没有昨收，直接返回不画图
+            if not self.zuoshou:
+                return
+            # 如果有昨收但没现价，给一个默认的上下限 (正负2%)，画个空图
+            diff = self.zuoshou * 0.02
+        else:
+            # 如果有正常数据，使用正常的极大极小值计算 diff
+            if not self.zuoshou:
+                self.zuoshou = prices[0]
+            diff = max(abs(max(prices) - self.zuoshou), abs(self.zuoshou - min(prices))) * 1.1
+
+        # 防止 diff 为 0 导致 Y 轴崩溃
+        if diff == 0:
+            diff = self.zuoshou * 0.02 if self.zuoshou else 0.1
+
+        # 设置 Y 轴范围
+        self.ax_price.set_ylim(self.zuoshou - diff, self.zuoshou + diff)
+
+        # 安全设置百分比 Y 轴（防止除以 0）
+        if self.zuoshou > 0:
+            self.ax_pct.set_ylim(-diff / self.zuoshou * 100, diff / self.zuoshou * 100)
+        else:
+            self.ax_pct.set_ylim(-10, 10)
+
+        # 只有在有数据的情况下才绘制线条
+        if prices:
+            self.ax_price.plot(indices, prices, color='#00a8ff', linewidth=1.5)
+            self.ax_price.plot(indices, avgs, color='#f39c12', linewidth=1)
+
         self.hline_zuoshou.set_ydata([self.zuoshou, self.zuoshou])
         self.hline_zuoshou.set_visible(True)
         self.canvas.draw()
 
     def on_mouse_leave(self, event):
         """鼠标移出图表"""
-        if self.bg_cache:
-            self.canvas.restore_region(self.bg_cache)
-            self.canvas.blit(self.figure.bbox)
-        if self.widget_wrapper:
-            self.widget_wrapper.crosshairSyncSignal.emit(-1)
-        self._last_hover_idx = None
-        self._is_dragging = False
+        try:
+            # 防止在 Tab 切换/窗口关闭时 canvas 已被销毁导致崩溃
+            if self.bg_cache and self.canvas:
+                self.canvas.restore_region(self.bg_cache)
+                self.canvas.blit(self.figure.bbox)
+        except (RuntimeError, AttributeError):
+            # C++ 对象已删除时，忽略后续绘图操作
+            pass
+        finally:
+            if self.widget_wrapper:
+                try:
+                    self.widget_wrapper.crosshairSyncSignal.emit(-1)
+                except Exception:
+                    pass
+            self._last_hover_idx = None
+            self._is_dragging = False

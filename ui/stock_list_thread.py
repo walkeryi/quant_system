@@ -1,7 +1,7 @@
 # stock_list_thread.py
 import logging
 from PyQt6.QtCore import QThread, pyqtSignal
-from data_preprocessing import DataPreprocessor
+from data_preprocessing.fetcher import DataPreprocessor
 
 logger = logging.getLogger('quant_system')
 

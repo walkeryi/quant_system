@@ -22,7 +22,7 @@ class OptimizerThread(QThread):
         self.start_date = start_date
         self.end_date = end_date
         self.initial_capital = initial_capital
-        self.param_ranges = param_ranges  # 例如: {'ma_fast': range(5,20), 'ma_slow': range(30,60)}
+        self.param_ranges = param_ranges  # 例如: {'fast': range(5,20), 'slow': range(30,60)}
 
     def run(self):
         # 1. 准备基础行情数据 (仅下载一次，内存共享)
@@ -54,7 +54,7 @@ class OptimizerThread(QThread):
             # 提取关键绩效指标
             results.append({
                 **params,
-                'total_return': (res['final_equity'] - self.initial_capital) / self.initial_capital * 100,
+                'return': (res['final_equity'] - self.initial_capital) / self.initial_capital * 100,
                 'trade_count': res['trade_count']
             })
 
@@ -68,7 +68,7 @@ class OptimizerThread(QThread):
         内部逻辑：向量化计算不同参数下的信号
         这里以双均线为例，实际可根据用户在 UI 写的代码动态解析
         """
-        fast_ma = df['close'].rolling(params['ma_fast']).mean()
-        slow_ma = df['close'].rolling(params['ma_slow']).mean()
+        fast_ma = df['close'].rolling(params['fast']).mean()
+        slow_ma = df['close'].rolling(params['slow']).mean()
         signals = np.where(fast_ma > slow_ma, 1, -1)
         return signals

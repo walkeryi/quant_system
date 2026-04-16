@@ -1,0 +1,99 @@
+目录树: C:\Users\ASUS\Desktop\量化系统 (忽略: ['.venv', '__pycache__', '.git', '.idea', 'venv', 'env', 'build', 'dist'])
+├── .gitignore
+├── 1.py
+├── 2.py
+├── cache
+│   ├── daily
+│   │   ├── 000001_all.csv
+│   │   ├── 000002_all.csv
+│   │   ├── 000003_all.csv
+│   │   ├── 000004_all.csv
+│   │   ├── 000011_all.csv
+│   │   └── 601857_all.csv
+│   ├── fenshi
+│   │   ├── 000001_2026-03-17.csv
+│   │   ├── 000001_2026-03-19.csv
+│   │   ├── 000001_2026-03-20.csv
+│   │   ├── 000002_2026-03-16.csv
+│   │   ├── 000002_2026-03-17.csv
+│   │   ├── 000002_2026-03-18.csv
+│   │   ├── 000002_2026-03-19.csv
+│   │   ├── 000002_2026-03-20.csv
+│   │   ├── 000004_2026-03-16.csv
+│   │   ├── 000004_2026-03-17.csv
+│   │   ├── 000004_2026-03-20.csv
+│   │   ├── 000006_2026-03-20.csv
+│   │   ├── 000007_2026-03-20.csv
+│   │   ├── 000008_2026-03-16.csv
+│   │   ├── 000008_2026-03-20.csv
+│   │   ├── 000009_2026-03-20.csv
+│   │   ├── 000056_2026-03-17.csv
+│   │   ├── 000702_2026-03-17.csv
+│   │   └── 601857_2026-03-17.csv
+│   └── stock_list.csv
+├── common
+│   ├── exceptions.py
+│   ├── logger.py
+│   ├── storage.py
+│   └── utils.py
+├── config.py
+├── controllers
+│   ├── __init__.py
+│   ├── backtest_controller.py
+│   └── strategy_manager.py
+├── data
+├── data_preprocessing
+│   ├── __init__.py
+│   ├── cleaner.py
+│   ├── daily.py
+│   ├── fenshi.py
+│   ├── fetcher.py
+│   ├── stock_list.py
+│   ├── trade_calendar.py
+│   └── weekly.py
+├── directory_tree.txt
+├── login.py
+├── logs
+│   └── quant_system.log
+├── main.py
+├── qtdesigner_ui
+│   └── untitled.ui
+├── requirements.txt
+├── requirements.txt.bak
+├── tash
+├── ui
+│   ├── __init__.py
+│   ├── backtest_tab.py
+│   ├── calendar_tab.py
+│   ├── charts
+│   │   ├── __init__.py
+│   │   ├── base_chart_widget.py
+│   │   ├── fenshi_chart.py
+│   │   ├── fenshi_chart_widget.py
+│   │   ├── fenshi_volume_chart.py
+│   │   ├── fenshi_volume_chart_widget.py
+│   │   ├── kline_chart.py
+│   │   ├── kline_chart_widget.py
+│   │   └── multi_period_chart.py
+│   ├── daily_tab.py
+│   ├── helpers
+│   │   ├── __init__.py
+│   │   └── daily_helpers.py
+│   ├── main_window.py
+│   ├── popups
+│   │   ├── __init__.py
+│   │   └── fenshi_popup.py
+│   ├── search_completer.py
+│   ├── stock_list_tab.py
+│   ├── stock_list_thread.py
+│   ├── threads
+│   │   ├── __init__.py
+│   │   ├── daily_thread.py
+│   │   ├── fenshi_thread.py
+│   │   └── weekly_thread.py
+│   └── widgets
+│       ├── __init__.py
+│       └── stock_tab.py
+├── users
+│   └── users.csv
+└── 量化交易系统.spec

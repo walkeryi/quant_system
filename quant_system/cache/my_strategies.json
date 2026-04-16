@@ -1,0 +1,6 @@
+{
+    "1": {
+        "desc": "自定义策略",
+        "code": "import pandas as pd\nimport numpy as np\nfrom data_preprocessing.fetcher import DataPreprocessor\nfrom common import db_manager\n\ndef generate_small_cap_signals(top_n=20, rebalance_period='M'):\n    \"\"\"\n    小市值选股逻辑\n    :param top_n: 持股数量\n    :param rebalance_period: 调仓周期 'M' 为月，'W' 为周\n    \"\"\"\n    # 1. 获取全市场股票列表及其基础市值数据\n    dp = DataPreprocessor()\n    stock_df, ver = dp.get_stock_list()\n    \n    # 2. 模拟市值排序 (在实际项目中应从 API 获取真实市值 'ShiZhi')\n    # 这里我们演示逻辑：筛选市值最小的前 top_n\n    # ⚠️ 提示：在你的 DailyDataProvider 中，attrs 包含 'ShiZhi'\n    \n    # 策略伪代码：\n    # selected_stocks = stock_df.sort_values('total_mv').head(top_n)['code'].tolist()\n    \n    print(f\"[策略生成] 选定小市值池: {top_n} 只标的\")\n    return stock_df.head(top_n)['code'].tolist()\n\ndef run_rotation_backtest(initial_capital=100000):\n    \"\"\"\n    由于 backtest_core.py 处理的是单序列，\n    轮动策略通常需要在此处手动计算账户权益。\n    \"\"\"\n    capital = initial_capital\n    # 假设调仓日期\n    dates = pd.date_range('2023-01-01', '2023-12-31', freq='MS')\n    \n    # 模拟调仓循环\n    for date in dates:\n        # 获取该日期下市值最低的股票名单\n        # 实际应调用包含历史市值的数据接口\n        pass"
+    }
+}

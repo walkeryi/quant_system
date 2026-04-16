@@ -1,0 +1,25 @@
+[project]
+name = "quant-system"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "matplotlib>=3.10.8",
+    "numba>=0.64.0",
+    "numpy>=2.4.3",
+    "pandas>=3.0.1",
+    "pyarrow>=23.0.1",
+    "pybind11>=3.0.3",
+    "pyqt6>=6.10.2",
+    "requests>=2.32.5",
+    "scipy>=1.17.1",
+    "setuptools>=82.0.1",
+]
+# 修改后：
+[build-system]
+requires = ["setuptools>=61.0", "pybind11>=2.10"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = {find = {}}

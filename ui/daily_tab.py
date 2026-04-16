@@ -42,19 +42,27 @@ class DailyTab(QWidget):
 
     def open_stock_tab(self, code):
         """打开或切换到指定股票的标签页"""
-        # 检查是否已存在
+        # 1. 检查是否已存在
         for i in range(self.tab_widget.count()):
             if self.tab_widget.tabText(i) == code:
                 self.tab_widget.setCurrentIndex(i)
+                # 【新增】切换时主动刷新该页数据，从而触发信号回传给列表
+                existing_tab = self.tab_widget.widget(i)
+                if existing_tab:
+                    existing_tab.load_fenshi_data()
                 return
 
-        # 创建新标签页
+        # 2. 创建新标签页
         stock_tab = StockTab(code)
         stock_tab.switch_requested.connect(self.on_switch_requested)
         self.tab_widget.addTab(stock_tab, code)
         self.tab_widget.setCurrentWidget(stock_tab)
 
-        # 默认加载分时数据（第一个子标签页）
+        # 【核心】建立广播连接
+        main_win = self.window()
+        if hasattr(main_win, 'stock_list_tab'):
+            stock_tab.price_updated.connect(main_win.stock_list_tab.update_single_stock_price)
+
         stock_tab.load_fenshi_data()
 
     def on_switch_requested(self, delta):

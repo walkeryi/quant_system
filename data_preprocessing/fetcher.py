@@ -13,6 +13,8 @@ logger = logging.getLogger('quant_system')
 
 
 class DataPreprocessor:
+    _fenshi_memory_cache = {}
+
     def __init__(self):
         self.storage = Storage()
         self.stock_list_provider = StockListProvider()
@@ -125,17 +127,46 @@ class DataPreprocessor:
             return None
 
     def get_fenshi_data(self, code: str):
+        status = self.storage.get_stock_status(code)
+        if status == 302:
+            return "DELISTED"
+
         try:
-            result = self.fenshi_provider.fetch(code)
+            code = str(code).zfill(6)
+            cached_df = DataPreprocessor._fenshi_memory_cache.get(code)
+
+            if cached_df is None:
+                result = self.fenshi_provider.fetch(code, fetch_all=True)
+            else:
+                result = self.fenshi_provider.fetch(code, fetch_all=False)
+
             ret_code = getattr(result, 'ret', 200)
             if hasattr(result, 'attrs'):
                 ret_code = result.attrs.get('ret', ret_code)
 
             if ret_code == 302 or (isinstance(result, str) and "302" in result):
+                self.storage.update_stock_status(code, 302)
                 return "DELISTED"
-            return result
+
+            if result is None or result.empty:
+                return cached_df
+
+            if cached_df is None:
+                DataPreprocessor._fenshi_memory_cache[code] = result
+                return result
+
+            combined = (
+                pd.concat([cached_df, result], ignore_index=True)
+                .drop_duplicates(subset=['time'], keep='last')
+                .sort_values(by='time')
+                .reset_index(drop=True)
+            )
+            combined.attrs['base'] = result.attrs.get('base', cached_df.attrs.get('base', {}))
+            DataPreprocessor._fenshi_memory_cache[code] = combined
+            return combined
         except Exception as e:
             if "302" in str(e):
+                self.storage.update_stock_status(code, 302)
                 return "DELISTED"
             logger.exception(f"get_fenshi_data 异常 (code={code})")
             raise

@@ -89,6 +89,10 @@ class Storage:
             conn = sqlite3.connect(db_path)
             res = conn.execute("SELECT status FROM stock_status WHERE code=?", (code,)).fetchone()
             conn.close()
-            return res[0] if res else 200
-        except:
+            status = res[0] if res else 200
+            if status == 302:
+                logger.info(f"拦截退市股票请求: code={code}, status=302")
+            return status
+        except Exception as e:
+            logger.error(f"读取股票状态失败，默认放行: code={code}, err={e}")
             return 200

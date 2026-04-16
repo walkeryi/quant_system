@@ -1,30 +1,24 @@
+# -*- coding: utf-8 -*-
 # main.py
 import time
 import builtins
 
 # 1. 在程序最顶端注入全局启动时间，这里是程序运行的“绝对起点”
 builtins.APP_START_TIME = time.perf_counter()
-print(f"[性能计时] {0.0000:.4f}s | 程序开始运行，正在加载底层依赖库(PyQt/Pandas)...")
+print(f"[性能计时] {0.0000:.4f}s | 程序开始运行，正在加载底层依赖 (PyQt/Pandas)...")
 
 import sys
 from PyQt6.QtWidgets import QApplication, QDialog
 from ui.main_window import MainWindow
-from common.logger import setup_logger
 from login import LoginWindow, Session
-import matplotlib
-
-matplotlib.use('QtAgg')
-matplotlib.rcParams['font.sans-serif'] = ['SimHei', 'Microsoft YaHei', 'sans-serif']
-matplotlib.rcParams['axes.unicode_minus'] = False
-
+from common.logger import setup_logger
 
 def main():
-    print(f"[性能计时] {time.perf_counter() - APP_START_TIME:.4f}s | 依赖库加载完成，开始初始化主应用...")
-
+    # 2. 设置日志
     logger = setup_logger()
     logger.info("程序启动")
 
-    from config import USE_DATABASE
+    from config.settings import USE_DATABASE
     version = "数据库" if USE_DATABASE else "CSV"
 
     app = QApplication(sys.argv)
@@ -35,7 +29,7 @@ def main():
     window.show()
     print(f"[性能计时] {time.perf_counter() - APP_START_TIME:.4f}s | 主窗口已显示，正在加载子组件...")
 
-    # 紧接着弹出登录框 (如果不需要强制登录，关闭弹窗即可)
+    # 紧接着弹出登录窗 (如果不需要强制登录，关闭弹窗即可)
     login_win = LoginWindow(window)
     if login_win.exec() == QDialog.DialogCode.Accepted:
         logger.info(f"用户登录成功: {Session.username}")
