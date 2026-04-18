@@ -17,6 +17,10 @@ data/fenshi/
 .vscode/
 .env
 
+# 临时文件
+error.txt
+output.txt
+
 # 打包输出
 release/
 build_temp/

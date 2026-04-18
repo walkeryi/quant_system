@@ -3,22 +3,22 @@
 import time
 import builtins
 
-# 1. 在程序最顶端注入全局启动时间，这里是程序运行的“绝对起点”
+# 1. 在程序最顶端注入全局启动时间，这里是程序运行的"绝对起点"
 builtins.APP_START_TIME = time.perf_counter()
 print(f"[性能计时] {0.0000:.4f}s | 程序开始运行，正在加载底层依赖 (PyQt/Pandas)...")
 
 import sys
 from PyQt6.QtWidgets import QApplication, QDialog
-from ui.main_window import MainWindow
-from login import LoginWindow, Session
-from common.logger import setup_logger
+from quant_system.ui.main_window import MainWindow
+from quant_system.user import LoginWindow, UserSession as Session
+from quant_system.common.logger import setup_logger
 
 def main():
     # 2. 设置日志
     logger = setup_logger()
     logger.info("程序启动")
 
-    from config.settings import USE_DATABASE
+    from quant_system.config.settings import USE_DATABASE
     version = "数据库" if USE_DATABASE else "CSV"
 
     app = QApplication(sys.argv)

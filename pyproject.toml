@@ -1,7 +1,7 @@
 [project]
 name = "quant-system"
 version = "0.1.0"
-description = "Add your description here"
+description = "量化交易系统"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
@@ -16,10 +16,11 @@ dependencies = [
     "scipy>=1.17.1",
     "setuptools>=82.0.1",
 ]
-# 修改后：
+
 [build-system]
 requires = ["setuptools>=61.0", "pybind11>=2.10"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = {find = {}}
+packages = ["quant_system"]
+package-dir = {"" = "."}
